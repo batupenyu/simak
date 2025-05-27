@@ -1,0 +1,35 @@
+.page-break {
+    page-break-after: always;
+}
+
+@media print {
+    .tampil {
+    display: none;
+    }
+}
+  
+  .upper { text-transform: uppercase; }
+  .lower { text-transform: lowercase; }
+  .cap   { text-transform: capitalize; }
+  .small { font-variant:   small-caps; }
+
+  .center {
+  padding: 10px 0;
+  /* border: 3px solid rgb(211, 223, 211); */
+  border:none
+}
+
+  .capitalize {
+text-transform: capitalize;
+}
+
+.topics tr { line-height: 15px; }
+.tinggi tr { line-height: 22px; }
+
+table { page-break-inside:auto }
+tr    { page-break-inside:avoid; page-break-after:auto }
+thead { display:table-header-group }
+tfoot { display:table-footer-group }
+.page-number:before {
+content: "Page: " counter(page);}
+
