@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('cuti')) {
-            Schema::table('cuti', function (Blueprint $table) {
-                //
-                $table->string('tglmasuk')->after('tgl_akhir')->nullable();
+        if (Schema::hasTable('pists') && !Schema::hasColumn('pists', 'ulasan')) {
+            Schema::table('pists', function (Blueprint $table) {
+                $table->string('ulasan')->nullable()->after('id');
             });
         }
     }
@@ -24,10 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        if (Schema::hasTable('cuti')) {
-            Schema::table('cuti', function (Blueprint $table) {
-                //
-                $table->dropColumn('tglmasuk');
+        if (Schema::hasTable('pists') && Schema::hasColumn('pists', 'ulasan')) {
+            Schema::table('pists', function (Blueprint $table) {
+                $table->dropColumn('ulasan');
             });
         }
     }

@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('unit_kerja')->after('jabatan');
-            
+            if (!Schema::hasColumn('users', 'unit_kerja')) {
+                $table->string('unit_kerja')->after('jabatan');
+            }
         });
     }
 

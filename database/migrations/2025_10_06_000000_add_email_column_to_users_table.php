@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tuti', function (Blueprint $table) {
-            $table->string('realisasi')->after('satuan')->nullable();
-            //
+        Schema::table('user', function (Blueprint $table) {
+            if (!Schema::hasColumn('users', 'email')) {
+                $table->string('email')->unique()->after('name');
+            }
         });
     }
 
@@ -22,9 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tuti', function (Blueprint $table) {
-            $table->dropColumn('realisasi');
-            //
+        Schema::table('users', function (Blueprint $table) {
+            if (Schema::hasColumn('users', 'email')) {
+                $table->dropColumn('email');
+            }
         });
     }
 };

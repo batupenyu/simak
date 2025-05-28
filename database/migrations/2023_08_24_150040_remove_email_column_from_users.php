@@ -22,8 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
-            $table->email('email')->after('unit_kerja');
+            $table->string('email')->after('unit_kerja');
         });
     }
 };

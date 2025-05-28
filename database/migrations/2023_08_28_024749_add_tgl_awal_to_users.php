@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->timestamp('tgl_awal')->nullable();
-        });
+        if (!Schema::hasColumn('users', 'tgl_awal')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->timestamp('tgl_awal')->nullable();
+            });
+        }
     }
 
     /**
@@ -22,8 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        if (Schema::hasColumn('users', 'tgl_awal')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('tgl_awal');
+            });
+        }
     }
 };

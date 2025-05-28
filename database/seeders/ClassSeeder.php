@@ -15,6 +15,9 @@ class ClassSeeder extends Seeder
      */
     public function run(): void
     {
+        if (!Schema::hasTable('class')) {
+            return;
+        }
         Schema::disableForeignKeyConstraints();
         ClassRoom::truncate();
         Schema::enableForeignKeyConstraints();

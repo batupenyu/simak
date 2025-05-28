@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('pists', function (Blueprint $table) {
-            $table->string('selected')->after('cat');
+        Schema::create('cuti', function (Blueprint $table) {
+            $table->id();
+            $table->string('tgl_akhir')->nullable();
+            $table->string('tglmasuk')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pists', function (Blueprint $table) {
-            $table->dropColumn('selected');
-        });
+        Schema::dropIfExists('cuti');
     }
 };

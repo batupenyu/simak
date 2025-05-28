@@ -16,27 +16,29 @@ class StudentSeeder extends Seeder
     //  */
     public function run(): void
     {
-        //     Schema::disableForeignKeyConstraints();
-        //     Student::truncate();
-        //     Schema::enableForeignKeyConstraints();
+        if (!Schema::hasTable('students')) {
+            return;
+        }
+        Schema::disableForeignKeyConstraints();
+        Student::truncate();
+        Schema::enableForeignKeyConstraints();
 
-        //     $data = [
-        //         ['class_id' => 1, 'name' => 'aiu', 'gender' => 'P', 'nis' => '0101001'],
-        //         ['class_id' => 2, 'name' => 'budi', 'gender' => 'L', 'nis' => '0101002'],
-        //         ['class_id' => 3, 'name' => 'iwan', 'gender' => 'L', 'nis' => '0101003'],
-        //         ['class_id' => 4, 'name' => 'santi', 'gender' => 'P', 'nis' => '0101004'],
-        //     ];
-        //     foreach ($data as $value) {
-        //         Student::insert([
-        //             'class_id' => $value['class_id'],
-        //             'name' => $value['name'],
-        //             'gender' => $value['gender'],
-        //             'nis' => $value['nis'],
-        //             'created_at' => Carbon::now(),
-        //             'updated_at' => Carbon::now(),
+        $data = [
+            ['class_id' => 1, 'name' => 'aiu', 'gender' => 'P', 'nis' => '0101001'],
+            ['class_id' => 2, 'name' => 'budi', 'gender' => 'L', 'nis' => '0101002'],
+            ['class_id' => 3, 'name' => 'iwan', 'gender' => 'L', 'nis' => '0101003'],
+            ['class_id' => 4, 'name' => 'santi', 'gender' => 'P', 'nis' => '0101004'],
+        ];
+        foreach ($data as $value) {
+            Student::insert([
+                'class_id' => $value['class_id'],
+                'name' => $value['name'],
+                'gender' => $value['gender'],
+                'nis' => $value['nis'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
 
-        //         ]);
-        //     }
-        Student::create()->factory();
+            ]);
+        }
     }
 }

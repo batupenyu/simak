@@ -3,7 +3,8 @@
 @section('content')
 <div class="container">
     <h1>Index Penilai</h1>
-    <table class="table table-bordered">
+    <a href="{{ route('penilai.create') }}" class="btn btn-primary mb-3">Create Penilai</a>
+    <table class="table table-sm table-bordered">
         <thead>
             <tr>
                 <th>ID</th>
@@ -26,12 +27,16 @@
                 <td>{{ $project->unit_kerja }}</td>
                 <td>
                     {{-- <a href="{{ route('projects.show', $project->id) }}" class="btn btn-info">View</a> --}}
-                    <a href="{{ url('penilai.edit', $project->id) }}" class="btn btn-warning">Edit</a>
-                    {{-- <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display:inline;">
+                    <a href="{{ url('penilai.edit', $project->id) }}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                    <form action="{{ route('penilai.destroy', $project->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form> --}}
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this penilai?');">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
                 </td>
             </tr>
             @endforeach

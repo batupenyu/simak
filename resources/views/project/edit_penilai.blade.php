@@ -1,44 +1,32 @@
 @extends('layout.sidebar')
+
 @section('content')
-<style>
-    body{color: #000;overflow-x: hidden;height: 100%;background-image: url("https://i.imgur.com/GMmCQHC.png");background-repeat: no-repeat;background-size: 100% 100%}.card{padding: 30px 40px;margin-top: 60px;margin-bottom: 60px;border: none !important;box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2)}.blue-text{color: #00BCD4}.form-control-label{margin-bottom: 0}input, textarea, button{padding: 8px 15px;border-radius: 5px !important;margin: 5px 0px;box-sizing: border-box;border: 1px solid #ccc;font-size: 18px !important;font-weight: 300}input:focus, textarea:focus{-moz-box-shadow: none !important;-webkit-box-shadow: none !important;box-shadow: none !important;border: 1px solid #00BCD4;outline-width: 0;font-weight: 400}.btn-block{text-transform: uppercase;font-size: 15px !important;font-weight: 400;height: 43px;cursor: pointer}.btn-block:hover{color: #fff !important}button:focus{-moz-box-shadow: none !important;-webkit-box-shadow: none !important;box-shadow: none !important;outline-width: 0}
-</style>    
-<div class="container-fluid px-1 py-5 mx-auto" style="font-size: 10px">
-    <div class="row d-flex justify-content-center">
-        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
-            <h3>UPDATE PENILAI</h3>
-            {{-- <p class="blue-text">Just answer a few questions<br> so that we can personalize the right experience for you.</p> --}}
-            <div class="card">
-                {{-- <h5 class="text-center mb-4">Powering world-class companies</h5> --}}
-                    
-                <form class="form-card" action="{{ url('penilai.update/'.$penilai->id) }}" method="post">
-                    @csrf
-                    @method('PUT')
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3">Nama Pegawai<span class="text-danger"> *</span></label> <input type="text" id="nama" name="nama" placeholder="Enter your first name" onblur="validate(1)" value="{{ $penilai->nama }}"> </div>
-
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">NIP<span class="text-danger"> *</span></label> <input type="text" id="nip" name="nip" placeholder="" onblur="validate(3)" value="{{ $penilai->nip }}"> </div>
-
-                        {{-- <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label> <input type="text" id="lname" name="lname" placeholder="Enter your last name" onblur="validate(2)" disabled> </div> --}}
-                    </div>
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Pangkat/Gol.<span class="text-danger"> *</span></label> <input type="text" id="pangkat_gol" name="pangkat_gol" placeholder="" onblur="validate(4)" value="{{ $penilai->pangkat_gol }}"> </div>
-                        
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Jabatan<span class="text-danger"> *</span></label> <input type="text" id="jabatan" name="jabatan" placeholder="" onblur="validate(5)"value="{{ $penilai->jabatan }}"> </div>
-                    </div>
-                    <div class="row justify-content-between text-left">
-                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Unit Kerja<span class="text-danger"> *</span></label> <input type="text" id="unit_kerja" name="unit_kerja" placeholder="" onblur="validate(6)"value="{{ $penilai->unit_kerja }}"> </div>
-                    </div>
-                    <div class="row justify-content-between text-left">
-                        {{-- <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3">Unit Kerja<span class="text-danger"> *</span></label> <input type="text" id="unit_kerja" name="unit_kerja" placeholder="" onblur="validate(6)"value="{{ $item->unit_kerja }}"> </div> --}}
-                    </div>
-                    <div class="row justify-content-end mt-3">
-                        <div class="form-group col-sm-0 "> 
-                        <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-check"></i> Simpan</button>
-                    </div>
-                </form>
-            </div>
+<div class="container">
+    <h1>Edit Penilai</h1>
+    <form method="POST" action="{{ route('penilai.update', $penilai->id) }}">
+        @csrf
+        @method('PUT')
+        <div class="mb-3">
+            <label for="nama" class="form-label">Nama Penilai</label>
+            <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $penilai->nama) }}" required>
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="nip" class="form-label">NIP</label>
+            <input type="text" class="form-control" id="nip" name="nip" value="{{ old('nip', $penilai->nip) }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="pangkat_gol" class="form-label">Pangkat/Gol</label>
+            <input type="text" class="form-control" id="pangkat_gol" name="pangkat_gol" value="{{ old('pangkat_gol', $penilai->pangkat_gol) }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="jabatan" class="form-label">Jabatan</label>
+            <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ old('jabatan', $penilai->jabatan) }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="unit_kerja" class="form-label">Unit Kerja</label>
+            <input type="text" class="form-control" id="unit_kerja" name="unit_kerja" value="{{ old('unit_kerja', $penilai->unit_kerja) }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
 </div>
 @endsection

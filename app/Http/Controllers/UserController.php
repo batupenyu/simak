@@ -127,7 +127,7 @@ class UserController extends Controller
         $atasan = Atasan::all();
         $pasangan = Pasangan::orderBy('name', 'ASC')->get();
         $user = User::all();
-        $mapel = Mapel::orderBy('name', 'ASC')->get();
+        $mapel = Mapel::orderBy('name', 'ASC')->get() ?? [];
         return view('pegawai.add', compact('user', 'pasangan', 'penilai', 'atasan', 'mapel'));
     }
 

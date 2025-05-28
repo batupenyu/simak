@@ -12,10 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            //
-            $table->string('image');
-            $table->string('title');
-            $table->text('content');
+            if (!Schema::hasColumn('posts', 'image')) {
+                $table->string('image');
+            }
+            if (!Schema::hasColumn('posts', 'title')) {
+                $table->string('title');
+            }
+            if (!Schema::hasColumn('posts', 'content')) {
+                $table->text('content');
+            }
         });
     }
 
@@ -24,8 +29,18 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            //
-        });
+        if (Schema::hasColumn('posts', 'image') || Schema::hasColumn('posts', 'title') || Schema::hasColumn('posts', 'content')) {
+            Schema::table('posts', function (Blueprint $table) {
+                if (Schema::hasColumn('posts', 'image')) {
+                    $table->dropColumn('image');
+                }
+                if (Schema::hasColumn('posts', 'title')) {
+                    $table->dropColumn('title');
+                }
+                if (Schema::hasColumn('posts', 'content')) {
+                    $table->dropColumn('content');
+                }
+            });
+        }
     }
 };

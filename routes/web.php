@@ -288,9 +288,13 @@ Route::get('/ekspektasi/index', [EkspektasiController::class, 'index']);
 
 
 //penilai
-Route::get('/penilai.index', [PenilaiController::class, 'index']);
+Route::get('/penilai.index', [PenilaiController::class, 'index'])->name('penilai.index');
+Route::get('/penilai.create', [PenilaiController::class, 'create'])->name('penilai.create');
+Route::post('/penilai.store', [PenilaiController::class, 'store'])->name('penilai.store');
 Route::get('/penilai.edit/{id}', [PenilaiController::class, 'edit']);
 Route::put('/penilai.update/{id}', [PenilaiController::class, 'update']);
+Route::get('/penilai.delete/{id}', [PenilaiController::class, 'delete'])->name('penilai.delete');
+Route::delete('/penilai.destroy/{id}', [PenilaiController::class, 'destroy'])->name('penilai.destroy');
 
 
 //anak
@@ -317,10 +321,14 @@ Route::get('pasangan.edit/{id}', [PasanganController::class, 'edit'])->name('edi
 Route::put('pasangan.update/{id}', [PasanganController::class, 'update'])->name('update');
 
 
+
 //atasan
-Route::get('/atasan.index', [AtasanController::class, 'index'])->name('index');
+Route::get('/atasan.index', [AtasanController::class, 'index'])->name('index_atasan');
 Route::get('/atasan.edit/{id}', [AtasanController::class, 'edit'])->name('edit');
 Route::put('/atasan.update/{id}', [AtasanController::class, 'update'])->name('update');
+
+Route::get('/atasan.create', [AtasanController::class, 'create'])->name('create_atasan');
+Route::post('/atasan.store', [AtasanController::class, 'store'])->name('store_atasan');
 
 
 // sdm
