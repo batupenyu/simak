@@ -52,4 +52,12 @@ class AtasanController extends Controller
 
         return redirect()->route('index_atasan')->with('success', 'Atasan created successfully.');
     }
+
+    public function destroy($id)
+    {
+        $atasan = Atasan::findOrFail($id);
+        $atasan->delete();
+
+        return redirect()->route('index_atasan')->with('success', 'Atasan deleted successfully.');
+    }
 }

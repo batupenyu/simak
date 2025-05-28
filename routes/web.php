@@ -330,6 +330,8 @@ Route::put('/atasan.update/{id}', [AtasanController::class, 'update'])->name('up
 Route::get('/atasan.create', [AtasanController::class, 'create'])->name('create_atasan');
 Route::post('/atasan.store', [AtasanController::class, 'store'])->name('store_atasan');
 
+Route::delete('/atasan.destroy/{id}', [AtasanController::class, 'destroy'])->name('atasan.destroy');
+
 
 // sdm
 Route::get('/sdm.index', [SdmController::class, 'index'])->name('index');

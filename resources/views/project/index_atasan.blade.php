@@ -26,13 +26,14 @@
                 <td>{{ $project->jabatan }}</td>
                 <td>{{ $project->unit_kerja }}</td>
                 <td>
-                    {{-- <a href="{{ route('projects.show', $project->id) }}" class="btn btn-info">View</a> --}}
                     <a href="{{ url('atasan.edit', $project->id) }}" class="btn btn-warning">Edit</a>
-                    {{-- <form action="{{ route('projects.destroy', $project->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                    </form> --}}
+                    <form action="{{ route('atasan.destroy', $project->id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </form>
                 </td>
             </tr>
             @endforeach
