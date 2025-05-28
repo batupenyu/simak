@@ -142,7 +142,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['mapel'] = json_encode($data['mapel']);
+        if (isset($data['mapel'])) {
+            $data['mapel'] = json_encode($data['mapel']);
+        } else {
+            $data['mapel'] = null;
+        }
         User::create($data);
         // $ajukan->simpanBuktiPengajuan($request, 'surat-pengajuan');
 

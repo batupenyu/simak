@@ -22,6 +22,56 @@
         }
         document.getElementsByName("selected")[0].value = selected.length;
     }
+
+    // Add form validation for 'nip' and 'alamat' fields
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.form-card');
+        form.addEventListener('submit', function(e) {
+            const nipInput = document.getElementById('nip');
+            if (!nipInput.value.trim()) {
+                e.preventDefault();
+                alert('NIP tidak boleh kosong.');
+                nipInput.focus();
+                return;
+            }
+            const alamatInput = document.getElementById('alamat');
+            if (!alamatInput.value.trim()) {
+                e.preventDefault();
+                alert('Alamat tidak boleh kosong.');
+                alamatInput.focus();
+                return;
+            }
+            const emailInput = document.getElementById('email');
+            if (!emailInput.value.trim()) {
+                e.preventDefault();
+                alert('Email tidak boleh kosong.');
+                emailInput.focus();
+                return;
+            }
+            // Simple email format validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(emailInput.value.trim())) {
+                e.preventDefault();
+                alert('Format email tidak valid.');
+                emailInput.focus();
+                return;
+            }
+            const nameInput = document.getElementById('name');
+            if (!nameInput.value.trim()) {
+                e.preventDefault();
+                alert('Nama tidak boleh kosong.');
+                nameInput.focus();
+                return;
+            }
+            const passwordInput = document.getElementById('password');
+            if (!passwordInput.value.trim()) {
+                e.preventDefault();
+                alert('Password tidak boleh kosong.');
+                passwordInput.focus();
+                return;
+            }
+        });
+    });
 </script>
 <style type="text/css">
     body {
@@ -139,7 +189,7 @@
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">Tgl.Lahir<span class="text-danger"> *</span></label>
-                            <input type="date" id="tgl_lahir" name="tgl_lahir" onblur="validate(2)">
+                            <input type="date" id="tgl_lahir" value="{{ date('Y-m-d') }}" name="tgl_lahir" onblur="validate(2)">
                         </div>
 
 
@@ -164,11 +214,11 @@
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-12 flex-column d-flex">
                             {{-- <label class="form-control-label px-3">Alamat<span class="text-danger"> *</span></label>  --}}
-                            <input type="text" id="alamat" name="alamat" placeholder="  alamat" onblur="validate(3)">
+                            <input type="text" id="alamat" name="alamat" value="-" placeholder="  alamat" onblur="validate(3)">
                         </div>
                         <div class="form-group col-sm-12 flex-column d-flex">
                             {{-- <label class="form-control-label px-3">Email<span class="text-danger"> *</span></label>  --}}
-                            <input type="text" id="email" name="email" placeholder="  email" onblur="validate(3)">
+                            <input type="text" id="email" name="email" placeholder="  email" value="admin@gmail.com" onblur="validate(3)">
                         </div>
                     </div>
                     <div class="row justify-content-between text-left">
@@ -187,12 +237,12 @@
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex">
                             <label class="form-control-label px-3">Password<span class="text-danger"> *</span></label>
-                            <input type="password" id="password" name="password" placeholder="Password" onblur="validate(3)">
+                            <input type="password" id="password" value="password" name="password" placeholder="Password" onblur="validate(3)">
                         </div>
 
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">TMT. Pangkat<span class="text-danger"> *</span></label> <input type="date" id="tmt_pangkat" name="tmt_pangkat" placeholder="" onblur="validate(3)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">TMT. Pangkat<span class="text-danger"> *</span></label> <input type="date" id="tmt_pangkat" value="{{ date('Y-m-d') }}" name="tmt_pangkat" placeholder="" onblur="validate(3)"> </div>
 
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">TMT. Jabatan<span class="text-danger"> *</span></label> <input type="date" id="tmt_jabatan" name="tmt_jabatan" placeholder="" onblur="validate(3)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">TMT. Jabatan<span class="text-danger"> *</span></label> <input type="date" id="tmt_jabatan" value="{{ date('Y-m-d') }}" name="tmt_jabatan" placeholder="" onblur="validate(3)"> </div>
 
                         <div class="form-group col-sm-6 flex-column d-flex">
                             {{-- <label class="form-control-label px-3">No. Karpeg <span class="text-danger"> *</span></label>  --}}
@@ -203,14 +253,14 @@
                     <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex">
                             {{-- <label class="form-control-label px-3">Pekerjaan Lain<span class="text-danger"> *</span></label>  --}}
-                            <input class=" @error ('job_lain') is-invalid @enderror " type="text" id="job_lain" name="job_lain" placeholder="Pekerjaan Lain" onblur="validate(4)">
+                            <input class=" @error ('job_lain') is-invalid @enderror " type="text" id="job_lain" value="-" name="job_lain" placeholder="Pekerjaan Lain" onblur="validate(4)">
                             <div id="job_lainFeedback" class="invalid-feedback">
                                 isi data pekerjaan lain.
                             </div>
                         </div>
                         <div class="form-group col-sm-6 flex-column d-flex">
                             {{-- <label class="form-control-label px-3">Penghasilan Lain<span class="text-danger"> *</span></label>  --}}
-                            <input type="text" id="net_lain" name="net_lain" placeholder="Penghasilan lain" onblur="validate(5)">
+                            <input type="text" id="net_lain" value="0" name="net_lain" placeholder="Penghasilan lain" onblur="validate(5)">
                         </div>
                     </div>
                     <div class="row justify-content-between text-left">
@@ -226,7 +276,7 @@
                                 <option value="Pembina, IV/a">Pembina, IV/a</option>
                             </select>
                         </div>
-                        <div class="form-group col-sm-6 flex-column d-flex "> <label class="form-control-label px-3">Jabatan<span class="text-danger"> *</span></label> <input type="text" id="jabatan" name="jabatan" placeholder="" onblur="validate(5)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex "> <label class="form-control-label px-3">Jabatan<span class="text-danger"> *</span></label> <input type="text" id="jabatan" value="-" name="jabatan" placeholder="" onblur="validate(5)"> </div>
                         {{-- <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Jenjang<span class="text-danger"> *</span></label> 
                             <select name="jenjang" id="jenjang" class="form-control">jenjang
                                 <option value="Ahli Pertama" >Ahli Pertama</option>
@@ -243,17 +293,18 @@
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl.kp4<span class="text-danger"> *</span></label> <input type="date" id="tgl_kp4" name="tgl_kp4" placeholder="" onblur="validate(8)"> </div>
                         <div class="form-group col-sm-6 flex-column d-flex">
                             {{-- <label class="form-control-label px-3">Unit Kerja<span class="text-danger"> *</span></label>  --}}
-                            <input type="text" id="unit_kerja" name="unit_kerja" placeholder="Unit Kerja" onblur="validate(7)">
+                            <input type="text" id="unit_kerja" value="-" name="unit_kerja" placeholder="Unit Kerja" onblur="validate(7)">
                         </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Awal SKP<span class="text-danger"> *</span></label> <input type="date" id="tgl_awal" name="tgl_awal" placeholder="" onblur="validate(9)"> </div>
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Akhir SKP<span class="text-danger"> *</span></label> <input type="date" id="tgl_akhir" name="tgl_akhir" placeholder="" onblur="validate(10)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Awal SKP<span class="text-danger"> *</span></label> <input type="date" id="tgl_awal" value="{{ date('Y-m-d') }}" name="tgl_awal" placeholder="" onblur="validate(9)"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Akhir SKP<span class="text-danger"> *</span></label> <input type="date" id="tgl_akhir" value="{{ date('Y-m-d') }}" name="tgl_akhir" placeholder="" onblur="validate(10)"> </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Pegawai<span class="text-danger"> *</span></label> <input type="date" id="tgl_pegawai" name="tgl_pegawai" placeholder="" onblur="validate(9)"> </div>
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Penilai<span class="text-danger"> *</span></label> <input type="date" id="tgl_penilai" name="tgl_penilai" placeholder="" onblur="validate(10)"> </div>
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Atasan<span class="text-danger"> *</span></label> <input type="date" id="tgl_atasan" name="tgl_atasan" placeholder="" onblur="validate(10)"> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Penilai<span class="text-danger"> *</span></label><input type="date" id="tgl_pegawai" name="tgl_pegawai" placeholder="" value="{{ date('Y-m-d') }}" onblur="validate(9)"></div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Penilai<span class="text-danger"> *</span></label> <input type="date" id="tgl_penilai" value="{{ date('Y-m-d') }}" name="tgl_penilai" placeholder="" onblur="validate(10)"> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Penilai<span class="text-danger"> *</span></label> <input type="date" id="tgl_penilai" value="{{ date('Y-m-d') }}" name="tgl_penilai" placeholder="" onblur="validate(10)"> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Atasan<span class="text-danger"> *</span></label> <input type="date" id="tgl_atasan" value="{{ date('Y-m-d') }}" name="tgl_atasan" placeholder="" onblur="validate(10)"> </div>
                     </div>
                     <div class="form-group col-sm-12 flex-column d-flex">
                         <label class="form-control-label px-3">Pasangan<span class="text-danger"> *</span></label>
