@@ -267,12 +267,11 @@
 
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Pangkat/Gol<span class="text-danger"> *</span></label>
                             <select name="pangkat_gol" id="pangkat_gol" class="form-control">Agama
-                                <option value="-">-</option>
                                 <option value="IX">IX</option>
                                 <option value="Penata Muda, III/a">Penata Muda, III/a</option>
                                 <option value="Penata Muda TK.I, III/b">Penata Muda TK.I, III/b</option>
                                 <option value="Penata, III/c">Penata, III/c</option>
-                                <option value="Penata TK.I, III/d">Penata TK.I, III/d</option>
+                                <option value="Penata TK.I, III/d" selected>Penata TK.I, III/d</option>
                                 <option value="Pembina, IV/a">Pembina, IV/a</option>
                             </select>
                         </div>
@@ -301,8 +300,7 @@
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Akhir SKP<span class="text-danger"> *</span></label> <input type="date" id="tgl_akhir" value="{{ date('Y-m-d') }}" name="tgl_akhir" placeholder="" onblur="validate(10)"> </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Penilai<span class="text-danger"> *</span></label><input type="date" id="tgl_pegawai" name="tgl_pegawai" placeholder="" value="{{ date('Y-m-d') }}" onblur="validate(9)"></div>
-                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Penilai<span class="text-danger"> *</span></label> <input type="date" id="tgl_penilai" value="{{ date('Y-m-d') }}" name="tgl_penilai" placeholder="" onblur="validate(10)"> </div>
+                        <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Pegawai<span class="text-danger"> *</span></label><input type="date" id="tgl_pegawai" name="tgl_pegawai" placeholder="" value="{{ date('Y-m-d') }}" onblur="validate(9)"></div>
                         <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Penilai<span class="text-danger"> *</span></label> <input type="date" id="tgl_penilai" value="{{ date('Y-m-d') }}" name="tgl_penilai" placeholder="" onblur="validate(10)"> </div>
                         <div class="form-group col-sm-4 flex-column d-flex"> <label class="form-control-label px-3">Tgl.Atasan<span class="text-danger"> *</span></label> <input type="date" id="tgl_atasan" value="{{ date('Y-m-d') }}" name="tgl_atasan" placeholder="" onblur="validate(10)"> </div>
                     </div>

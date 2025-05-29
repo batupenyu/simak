@@ -18,7 +18,8 @@ class AngkakreditController extends Controller
     {
         // $pegawai = User::orderBy('id', 'ASC')->get();
         $pegawai = User::where('status', '!=', 'p3k')->orderBy('name', 'ASC')->get();
-        $penilai = Penilai::where('unit_kerja', '=', 'SMK Negeri 1 Koba')->get();
+        // $penilai = Penilai::where('unit_kerja', '=', 'SMK Negeri 1 Koba')->get();
+        $penilai = Penilai::all();
         return view('project.addAK', compact('pegawai', 'penilai'));
     }
 
@@ -43,20 +44,21 @@ class AngkakreditController extends Controller
         //total ak
 
         $total = 0;
+        $jenjang = ''; // Initialize $jenjang to avoid undefined variable error
 
         foreach ($ak as $order) {
 
             $predikat = $order->predikat;
 
-            if ($predikat = '150') {
+            if ($predikat == '150') {
                 $level = 'Sangat Baik';
-            } elseif ($predikat = '100') {
+            } elseif ($predikat == '100') {
                 $level = 'Baik';
-            } elseif ($predikat = '75') {
+            } elseif ($predikat == '75') {
                 $level = 'Perlu perbaikan';
-            } elseif ($predikat = '50') {
+            } elseif ($predikat == '50') {
                 $level = 'Kurang';
-            } elseif ($predikat = '25') {
+            } elseif ($predikat == '25') {
                 $level = 'Sangat Kurang';
             }
 
@@ -79,6 +81,7 @@ class AngkakreditController extends Controller
 
             $pangkat = $order->user->pangkat_gol;
 
+            $koe = 0; // default value
             if ($pangkat == 'Penata Muda, III/a') {
                 $koe = 12.5;
             } elseif ($pangkat == 'Penata Muda TK.I, III/b') {
@@ -90,7 +93,7 @@ class AngkakreditController extends Controller
             } elseif ($pangkat == 'Pembina, IV/a') {
                 $koe = 37.5;
             } else {
-                echo '';
+                // no valid pangkat, keep $koe as 0
             }
 
             $date1 = $order->tgl_awal_penilaian;
@@ -112,17 +115,18 @@ class AngkakreditController extends Controller
             // $time = Carbon::parse($order->tgl_awal_penilaian)->diff($order->tgl_akhir_penilaian);
             // return '<td>' . $time->y . ' Year' . $time->m . ' Month' . $time->d . ' Day' . '</td>';
             $total += number_format(($periodik / 12) * $koe * $predikat / 100, 3);
-
-            return view('project.angka_kredit', compact('pegawai', 'ak', 'koe', 'periodik', 'koe', 'total', 'akintegrasi', 'tglintegrasi', 'jenjang'));
         }
 
-        // if (!empty($ak)) {
-        //     foreach ($ak as $value) {
-        //     }
-        // } else {
-
-        // }
+        return view('project.angka_kredit', compact('pegawai', 'ak', 'total', 'akintegrasi', 'tglintegrasi', 'jenjang'));
     }
+
+    // if (!empty($ak)) {
+    //     foreach ($ak as $value) {
+    //     }
+    // } else {
+
+
+    // }
 
     public function edit($id)
     {
@@ -164,15 +168,15 @@ class AngkakreditController extends Controller
 
 
         $predikat = $kredit->predikat;
-        if ($predikat = 150) {
+        if ($predikat == 150) {
             $level = 'Sangat Baik';
-        } elseif ($predikat = 100) {
+        } elseif ($predikat == 100) {
             $level = 'Baik';
-        } elseif ($predikat = 75) {
+        } elseif ($predikat == 75) {
             $level = 'Butuh Perbaikan';
-        } elseif ($predikat = 50) {
+        } elseif ($predikat == 50) {
             $level = 'Kurang';
-        } elseif ($predikat = 25) {
+        } elseif ($predikat == 25) {
             $level = 'Sangat Kurang';
         }
 
@@ -281,15 +285,15 @@ class AngkakreditController extends Controller
                 foreach ($periodeAK as $order) {
 
                     $predikat = $order->predikat;
-                    if ($predikat = 150) {
+                    if ($predikat == 150) {
                         $level = 'Sangat Baik';
-                    } elseif ($predikat = 100) {
+                    } elseif ($predikat == 100) {
                         $level = "Baik";
-                    } elseif ($predikat = 75) {
+                    } elseif ($predikat == 75) {
                         $level = "Perlu Perbaikan";
-                    } elseif ($predikat = 50) {
+                    } elseif ($predikat == 50) {
                         $level = 'Kurang';
-                    } elseif ($predikat = 25) {
+                    } elseif ($predikat == 25) {
                         $level = "Sangat Kurang";
                     }
 
@@ -466,15 +470,15 @@ class AngkakreditController extends Controller
         foreach ($periodeAK as $order) {
 
             $predikat = $order->predikat;
-            if ($predikat = 150) {
+            if ($predikat == 150) {
                 $level = 'Sangat Baik';
-            } elseif ($predikat = 100) {
+            } elseif ($predikat == 100) {
                 $level = 'Baik';
-            } elseif ($predikat = 75) {
+            } elseif ($predikat == 75) {
                 $level = 'Perlu Perbaikan';
-            } elseif ($predikat = 50) {
+            } elseif ($predikat == 50) {
                 $level = "kurang";
-            } elseif ($predikat = 25) {
+            } elseif ($predikat == 25) {
                 $level = 'Sangat Kurang';
             }
 
