@@ -10,17 +10,24 @@
 @if ($ak != null)
 
 <div class="container mt-5" style="font-size: 12px;">
-    <h4 class="mx-auto" style="text-align: center">ANGKA KREDIT PEGAWAI</h4>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h4 class="mx-auto" style="text-align: center">ANGKA KREDIT PEGAWAI</h4>
+        @if(!$akintegrasi || !$akintegrasi->user)
+        <a href="{{ url('ak.create') }}" class="btn btn-primary">Create</a>
+        @endif
+    </div>
     <select class="form-control col-sm-6 mx-auto mb-2" id="sampleSelect" style="font-size: 12px;">
         <option style="text-align: center" value="pilih">---Pilih Pegawai---</option>
         @foreach ($pegawai as $item)
         <option style="text-align: center" value="{{ url('angka_kredit/'.$item->id)}} ">{{$item->name}}</option>
         @endforeach
     </select>
+    @if($akintegrasi && $akintegrasi->user)
     <p class="text-center mb-5">
         <a class="btn btn-primary" href="{{ url('project.edit_user/'.$akintegrasi->user->id) }}">{{$akintegrasi->user->name}} <i class="bi-pencil-square"></i> </a>
         <a class="btn btn-primary" href="{{url('ak.create')}}"><i class="bi bi-plus-circle"></i> AK</a>
     </p>
+    @endif
 
 
     <script>
@@ -33,6 +40,7 @@
         });
     </script>
 
+    @if($akintegrasi && $akintegrasi->user)
     <form class="d- flex tampil mb-3" action="{{ route('akumulasi', [$akintegrasi->user->id]) }}" method="GET">
         <table>
             <tr>
@@ -99,7 +107,9 @@
             </tr>
         </table>
     </form>
+    @endif
     <hr class="mt-4">
+    @if($akintegrasi && $akintegrasi->user)
     <form class="d- flex tampil mb-4" action="{{ route('penetapan', [$akintegrasi->user->id]) }}" method="GET">
         <table>
             <tr>
@@ -167,6 +177,7 @@
             </tr>
         </table>
     </form>
+    @endif
 
     <div>
         {{-- <a href="{{ route('pdfReport',[$akintegrasi->user->id]) }}">Report</a> --}}
@@ -184,10 +195,14 @@
 
         <tr style="text-align: center">
             @php
+            if ($akintegrasi && $akintegrasi->user) {
             if ($akintegrasi->user->name == 'Ifhan Fuadi S.Pd.') {
             $tahunnya = '2023';
             } else {
             $tahunnya = '2022';
+            }
+            } else {
+            $tahunnya = '';
             }
             @endphp
             <td>{{ $tahunnya }}</td>
@@ -195,7 +210,9 @@
             <td>-</td>
             <td>-</td>
             <td>-</td>
-            <td style="text-align: right">{{number_format($akintegrasi->user->ak_integrasi,3)}}</td>
+            <td style="text-align: right">
+                {{ $akintegrasi && $akintegrasi->user ? number_format($akintegrasi->user->ak_integrasi,3) : '' }}
+            </td>
             <td></td>
         </tr>
         @php
@@ -203,11 +220,10 @@
         @endphp
         @foreach ($ak as $item)
         @php
-
         $predikat = $item->predikat;
 
         // Compute $koe based on user's pangkat_gol
-        $pangkat = $item->user->pangkat_gol;
+        $pangkat = $item->user ? $item->user->pangkat_gol : null;
         if ($pangkat == 'Penata Muda, III/a' || $pangkat == 'Penata Muda TK.I, III/b') {
         $koe = 12.5;
         } elseif ($pangkat == 'Penata, III/c' || $pangkat == 'Penata TK.I, III/d') {
@@ -270,7 +286,7 @@
             <td style="text-align: center"><b>JUMLAH</b> </td>
             <td colspan="4"></td>
             <td style="text-align: right">
-                {{number_format($hasil+$akintegrasi->user->ak_integrasi,3)}}
+                {{ $akintegrasi && $akintegrasi->user ? number_format($hasil + $akintegrasi->user->ak_integrasi, 3) : '' }}
             </td>
             <td></td>
         </tr>

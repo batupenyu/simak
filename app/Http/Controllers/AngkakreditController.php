@@ -63,23 +63,27 @@ class AngkakreditController extends Controller
             }
 
 
-            if ($order->user->pangkat_gol == 'Penata Muda, III/a') {
-                $jenjang = 'Ahli Pertama';
-            } elseif ($order->user->pangkat_gol == 'Penata Muda TK.I, III/b') {
-                $jenjang = 'Ahli Pertama';
-            } elseif ($order->user->pangkat_gol == 'Penata, III/c') {
-                $jenjang = 'Ahli Muda';
-            } elseif ($order->user->pangkat_gol == 'Penata TK.I, III/d') {
-                $jenjang = 'Ahli Muda';
-            } elseif ($order->user->pangkat_gol == 'Pembina, IV/a') {
-                $jenjang = 'Ahli Madya';
+            if ($order->user && isset($order->user->pangkat_gol)) {
+                if ($order->user->pangkat_gol == 'Penata Muda, III/a') {
+                    $jenjang = 'Ahli Pertama';
+                } elseif ($order->user->pangkat_gol == 'Penata Muda TK.I, III/b') {
+                    $jenjang = 'Ahli Pertama';
+                } elseif ($order->user->pangkat_gol == 'Penata, III/c') {
+                    $jenjang = 'Ahli Muda';
+                } elseif ($order->user->pangkat_gol == 'Penata TK.I, III/d') {
+                    $jenjang = 'Ahli Muda';
+                } elseif ($order->user->pangkat_gol == 'Pembina, IV/a') {
+                    $jenjang = 'Ahli Madya';
+                } else {
+                    $jenjang = '';
+                }
             } else {
-                echo '';
+                $jenjang = '';
             }
 
             // koefisien
 
-            $pangkat = $order->user->pangkat_gol;
+            $pangkat = $order->user ? $order->user->pangkat_gol : null;
 
             $koe = 0; // default value
             if ($pangkat == 'Penata Muda, III/a') {

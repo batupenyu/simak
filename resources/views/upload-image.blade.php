@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Image</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
-    
+
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -15,9 +17,9 @@
                     <div class="card-header">Upload Image</div>
                     <div class="card-body">
                         @if(session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
                         @endif
 
                         <form action="{{ route('image.store') }}" method="POST" enctype="multipart/form-data">
@@ -33,12 +35,12 @@
 
                         <h4 class="mt-4">Current Image:</h4>
                         @if($images)
-                            <p>Image path: {{ $images->path }}</p>
-                            <p>Image URL: {{ Storage::url($images->path) }}</p>
-                            <img src="{{ Storage::url($images->path) }}" alt="Current Image" class="img-fluid mt-2" id="currentImage">
-                            <p class="mt-2">{{ $images->name }}</p>
+                        <p>Image path: {{ $images->filepath }}</p>
+                        <p>Image URL: {{ Storage::url($images->filepath) }}</p>
+                        <img src="{{ Storage::url($images->filepath) }}" alt="Current Image" class="img-fluid mt-2" id="currentImage">
+                        <p class="mt-2">{{ $images->filename }}</p>
                         @else
-                            <p>No image uploaded yet.</p>
+                        <p>No image uploaded yet.</p>
                         @endif
                     </div>
                 </div>
@@ -66,4 +68,5 @@
         setInterval(checkImageUpdate, 3000);
     </script>
 </body>
+
 </html>

@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('photo', function (Blueprint $table) {
+        Schema::create('penilai', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pists_id');
-            $table->string('image');
+            $table->string('nama')->nullable();
+            $table->string('nip')->nullable();
+            $table->string('pangkat_gol')->nullable();
+            $table->string('jabatan')->nullable();
+            $table->string('unit_kerja')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('photo');
+        Schema::dropIfExists('penilai');
     }
 };

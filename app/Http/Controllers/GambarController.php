@@ -23,7 +23,7 @@ class GambarController extends Controller
         // Hapus gambar lama jika ada
         $oldImage = Gambar::latest()->first();
         if ($oldImage) {
-            Storage::delete($oldImage->path);
+            Storage::delete($oldImage->filepath);
             $oldImage->delete();
         }
 
@@ -32,8 +32,8 @@ class GambarController extends Controller
         $imageName = $request->file('image')->getClientOriginalName();
 
         Gambar::create([
-            'name' => $imageName,
-            'path' => $imagePath,
+            'filename' => $imageName,
+            'filepath' => $imagePath,
         ]);
 
         return back()->with('success', 'Image uploaded successfully!');
@@ -47,7 +47,7 @@ class GambarController extends Controller
         $image = Gambar::latest()->first();
 
         return response()->json([
-            'image_url' => $image ? Storage::url($image->path) : null,
+            'image_url' => $image ? Storage::url($image->filepath) : null,
             'updated_at' => $image ? $image->updated_at : null
         ]);
     }

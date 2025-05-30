@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Rk extends Model
 {
     use HasFactory;
-    protected $table ="rk";
-    protected $guarded =(['user_id','project_id']);
-    protected $fillable =(['name']);
+    protected $table = "rk";
+    protected $fillable = (['user_id', 'name']);
 
 
     public function user()
@@ -36,5 +35,3 @@ class Rk extends Model
     //     return $this->belongsToMany(Rk::class, 'tugas', 'rk_id', 'tupoksi_id');
     // }
 }
-
-
