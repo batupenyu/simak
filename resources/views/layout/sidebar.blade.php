@@ -39,86 +39,44 @@
           <li class="active">
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
-              <li>
-                <a href="{{ url('pegawai.index') }}">Dokumen</a>
-              </li>
-              <li>
-                <a href="{{ url('project/') }}">Pegawai</a>
-              </li>
-              <li>
-                {{-- <a href="{{ url('karyawan/') }}">Karyawan</a> --}}
-              </li>
-              <li>
-                <a href="{{url('show_ak')}}">Angka Kredit</a>
-              </li>
-
-              <li>
-                <a href="{{ url('cuti.index') }}">Cuti Pegawai</a>
-              </li>
-
+              <li><a href="{{ url('project/') }}">Pegawai</a></li>
+              <li><a href="{{ url('pegawai.index') }}">Dokumen</a></li>
+              <li><a href="{{url('show_ak')}}">Angka Kredit</a></li>
+              <li><a href="{{ url('cuti.index') }}">Cuti Pegawai</a></li>
             </ul>
           </li>
 
           <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Halaman</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('unit_kerja.index') }}" id="unit_kerja">Unit Kerja</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/atasan.index">Atasan</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/penilai.index">Penilai</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/rk">Rencana Kerja</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/tim.index">Tim Kerja</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/mapel">Mapel-Tugas</a>
-              </li>
-              <li class="nav-item tampil">
-                {{-- <a class="nav-link " href="{{ route('logo.index') }}">Logo</a> --}}
-                <a href="{{ route('image.index') }}">Gambar</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/filter">Rekap Cuti</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/pegawai.rekap">Rekap kp4</a>
-              </li>
-
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/customers">Libur</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/indexbarang">Bmd</a>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link" href="{{ url('pasangan.index') }}" id="pasangan">Pasangan</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url('pists.index') }}" id="pists">Surat-Tugas</a>
-              </li>
+              <li class="nav-item"><a class="nav-link" href="{{ route('unit_kerja.index') }}" id="unit_kerja">Unit Kerja</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/atasan.index">Atasan</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/penilai.index">Penilai</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/rk">Rencana Kerja</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/tim.index">Tim Kerja</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/mapel">Mapel-Tugas</a>
+              <li class="nav-item tampil"><a href="{{ route('image.index') }}">Gambar</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/filter">Rekap Cuti</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/pegawai.rekap">Rekap kp4</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/customers">Libur</a></li>
+              <li class="nav-item tampil"><a class="nav-link " href="/indexbarang">Bmd</a></li>
+              <li class="nav-item "><a class="nav-link" href="{{ url('pasangan.index') }}" id="pasangan">Pasangan</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ url('pists.index') }}" id="pists">Surat-Tugas</a></li>
             </ul>
           </li>
           <li>
-            {{-- <a class="dropdown-item" href="/tabel">Tabel Pegawai</a>
-                            <a class="dropdown-item" href="/tabelrekap">Tabel Rekap</a>
-                            <a class="dropdown-item" href="/jekel">Tabel Jekel</a>
-                            <a class="dropdown-item" href="/all">Tabel Pegawai & Mapel</a>
-                            <a class="dropdown-item" href="/pergaji">Tabel Pergaji</a>
-                            <a class="dropdown-item" href="/usulanapbd">Tabel Usulan SK-APBD</a>
-                            <a class="dropdown-item" href="/usulanapbn">Tabel Usulan SK-APBN</a>
-                            <a class="dropdown-item" href="/usulanipp">Tabel Usulan SK-IPP</a>
-                            <a class="dropdown-item" href="/filterpenerimaan">Penerimaan</a>
-                            <a class="dropdown-item" href="/filterpengeluaran">Pengeluaran</a>
-                            <a class="dropdown-item" href="/bku.bku">Buku Kas Umum</a>
-                            <a class="nav-link" href="{{ url('sk.index')}} " style="text-decoration: none">SPMT</a> --}}
+            <!-- <a class="dropdown-item" href="/tabel">Tabel Pegawai</a>
+            <a class="dropdown-item" href="/tabelrekap">Tabel Rekap</a>
+            <a class="dropdown-item" href="/jekel">Tabel Jekel</a>
+            <a class="dropdown-item" href="/all">Tabel Pegawai & Mapel</a>
+            <a class="dropdown-item" href="/pergaji">Tabel Pergaji</a>
+            <a class="dropdown-item" href="/usulanapbd">Tabel Usulan SK-APBD</a>
+            <a class="dropdown-item" href="/usulanapbn">Tabel Usulan SK-APBN</a>
+            <a class="dropdown-item" href="/usulanipp">Tabel Usulan SK-IPP</a>
+            <a class="dropdown-item" href="/filterpenerimaan">Penerimaan</a>
+            <a class="dropdown-item" href="/filterpengeluaran">Pengeluaran</a>
+            <a class="dropdown-item" href="/bku.bku">Buku Kas Umum</a>
+            <a class="nav-link" href="{{ url('sk.index')}} " style="text-decoration: none">SPMT</a> -->
           </li>
         </ul>
 
