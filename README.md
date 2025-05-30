@@ -4,8 +4,8 @@ step :
 3. install Git Bash
 4. buka drive d: atau (sesuaikan dengan device/komputer anda)
 5. klik kanan lalu pilih Git Bash
-9. # Cara Menjalankan Project Laravel dari GitHub
-
+9. # Selanjutnya ikuti langkah berikut :
+    
     ## 1. Clone Repository
     ```bash
     git clone https://github.com/nama-user/nama-repo.git
