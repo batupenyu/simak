@@ -29,7 +29,7 @@
     <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
     <p class="float-end"><a href="{{ url('rekap_kp4_pdf/')}}"> <i class="fa fa-print tampil"></i></a></p>
     <h5 style="text-align: center" class="mb-2 mt-3">REKAPITULASI KP4 <br>
-        {{ $unitKerja->name ?? 'SMK NEGERI 1 SIMPANG RIMBA' }}
+        {{ $unitKerja->name ?? '-' }}
     </h5> <br>
     {{-- <table class="table table-sm table-bordered border-primary tinggi ">
     <tr style=" text-align:center" class="align-middle">
@@ -193,7 +193,7 @@
     <br>
     <div class="col-5 float-end">
         <div class="float-start" style="text-align: center">
-            {{$unitKerja->description}},
+            {{$unitKerja->description??'-'}},
             {{ (\Carbon\Carbon::now())->translatedFormat(' d F Y') }} <br>
             Kepala Sekolah
             <br><br><br>

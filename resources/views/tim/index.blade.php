@@ -2,15 +2,15 @@
 @section('content')
 
 <body>
-    
+
     <div class="container-fluid">
         <div class="W-100 center rounded mx-auto">
-            <a href="{{ url('/tim.create') }}" class="btn btn-sm btn-flat btn-success mt-5"><i class="fa fa-plus"></i> Tambah Data</a>
-            <a href="{{ url('timpdf') }}"style="text-decoration: none" class="btn btn-sm btn-flat btn-primary mt-5"><i class="fa fa-regular fa-download"></i></a>
-            <p style="text-align: center" >
+            <a href="{{ route('tim.create') }}" class="btn btn-sm btn-flat btn-success mt-5"><i class="fa fa-plus"></i> Tambah Data</a>
+            <a href="{{ url('timpdf') }}" style="text-decoration: none" class="btn btn-sm btn-flat btn-primary mt-5"><i class="fa fa-regular fa-download"></i></a>
+            <p style="text-align: center">
                 <strong>
                     TIM KERJA <br>
-                    SMK NEGERI 1 SIMPANG RIMBA
+                    {{$unit->name ?? '-'}}
                 </strong>
             </p>
 
@@ -27,21 +27,21 @@
                 @foreach ($tim as $item)
 
                 <tr>
-                    <td style="text-align:center">{{ ($tim ->currentpage()-1) * $tim ->perpage() + $loop->index + 1 }}.</td>
-                    <td scope='row'>{{ $item->name}}</td>
-                    <td scope='row'>{{ $item->rk->name}}</td>
-                    <td scope='row'>{{ $item->indikator}}</td>
-                    <td scope='row'>{{ $item->penilai->nama}}</td>
+                    <td style="text-align:center">{{ ($tim->currentPage()-1) * $tim->perPage() + $loop->index + 1 }}.</td>
+                    <td scope='row'>{{ $item->name }}</td>
+                    <td scope='row'>{{ $item->rk->name ?? '-' }}</td>
+                    <td scope='row'>{{ $item->indikator }}</td>
+                    <td scope='row'>{{ $item->penilai->nama ?? '-' }}</td>
                     <td scope='row'>
                         @foreach ($item['anggota'] as $anggota)
-                            {{ $loop->iteration }}. {{ $anggota }} <br>
+                        {{ $loop->iteration }}. {{ $anggota }} <br>
                         @endforeach
                     </td>
                     <td style="text-align: center ">
-                        <form onsubmit="return confirm('yakin hapus data?..')" class="d-inline" action="{{ url('tim.destroy',$item->id) }}" method="POST">
-                            <a href="{{ url('tim.edit',$item->id) }}"><i class="fa fa-edit"></i></a>
+                        <form onsubmit="return confirm('yakin hapus data?..')" class="d-inline" action="{{ route('tim.destroy', $item->id) }}" method="POST">
+                            <a href="{{ route('tim.edit', $item->id) }}"><i class="fa fa-edit"></i></a>
                             @csrf
-                            @method('delete')
+                            @method('DELETE')
                             <button type="submit" class="btn"><i class="fa fa-trash-o" style="color: red"></i></button>
                         </form>
                     </td>

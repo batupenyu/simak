@@ -592,13 +592,13 @@ Route::resource('customers', \App\Http\Controllers\CustomerController::class);
 
 
 // Tim Kerja
-Route::get('/tim.index', [TimController::class, 'index'])->name('index');
-Route::get('/tim.create', [TimController::class, 'create'])->name('create');
-Route::post('/tim.store', [TimController::class, 'store'])->name('store');
-Route::get('/tim.edit/{id}', [TimController::class, 'edit'])->name('edit');
-Route::put('/tim.update/{id}', [TimController::class, 'update'])->name('update');
-Route::get('/tim.delete/{id}', [TimController::class, 'delete'])->name('delete');
-Route::delete('/tim.destroy/{id}', [TimController::class, 'destroy'])->name('destroy');
+Route::get('/tim.index', [TimController::class, 'index'])->name('tim.index');
+Route::get('/tim.create', [TimController::class, 'create'])->name('tim.create');
+Route::post('/tim.store', [TimController::class, 'store'])->name('tim.store');
+Route::get('/tim.edit/{id}', [TimController::class, 'edit'])->name('tim.edit');
+Route::put('/tim.update/{id}', [TimController::class, 'update'])->name('tim.update');
+Route::get('/tim.delete/{id}', [TimController::class, 'delete'])->name('tim.delete');
+Route::delete('/tim.destroy/{id}', [TimController::class, 'destroy'])->name('tim.destroy');
 Route::get('/timpdf', [TimController::class, 'timpdf'])->name('timpdf');
 
 //Barang
