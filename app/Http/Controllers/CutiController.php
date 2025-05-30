@@ -159,43 +159,15 @@ class CutiController extends Controller
         $startDate = $request->start_date;
         $endDate = $request->end_date;
 
-        // Define holidays
         $holidays = $libur;
-        // $holidays = [
-        //     '2023-10-02', // Example holiday
-        //     '2023-10-09', // Example holiday
-        // ];
 
-        // Calculate workdays
         $workdays = $this->countWorkdays($startDate, $endDate, $holidays);
-
-        // return response()->json([
-        //     'start_date' => $startDate,
-        //     'end_date' => $endDate,
-        //     'workdays' => $workdays,
-        // ]);
     }
 
-    // private function countWorkdays($startDate, $endDate, $holidays)
-    // {
-    //     $start = Carbon::parse($startDate);
-    //     $end = Carbon::parse($endDate);
-    //     $workdays = 0;
 
-    //     while ($start->lte($end)) {
-    //         if (!$start->isWeekend() && !in_array($start->format('Y-m-d'), $holidays)) {
-    //             $workdays++;
-    //         }
-    //         $start->addDay();
-    //     }
-
-    //     echo $workdays;
-    // }
 
     private function countWorkdays($startDate, $endDate, $holidays = [])
     {
-        // $start = new DateTime($startDate);
-        // $end = new DateTime($endDate);
 
         $start = Carbon::parse($startDate);
         $end = Carbon::parse($endDate);
@@ -346,18 +318,10 @@ class CutiController extends Controller
                 $date = $date->addDay();
                 $i++;
             }
-            // return $days;
 
-            // $dates = array('2015-02-01', '2015-02-02', '2015-02-03'); // Define an array of dates
             $dates = $days;
-            // echo "Earliest Date: " . min($dates) . "\n";
-            // echo "Latest Date: " . max($dates) . "\n";
             $awal = (min($dates));
             $akhir = (max($dates));
-            // $awal = Carbon::parse(min($dates))->translatedFormat('d F Y');
-            // $akhir = Carbon::parse(max($dates))->translatedFormat('d F Y');
-            // echo $awal. "\n  s.d ";
-            // echo $akhir. "\n";
         }
 
         // jumlah hari libur
@@ -367,8 +331,6 @@ class CutiController extends Controller
         // get nama hari berikutnya
         foreach ($cuti as $hari) {
 
-            // $_POST['startdate'] = '2012-08-14';
-            // $_POST['numberofdays'] = 10;
 
             $d = new DateTime($hari->tgl_awal);
             $t = $d->getTimestamp();
@@ -615,60 +577,6 @@ class CutiController extends Controller
             return $date->isWeekday() && !in_array($date, $holidays);
         }, $endDate);
 
-        // //....................4.5
-        // foreach ($cuti as $hari)
-        // {
-        //     $startDate = Carbon::parse($hari->tgl_awal);
-        //     $endDate = Carbon::parse($hari->tgl_akhir);
-
-        //     function getWorkingDays($startDate,$endDate,$holidays){
-        //         $endDate = strtotime($endDate);
-        //         $startDate = strtotime($startDate);
-        //         $days = ($endDate - $startDate) / 86400 + 1;
-        //         $no_full_weeks = floor($days / 7);
-        //         $no_remaining_days = fmod($days, 7);
-        //         $the_first_day_of_week = date("N", $startDate);
-        //         $the_last_day_of_week = date("N", $endDate);
-        //         if ($the_first_day_of_week <= $the_last_day_of_week) {
-        //             if ($the_first_day_of_week <= 6 && 6 <= $the_last_day_of_week) $no_remaining_days--;
-        //             if ($the_first_day_of_week <= 7 && 7 <= $the_last_day_of_week) $no_remaining_days--;
-        //         }
-        //         else {
-        //             if ($the_first_day_of_week == 7) {
-        //                 $no_remaining_days--;
-
-        //                 if ($the_last_day_of_week == 6) {
-        //                     $no_remaining_days--;
-        //                 }
-        //             }
-        //             else {
-        //                 $no_remaining_days -= 2;
-        //             }
-        //         }
-
-        //     $workingDays = $no_full_weeks * 5;
-        //         if ($no_remaining_days > 0 )
-        //         {
-        //         $workingDays = $no_remaining_days;
-        //         }
-
-        //         $libur = Holiday::all()->pluck('tgl_libur')->toArray();
-
-        //         foreach($libur as $holiday){
-        //             $time_stamp=strtotime($holiday);
-        //             if ($startDate <= $time_stamp && $time_stamp <= $endDate && date("N",$time_stamp) != 6 && date("N",$time_stamp) != 7)
-        //                 $workingDays--;
-        //         }
-        //         return $workingDays;
-        //     }
-
-        //     $holidays = $libur;
-        //     $hasil = getWorkingDays($startDate,$endDate,$holidays);
-        //     return $hasil;
-        // }
-
-
-        //....................5
         foreach ($cuti as $hari) {
             $start = Carbon::parse($hari->tgl_awal);
             $end = Carbon::parse($hari->tgl_akhir);
@@ -694,7 +602,6 @@ class CutiController extends Controller
 
         // return $totaldays;
 
-        //....................6
         foreach ($cuti as $hari) {
             $daysToAdd = ($hari->jlh_hari);
             $holidays = $libur;
@@ -726,53 +633,6 @@ class CutiController extends Controller
         $libur = Customer::all()->pluck('tgl_libur')->toArray();
         $cuti = Cuti::all();
 
-        // foreach ($cuti as $hari) {
-        //     $daysToAdd = ($hari->jlh_hari);
-        //     $holidays = $libur;
-        //     $days = [];
-        //     $date = CarbonImmutable::make($hari->tgl_awal);
-        //     $i = 1;
-
-        //     while ($i <= $daysToAdd) {
-        //         if ($date->isWeekend() or in_array($date->format('Y-m-d'), $holidays)) {
-        //             $date = $date->addDay();
-        //             continue;
-        //         }
-        //         $days[] = $date;
-        //         $date = $date->addDay();
-        //         $i++;
-        //     }
-
-        //     $dates = $days;
-        //     $awal = (min($dates));
-        //     $akhir = (max($dates));
-
-        //     if (!function_exists('get_date_using_weekend_count')) {
-        //         function get_date_using_weekend_count($date, $count, $holidays)
-        //         {
-        //             $MyDateCarbon = Carbon::parse($date);
-        //             $MyDateCarbon->addWeekdays($count);
-        //             for ($i = 1; $i <= $count; $i++) {
-        //                 if (in_array(Carbon::parse($date)->addWeekdays($i)->toDateString(), $holidays)) {
-        //                     $MyDateCarbon->addDay();
-        //                 }
-        //             }
-        //             return $MyDateCarbon->toFormattedDateString();
-        //         }
-        //     }
-
-        //     foreach ($cuti as $hari) {
-
-        //         $startDate = Carbon::parse($hari->tgl_awal);
-        //         $endDate = Carbon::parse($hari->tgl_akhir);
-        //         $jlh = ($hari->jlh_hari);
-
-        //         $holidays = $libur;
-        //         $count = $jlh;
-        //         $date = $startDate;
-        //         $tglmasuk = get_date_using_weekend_count($date, $count, $holidays);
-        //     }
-        // }
         return view('cuti.add', compact('pegawai'));
     }
 
@@ -806,18 +666,9 @@ class CutiController extends Controller
                 $date = $date->addDay();
                 $i++;
             }
-            // return $days;
-
-            // $dates = array('2015-02-01', '2015-02-02', '2015-02-03'); // Define an array of dates
             $dates = $days;
-            // echo "Earliest Date: " . min($dates) . "\n";
-            // echo "Latest Date: " . max($dates) . "\n";
             $awal = (min($dates));
             $akhir = (max($dates));
-            // $awal = Carbon::parse(min($dates))->translatedFormat('d F Y');
-            // $akhir = Carbon::parse(max($dates))->translatedFormat('d F Y');
-            // echo $awal. "\n  s.d ";
-            // echo $akhir. "\n";
         }
 
         foreach ($off as $hari) {
@@ -855,7 +706,6 @@ class CutiController extends Controller
             $date2 = $print[count($print) - 1];
         }
 
-        //.......................................................................
 
         foreach ($off as $hari) {
             $daysToAdd = ($hari->jlh_hari);
@@ -1005,18 +855,9 @@ class CutiController extends Controller
                 $date = $date->addDay();
                 $i++;
             }
-            // return $days;
-
-            // $dates = array('2015-02-01', '2015-02-02', '2015-02-03'); // Define an array of dates
             $dates = $days;
-            // echo "Earliest Date: " . min($dates) . "\n";
-            // echo "Latest Date: " . max($dates) . "\n";
             $awal = (min($dates));
             $akhir = (max($dates));
-            // $awal = Carbon::parse(min($dates))->translatedFormat('d F Y');
-            // $akhir = Carbon::parse(max($dates))->translatedFormat('d F Y');
-            // echo $awal. "\n  s.d ";
-            // echo $akhir. "\n";
         }
 
 
