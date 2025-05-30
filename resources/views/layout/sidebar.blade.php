@@ -40,10 +40,10 @@
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li>
-                <a href="{{ url('pegawai.index') }}">Dokumen</a>
+                <a href="{{ url('project/') }}">Pegawai</a>
               </li>
               <li>
-                <a href="{{ url('project/') }}">Pegawai</a>
+                <a href="{{ url('pegawai.index') }}">Dokumen</a>
               </li>
               <li>
                 {{-- <a href="{{ url('karyawan/') }}">Karyawan</a> --}}
