@@ -2,7 +2,11 @@ step :
 1. install xampp
 2. jalankan xampp dengan user administrator (klik kanan pilih user administrator)
 3. install Git Bash
-4. 
+4. buka drive d: atau (sesuaikan dengan device/komputer anda)
+5. klik kanan lalu pilih Git Bash
+6. ketik "git clone https://github.com/batupenyu/simak.git"
+7. ketik "composer install"
+8. ketik "ketik 
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
