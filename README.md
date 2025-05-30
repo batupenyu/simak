@@ -4,9 +4,69 @@ step :
 3. install Git Bash
 4. buka drive d: atau (sesuaikan dengan device/komputer anda)
 5. klik kanan lalu pilih Git Bash
-6. ketik "git clone https://github.com/batupenyu/simak.git"
-7. ketik "composer install"
-8. ketik "ketik 
+9. # Cara Menjalankan Project Laravel dari GitHub
+
+    ## 1. Clone Repository
+    ```bash
+    git clone https://github.com/nama-user/nama-repo.git
+    cd nama-repo
+    ```
+    
+    ## 2. Install Dependencies
+    ```bash
+    composer install
+    npm install
+    ```
+    
+    ## 3. Buat File Environment
+    ```bash
+    cp .env.example .env
+    ```
+    
+    ## 4. Generate Key Aplikasi
+    ```bash
+    php artisan key:generate
+    ```
+    
+    ## 5. Konfigurasi Database
+    Buka file `.env` dan sesuaikan dengan setting database lokal Anda:
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=nama_database
+    DB_USERNAME=username_database
+    DB_PASSWORD=password_database
+    ```
+    
+    ## 6. Migrasi Database
+    ```bash
+    php artisan migrate
+    ```
+    
+    ## 7. Jalankan Seeder (jika ada)
+    ```bash
+    php artisan db:seed
+    ```
+    
+    ## 8. Jalankan Aplikasi
+    ```bash
+    php artisan serve
+    ```
+    
+    ## 9. Jalankan Frontend (jika menggunakan Vite)
+    Buka terminal baru dan jalankan:
+    ```bash
+    npm run dev
+    ```
+    
+    ## Tips Tambahan:
+    - Jika ada error, coba jalankan `composer dump-autoload`
+    - Untuk project yang menggunakan Laravel Sail: `./vendor/bin/sail up`
+    - Periksa dokumentasi khusus di README.md repository jika ada instruksi tambahan
+    - Pastikan versi PHP dan ekstensi yang diperlukan sudah terinstall
+    
+    Aplikasi sekarang seharusnya berjalan di `http://localhost:8000`
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
