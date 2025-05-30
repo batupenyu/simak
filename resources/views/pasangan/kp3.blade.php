@@ -2,15 +2,16 @@
 
 @section('content')
 @section('title','kp4 new')
-    
+
 <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
 
 <style>
     p {
-    text-align: justify;
-    text-justify: inter-word;
+        text-align: justify;
+        text-justify: inter-word;
     }
 </style>
+
 <body>
     <div class=" container-xl container-fluid mt-5">
         <div class="row">
@@ -20,7 +21,7 @@
                         <tr>
                             <td colspan="4">
                                 <button onclick="window.print();" class="btn btn-sm btn-primary tampil float-end">Cetak</button>
-                                <button type="button"   class="btn btn-sm btn-primary  float-end">FORM KP4</button>
+                                <button type="button" class="btn btn-sm btn-primary  float-end">FORM KP4</button>
                                 <a class="btn btn-sm  float-end" href="{{ url('kp4newpdf/'.$data->id) }}"><i class="bi-printer-fill"></i></a>
                                 <h5 class="text-center">SURAT KETERANGAN <br>
                                     <u>
@@ -37,7 +38,7 @@
                             <td>:</td>
                             <td>
                                 {{$data->name }}
-                                <a href="/project.edit_user/{{ $data->id }}" style="text-decoration: none"> <i class="fa fa-edit tampil"></i></a> 
+                                <a href="/project.edit_user/{{ $data->id }}" style="text-decoration: none"> <i class="fa fa-edit tampil"></i></a>
                                 <a href="/project.index_anak/{{ $data->id }}" style="text-decoration: none"> <i class="fa fa-users tampil"></i></a>
                             </td>
                         <tr>
@@ -87,7 +88,7 @@
                         </tr>
                         <tr class="align-top">
                             <td>8.</td>
-                            <td>Pangkat / Golongan 
+                            <td>Pangkat / Golongan
                             </td>
                             <td>:</td>
                             <td>
@@ -104,12 +105,13 @@
                             <td>10.</td>
                             <td>Masa Kerja Golongan</td>
                             <td>:</td>
-                            
+
                             <td>
-                                {{-- {{ $years }} Tahun  --}}
+                                {{-- {{ $years }} Tahun --}}
                                 {{-- {{ \Carbon\Carbon::parse( $data->user->tgl_lahir)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}} --}}
                                 {{ \Carbon\Carbon::parse( $data->tmt_pangkat)->diff(\Carbon\Carbon::now())->format('%y tahun, %m bulan')}}
-                                Masa Kerja Tambahan 00 Tahun</td>
+                                Masa Kerja Tambahan 00 Tahun
+                            </td>
                         </tr>
                         <tr class="align-top">
                             <td>11.</td>
@@ -144,32 +146,34 @@
                                     <th>Kawin</th>
                                 </tr>
                                 <tr>
-                                    <?php $no =1 ?>
+                                    <?php $no = 1 ?>
                                     <td style="text-align: center;">
-                                        @if ($data->pasangan->name == '-')
+                                        @if ($data->pasangan && $data->pasangan->name == '-')
 
                                         @else
-                                            <?php echo $no ++ ?>.
+                                        <?php echo $no++ ?>.
                                         @endif
                                     </td>
-                                    <td>&nbsp;{{ $data->pasangan->name }}
-                                        <a href="{{ url('pasangan.edit/'.$data->pasangan->id) }}" class="tampil" ><i class="fa fa-edit"></i></a></strong>
+                                    <td>&nbsp;{{ $data->pasangan ? $data->pasangan->name : '' }}
+                                        @if($data->pasangan)
+                                        <a href="{{ url('pasangan/edit/'.$data->pasangan->id) }}" class="tampil"><i class="fa fa-edit"></i></a>
+                                        @endif
                                     </td>
                                     <td style="text-align: center">
-                                        @if ($data->pasangan->name =="-")
+                                        @if ($data->pasangan && $data->pasangan->name =="-")
                                         @else
-                                        {{ \Carbon\Carbon::parse( $data->pasangan->tgl_lahir)->translatedFormat('d - m - Y ') }}
+                                        {{ \Carbon\Carbon::parse( $data->pasangan ? $data->pasangan->tgl_lahir : null)->translatedFormat('d - m - Y ') }}
                                         @endif
                                     </td>
                                     <td style="text-align: center">
-                                        @if ($data->pasangan->name =="-")
+                                        @if ($data->pasangan && $data->pasangan->name =="-")
                                         @else
-                                        {{ \Carbon\Carbon::parse( $data->pasangan->tgl_kawin)->translatedFormat('d - m - Y ') }}
+                                        {{ \Carbon\Carbon::parse( $data->pasangan ? $data->pasangan->tgl_kawin : null)->translatedFormat('d - m - Y ') }}
                                         @endif
                                     </td>
-                                    <td style="text-align: center">{{ $data->pasangan->job}}</td>
+                                    <td style="text-align: center">{{ $data->pasangan ? $data->pasangan->job : ''}}</td>
                                     <td style="text-align: center">
-                                        @if ($data->pasangan->name =="-")
+                                        @if ($data->pasangan && $data->pasangan->name =="-")
                                         @else
                                         @if ($data->jk ==='Perempuan' )
                                         Suami
@@ -179,21 +183,21 @@
                                         @endif
                                     </td>
                                     <td style="text-align: center">
-                                        @if ($data->pasangan->name == '-')
+                                        @if ($data->pasangan && $data->pasangan->name == '-')
                                         @else
-                                            @if ( $data->pasangan->status == 'menanggung') 
-                                                --
-                                            @else
-                                                <i class="fa fa-check"></i>
-                                            @endif
+                                        @if ( $data->pasangan && $data->pasangan->status == 'menanggung')
+                                        --
+                                        @else
+                                        <i class="fa fa-check"></i>
+                                        @endif
                                         @endif
                                     </td>
                                 </tr>
                                 @foreach ($data->anak as $item)
                                 <tr>
-                                    <td style="text-align: center;"><?php echo $no ++ ?>.</td>
+                                    <td style="text-align: center;"><?php echo $no++ ?>.</td>
                                     <td>&nbsp;{{ $item->name }}
-                                        <a href={{ url('project.edit_anak/'.$item->id) }} class="tampil" > <i class="fa fa-edit"></i></button></a><br>
+                                        <a href={{ url('project.edit_anak/'.$item->id) }} class="tampil"> <i class="fa fa-edit"></i></button></a><br>
                                     </td>
                                     <td style="text-align: center">{{ \Carbon\Carbon::parse( $item->tgl_lahir)->translatedFormat('d - m - Y ') }}</td>
                                     <td style="text-align: center;"> {{ $item->perkawinan }}</td>
@@ -201,11 +205,11 @@
                                     <td style="text-align: center;"> {{ $item->anak }}</td>
                                     <td style="text-align: center;">
                                         @if ($item->kat == '1')
-                                            <i class="fa fa-check"></i>
+                                        <i class="fa fa-check"></i>
                                         @else
-                                            -- 
+                                        --
                                         @endif
-                                        
+
                                     </td>
                                 </tr>
                                 @endforeach
@@ -221,64 +225,64 @@
                 <tbody>
 
                     @if ($data->penilai->jabatan == 'Kepala Dinas')
-                        <div class="row justify-content-around text-center fw-bold">
-                            <div class="col-6"> 
-                                <a href="/penilai.edit_penilai/{{ $data->penilai->id }}" style="text-decoration: none"> <i class="fa fa-edit tampil"></i></a> 
-                                Mengetahui,<br>
-                                    {{ $data->penilai->jabatan }} <br>
-                                    Dinas Pendidikan <br>
-                                    Provinsi Kepulauan Bangka Belitung <br><br><br>
-                                    {{ $data->penilai->nama }} <br>
-                                    NIP. {{ $data->penilai->nip }} 
-                                </div>
-                                <div class="col-6"><br>
-                                    Simpang Rimba, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }} 
-                                    <br>
-                                    <br>
-                                    {{-- Yang menerangkan, --}}
-                                    <br><br><br>
-                                    {{ $data->name }} <br>
-                                    NIP.
-                                    {{ $data->nip }}
-                                </div>
-                            </div>
-                        </div>
-                    @else
                     <div class="row justify-content-around text-center fw-bold">
-                        <div class="col-6"> 
-                            <a href="/penilai.edit_penilai/{{ $data->penilai->id }}" style="text-decoration: none"> <i class="fa fa-edit tampil"></i></a> 
+                        <div class="col-6">
+                            <a href="/penilai.edit_penilai/{{ $data->penilai->id }}" style="text-decoration: none"> <i class="fa fa-edit tampil"></i></a>
                             Mengetahui,<br>
-                            {{ Str::title($data->penilai->jabatan) }}
-                                <br><br><br>
-                                {{ $data->penilai->nama }} <br>
-                                NIP. {{ $data->penilai->nip }} 
+                            {{ $data->penilai->jabatan }} <br>
+                            Dinas Pendidikan <br>
+                            Provinsi Kepulauan Bangka Belitung <br><br><br>
+                            {{ $data->penilai->nama }} <br>
+                            NIP. {{ $data->penilai->nip }}
                         </div>
-                            @if ($data->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
-                            <div class="col-6">
-                            Pangkalpinang, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }} <br>
-                            Yang menerangkan,<br><br><br>
-                                <div style="text-transform: uppercase">
-                                    {{ $data->name }} <br>
-                                    NIP.
-                                    {{ $data->nip }}
-                                </div>
-                            </div>
-                                @else
-                                <div class="col-6">
-                                    Simpang Rimba, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }} 
-                                    <br>
-                                    Yang menerangkan,<br><br><br>
-                                    {{ $data->name }} <br>
-                                    NIP.
-                                    {{ $data->nip }}
-                                </div>
-                            @endif
-                            </div>
+                        <div class="col-6"><br>
+                            Simpang Rimba, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }}
+                            <br>
+                            <br>
+                            {{-- Yang menerangkan, --}}
+                            <br><br><br>
+                            {{ $data->name }} <br>
+                            NIP.
+                            {{ $data->nip }}
+                        </div>
                     </div>
-                    @endif
-                </tbody>
+            </div>
+            @else
+            <div class="row justify-content-around text-center fw-bold">
+                <div class="col-6">
+                    <a href="/penilai.edit_penilai/{{ $data->penilai->id }}" style="text-decoration: none"> <i class="fa fa-edit tampil"></i></a>
+                    Mengetahui,<br>
+                    {{ Str::title($data->penilai->jabatan) }}
+                    <br><br><br>
+                    {{ $data->penilai->nama }} <br>
+                    NIP. {{ $data->penilai->nip }}
+                </div>
+                @if ($data->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
+                <div class="col-6">
+                    Pangkalpinang, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }} <br>
+                    Yang menerangkan,<br><br><br>
+                    <div style="text-transform: uppercase">
+                        {{ $data->name }} <br>
+                        NIP.
+                        {{ $data->nip }}
+                    </div>
+                </div>
+                @else
+                <div class="col-6">
+                    Simpang Rimba, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }}
+                    <br>
+                    Yang menerangkan,<br><br><br>
+                    {{ $data->name }} <br>
+                    NIP.
+                    {{ $data->nip }}
+                </div>
+                @endif
             </div>
         </div>
+        @endif
+        </tbody>
+    </div>
+    </div>
     </div>
 </body>
 @endsection
