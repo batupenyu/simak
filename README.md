@@ -35,8 +35,6 @@ step :
     DB_HOST=127.0.0.1
     DB_PORT=3306
     DB_DATABASE=nama_database
-    DB_USERNAME=username_database
-    DB_PASSWORD=password_database
     ```
     
     ## 6. Migrasi Database
