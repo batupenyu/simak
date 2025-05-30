@@ -122,10 +122,9 @@ class PasanganController extends Controller
 
     public function create()
     {
-        $project = Project::select('id', 'title')->get();
         $user = User::select('id', 'name')->get();
         $pasangan = Pasangan::all();
-        return view('pasangan.add', compact('project', 'user', 'pasangan'));
+        return view('pasangan.add', compact('user', 'pasangan'));
     }
 
     public function store(Request $request)
