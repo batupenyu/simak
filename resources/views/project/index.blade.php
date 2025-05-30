@@ -18,7 +18,7 @@
         <a class="dropdown-item" href="{{ url('cuti.kendali/'.$item->id) }}" style="text-decoration: none;color:blueviolet">Data Cuti</a>
         <a class="dropdown-item" href="{{ url('izin.show/'.$item->id) }}" style="text-decoration: none;color:blueviolet">Surat Izin</a>
         <a class="dropdown-item" href="{{ url('angka_kredit/'.$item->id)}} " style="text-decoration: none;color:blueviolet">Angka Kredit</a>
-        <hr class="dropdown-divider">
+        <!-- <hr class="dropdown-divider"> -->
     </div>
     @endforeach
 </div>

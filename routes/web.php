@@ -57,6 +57,11 @@ use Illuminate\Contracts\Session\Session;
 use Symfony\Component\Routing\Route as RoutingRoute;
 
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\UnitKerjaController;
+
+Route::resource('unit_kerja', UnitKerjaController::class);
+
+
 
 /*
 |--------------------------------------------------------------------------

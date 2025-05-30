@@ -1,17 +1,16 @@
-
-<p style="text-align: center" ><b>REKAPITULASI KP4 <br>
-    SMK NEGERI 1 SIMPANG RIMBA</b></p  > <br>
+<p style="text-align: center"><b>REKAPITULASI KP4 <br>
+        {{ $unitKerja->name ?? 'SMK NEGERI 1 SIMPANG RIMBA' }}</b></p> <br>
 
 <table border="1" cellpadding="2">
     <thead>
         <tr style="text-align: center; background-color:rgb(203, 207, 211)">
             <th style="width: 30px" rowspan="2">&nbsp;<br> No.</th>
-            <th style="width: 80px"  rowspan="2">&nbsp;<br>NIP</th>
-            <th style="width: 90px"  rowspan="2">&nbsp;<br>NAMA</th>
+            <th style="width: 80px" rowspan="2">&nbsp;<br>NIP</th>
+            <th style="width: 90px" rowspan="2">&nbsp;<br>NAMA</th>
             <th style="width: 40px" rowspan="2">(KAWIN/ BELUM KAWIN <br> JANDA/ DUDA)</th>
-            <th style="width: 210px" colspan="4">DATA SUAMI/ISTRI TANGGUNGAN</th>
+            <th style="width: 210px" colspan="3">DATA SUAMI/ISTRI TANGGUNGAN</th>
             <th style="width: 200px" colspan="3">DATA ANAK TANGGUNGAN</th>
-            <th style="width: 40px" rowspan="2">&nbsp;<br>KET</th>
+            <th style="width: 0px" rowspan="2">&nbsp;<br>KET</th>
         </tr>
         <tr style="text-align: center; background-color:rgb(203, 207, 211)">
             <th style="width: 90px">NAMA</th>
@@ -76,25 +75,24 @@
                 @endif
                 @endforeach
             </td>
-            <td style="width: 40px"></td>
+            <!-- <td style="width: 40px"></td> -->
         </tr>
     </tbody>
     @endforeach
 </table>
-<tr nobr = "true">
+<tr nobr="true">
     <td> </td>
 </tr>
 <table border="0" cellpadding="2">
-<tr>
-    <td></td>
-    <td style="text-align: center; width:325px">
-        Simpang Rimba, 
-        {{ (\Carbon\Carbon::now())->translatedFormat(' d F Y') }} <br>
-        Kepala Sekolah
-        <br><br><br><br>
-        Hariyanto, S.Pd
-        <br>
-        NIP. 197001202005011006
-    </td>
-</tr>
+    <tr>
+        <td></td>
+        <td style="text-align: center; width:325px">
+            {{$unitKerja->description}},,
+            {{ (\Carbon\Carbon::now())->translatedFormat(' d F Y') }} <br>
+            Kepala Sekolah
+            <br><br><br><br>
+            {{$penilai->nama ?? 'Nama Kepala Sekolah'}} <br>
+            NIP. {{$penilai->nip ?? '-'}}
+        </td>
+    </tr>
 </table>

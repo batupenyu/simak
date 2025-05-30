@@ -62,6 +62,9 @@
           <li>
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Halaman</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('unit_kerja.index') }}" id="unit_kerja">Unit Kerja</a>
+              </li>
               <li class="nav-item tampil">
                 <a class="nav-link " href="/atasan.index">Atasan</a>
               </li>

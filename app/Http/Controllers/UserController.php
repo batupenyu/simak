@@ -15,6 +15,8 @@ use Elibyy\TCPDF\Facades\TCPDF;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\UnitKerja;
+
 
 class UserController extends Controller
 {
@@ -183,18 +185,23 @@ class UserController extends Controller
         return view('pegawai.info', compact('data', 'anak', 'pegawai', 'p3k', 'honor'));
     }
 
+
     public function rekap()
     {
         $data = User::with(['anak', 'pasangan'])->get();
         $hasil = User::with(['anak', 'pasangan'])->where('status', '=', 'PNS')->where('status', '=', 'P3K')->get();
-        return view('pegawai.rekap', compact('data', 'hasil'));
+        $unitKerja = UnitKerja::first(); // or fetch as needed
+        $penilai = Penilai::first(); // or fetch as needed
+        return view('pegawai.rekap', compact('data', 'hasil', 'unitKerja', 'penilai'));
     }
 
     public function rekap_pdf()
     {
         $data = User::with(['anak', 'pasangan'])->get();
         $hasil = User::with(['anak', 'pasangan'])->where('status', '=', 'PNS')->where('status', '=', 'P3K')->get();
-        $view = view()->make('pegawai.rekap_pdf', compact('data', 'hasil'));
+        $unitKerja = UnitKerja::first(); // or fetch as needed
+        $penilai = Penilai::first(); // or fetch as needed
+        $view = view()->make('pegawai.rekap_pdf', compact('data', 'hasil', 'unitKerja', 'penilai'));
         $html = $view->render();
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
 
