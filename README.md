@@ -52,12 +52,6 @@ step :
     php artisan serve
     ```
     
-    ## 9. Jalankan Frontend (jika menggunakan Vite)
-    Buka terminal baru dan jalankan:
-    ```bash
-    npm run dev
-    ```
-    
     ## Tips Tambahan:
     - Jika ada error, coba jalankan `composer dump-autoload`
     - Untuk project yang menggunakan Laravel Sail: `./vendor/bin/sail up`
