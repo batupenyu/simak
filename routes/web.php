@@ -147,13 +147,13 @@ Route::get('/bku/pdf/{id}', [BkuController::class, 'generatePdf'])->name('bku.pd
 // });
 
 
-Route::get('/', function () {
-    return view('home', [
-        'nama' => 'hendri',
-        'role' => 'admin',
-        'buah' => ['anggur', 'pisang', 'pepaya', 'nanas', 'durian']
-    ]);
-});
+// Route::get('/', function () {
+//     return view('home', [
+//         'nama' => 'hendri',
+//         'role' => 'admin',
+//         'buah' => ['anggur', 'pisang', 'pepaya', 'nanas', 'durian']
+//     ]);
+// });
 
 // Route::get('/contact', function () {
 //     return view('contact', ['name' => 'hendri', 'hp' => '132423434']);
@@ -438,7 +438,15 @@ Route::resource('/mapel', \App\Http\Controllers\MapelController::class);
 
 
 //login
-Route::get('/', [LoginController::class, 'login'])->name('login');
+Route::get('/test', function () {
+    return 'Test works!';
+});
+
+Route::get('/pegawai', [UserController::class, 'index']);
+
+Route::get('/', function () {
+    return redirect('/pegawai');
+});
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 Route::get('main', [HomeController::class, 'index'])->name('main');
 Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
