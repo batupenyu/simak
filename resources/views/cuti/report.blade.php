@@ -1,71 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cuti Report</title>
+    <title>Laporan Cuti</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        /* Add your styles here */
+        @page {
+            size: A4;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            font-size: 12px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .table th {
+            background-color: #f2f2f2;
+        }
+        .signature-section {
+            margin-top: 40px;
+        }
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Cuti Report</h1>
-    <table>
-        <thead>
+    <div class="header">
+        <h2>LAPORAN DATA CUTI PEGAWAI</h2>
+        <p>Periode: {{ request()->get('tgl_awal') ? \Carbon\Carbon::parse(request()->get('tgl_awal'))->format('d M Y') : 'Semua Tanggal' }} 
+           s.d {{ request()->get('tgl_akhir') ? \Carbon\Carbon::parse(request()->get('tgl_akhir'))->format('d M Y') : 'Semua Tanggal' }}</p>
+    </div>
+
+    <button class="btn btn-success mb-3 no-print" onclick="window.print();">Cetak Laporan</button>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
             <tr>
-                <th>User</th>
+                <th>No</th>
+                <th>Nama Pegawai</th>
+                <th>Jenis Cuti</th>
                 <th>Tanggal Awal</th>
                 <th>Tanggal Akhir</th>
-                <th>Jumlah Hari</th>
+                <th>Durasi (Hari)</th>
+                <th>Status</th>
+                <th>Keterangan</th>
             </tr>
         </thead>
-            <?php
-                if (!function_exists('hitungHariKerja')) {
-                    function hitungHariKerja($tanggalAwal, $tanggalAkhir, $hariLibur = []) {
-                    $jumlahHariKerja = 0;
-
-                    // Ubah string tanggal ke timestamp
-                    $currentDate = strtotime($tanggalAwal);
-                    $endDate = strtotime($tanggalAkhir);
-
-                    // Loop melalui setiap hari
-                    while ($currentDate <= $endDate) {
-                        // Cek apakah hari ini bukan Sabtu (6) atau Minggu (0)
-                        $dayOfWeek = date('N', $currentDate); // 1 (Senin) sampai 7 (Minggu)
-                        if ($dayOfWeek < 6) {
-                            // Cek apakah hari ini bukan hari libur
-                            $date = date('Y-m-d', $currentDate);
-                            if (!in_array($date, $hariLibur)) {
-                                $jumlahHariKerja++;
-                            }
-                        }
-                        // Pindah ke hari berikutnya
-                        $currentDate = strtotime('+1 day', $currentDate);
-                    }
-
-                    return $jumlahHariKerja;
-                }
-                }
-
-                // Contoh penggunaan
-                $tanggalAwal = '2023-10-01';
-                $tanggalAkhir = '2023-10-31';
-                $hariLibur = ['2023-10-05', '2023-10-17']; // Contoh hari libur
-
-                $hasil = hitungHariKerja($tanggalAwal, $tanggalAkhir, $hariLibur);
-                echo "Jumlah hari kerja: " . $hasil;
-            ?>
         <tbody>
-            @foreach($cutiData as $cuti)
+            @forelse($cutiData as $cuti)
             <tr>
-                <td>{{ $cuti->user->name }}</td>
-                <td>{{ Carbon\Carbon::Parse($cuti->tgl_awal)->translatedFormat(' d-m-Y') }}</td>
-                {{-- <td>{{ Carbon\Carbon::Parse($cuti->tgl_awal)->addDays($cuti->jlh_hari)->translatedFormat(' d-m-Y') }}</td> --}}
-                <td>{{ $cuti->jlh_hari }}</td>
-                {{-- <td>{{ Carbon\Carbon::Parse($currentDate)->subDay(1)->translatedFormat(' d-m-Y') }}</td> --}}
-                <td>{{ $currentDate }}</td>
-                <td>{{ $hasil }}</td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $cuti->user->name ?? 'N/A' }}</td>
+                <td>{{ $cuti->jenis_cuti ?? 'N/A' }}</td>
+                <td>{{ \Carbon\Carbon::parse($cuti->tgl_awal)->translatedFormat('d F Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($cuti->tgl_akhir)->translatedFormat('d F Y') }}</td>
+                <td>{{ $cuti->jlh_hari }} Hari</td>
+                <td>
+                    @if($cuti->status == 'disetujui')
+                        <span class="badge bg-success">Disetujui</span>
+                    @elseif($cuti->status == 'ditolak')
+                        <span class="badge bg-danger">Ditolak</span>
+                    @else
+                        <span class="badge bg-warning">Menunggu</span>
+                    @endif
+                </td>
+                <td>{{ $cuti->keterangan ?? '-' }}</td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="8" class="text-center">Tidak ada data cuti</td>
+            </tr>
+            @endforelse
         </tbody>
     </table>
+
+    <div class="signature-section row">
+        <div class="col-md-6 offset-md-6 text-center">
+            <p>Pangkalpinang, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
+            <p>Mengetahui,</p>
+            <br><br><br>
+            <p><strong>(_______________________)</strong></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

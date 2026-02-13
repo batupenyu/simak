@@ -187,9 +187,9 @@
                         </th>
                         {{-- <th style="text-align: center; width: 80px;">Aspek</th>
                         <th style="text-align: center;">Indikator Kinerja Individu</th>
-                        <th style="text-align: center; width: 150px00px;">Target</th> --}}
-                        <th style="text-align: center; width: 150px00px;">Realisasi berdasar bukti dukung</th>
-                        <th style="text-align: center; width: 150px00px;">Umpan Balik</th>
+                        <th style="text-align: center; width: 150px;">Target</th> --}}
+                        <th style="text-align: center; width: 150px;">Realisasi berdasar bukti dukung</th>
+                        <th style="text-align: center; width: 150px;">Umpan Balik</th>
                     </tr>
                     <tr>
                         <th colspan="8">Utama </th>

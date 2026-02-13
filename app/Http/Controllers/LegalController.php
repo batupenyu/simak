@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use PDF;
 
-class LaporanController extends Controller
+class LegalController extends Controller
 {
     //
     public function index()
     {
-        //menampilkan halaman laporan
+        //menampilkan halaman laporan untuk bagian legal
         return view('laporan');
     }
 

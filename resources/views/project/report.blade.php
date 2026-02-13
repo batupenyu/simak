@@ -19,18 +19,45 @@
 <style>
     @page {
         size: A4;
-        margin: 1cm 1.5cm;
+        margin: 1.5cm 0.8cm 0.8cm 0.8cm; /* top right bottom left */
     }
     @media print {
         .btn, .nav-tabs, .tampil { display: none !important; }
-        body { font-size: 11px; }
-        .table { font-size: 10px; }
-        .table-sm { font-size: 10px; }
+        body { font-size: 10px; }
+        .table { font-size: 9px; }
+        .table-sm { font-size: 8px; }
     }
-    .table-custom { table-layout: fixed; word-wrap: break-word; }
-    .table-custom td, .table-custom th { vertical-align: top; }
+    body {
+        font-size: 10px;
+    }
+    .table-custom { 
+        table-layout: fixed; 
+        word-wrap: break-word; 
+        font-size: 10px;
+    }
+    .table-custom td, .table-custom th { 
+        vertical-align: top; 
+        padding: 2px 3px !important;
+    }
     .nested-table { margin: 0 !important; }
-    .nested-table td { padding: 2px 4px !important; border: none !important; }
+    .nested-table td { padding: 2px 3px !important; border: none !important; }
+    .container-xl, .container-fluid {
+        padding-left: 0.8cm;
+        padding-right: 0.8cm;
+    }
+    h4 {
+        font-size: 10px;
+        margin: 5px 0;
+    }
+    hr {
+        margin: 5px 0;
+    }
+    .fw-bold {
+        font-weight: bold;
+    }
+    .upper {
+        text-transform: uppercase;
+    }
 </style>
 
 <div class="container-xl container-fluid">
@@ -69,11 +96,11 @@
 
     <table class="table table-custom mb-0 table-sm table-bordered border-primary">
         <tr style="background-color:aliceblue;">
-            <th class="text-center" style="width:50px" rowspan="6">1</th>
-            <th colspan="2" style="background-color:aliceblue;">PEGAWAI YANG DINILAI</th>
+            <th class="text-center" style="width:1cm" rowspan="6">1</th>
+            <th colspan="2" style="width:100%; background-color:aliceblue;">PEGAWAI YANG DINILAI</th>
         </tr>
         <tr>
-            <th style="width:200px">NAMA</th>
+            <th style="width:20%">NAMA</th>
             @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
                 <td style="text-transform:uppercase"><b>{{ $user->name }}</b></td>
             @else
@@ -97,8 +124,8 @@
             <td>{{ $user->unit_kerja }}</td>
         </tr>
         <tr>
-            <th class="text-center" style="width:50px" rowspan="6">2</th>
-            <th colspan="2" style="background-color:aliceblue;">PEJABAT PENILAI KINERJA</th>
+            <th class="text-center" style="width:2cm" rowspan="6">2</th>
+            <th colspan="2" style="width:42%; background-color:aliceblue;">PEJABAT PENILAI KINERJA</th>
         </tr>
         <tr>
             <th>NAMA</th>
@@ -121,8 +148,8 @@
             <td>{{ optional($user->penilai)->unit_kerja ?? '' }}</td>
         </tr>
         <tr>
-            <th class="text-center" style="width:50px" rowspan="6">3</th>
-            <th colspan="2" style="background-color:aliceblue;">ATASAN PEJABAT PENILAI KINERJA</th>
+            <th class="text-center" style="width:2cm" rowspan="6">3</th>
+            <th colspan="2" style="width:42%; background-color:aliceblue;">ATASAN PEJABAT PENILAI KINERJA</th>
         </tr>
         <tr>
             <th>NAMA</th>
@@ -148,24 +175,7 @@
             <th>UNIT KERJA</th>
             <td>{{ optional($user->atasan)->unit_kerja ?? '' }}</td>
         </tr>
-        @foreach ($user->tugas as $data)
-        <tr>
-            <td class="text-center">{{ $loop->iteration }}</td>
-            <td>{{ $data->name }}</td>
-            <td>{{ $data->name }}</td>
-            <td colspan="3">
-                @foreach ($data->tupoksi as $item)
-                <div class="d-flex mb-1">
-                    <div style="width:15%">{{ $item->aspek }}</div>
-                    <div style="width:5%">:</div>
-                    <div style="width:55%; text-align:justify">{{ $item->indikator }}</div>
-                    <div style="width:25%; text-align:center">{{ $item->target }}</div>
-                </div>
-                @endforeach
-            </td>
-        </tr>
-        @endforeach
-
+     
         @foreach ($user->tutam as $data)
         <tr style="background-color:aliceblue;">
             <td class="text-center">{{ $loop->iteration }}</td>
@@ -177,14 +187,14 @@
                     <div style="width:15%">{{ $item->aspek }}</div>
                     <div style="width:5%">:</div>
                     <div style="width:55%; text-align:justify">{{ $item->indikator }}</div>
-                    <div style="width:25%; text-align:center">{{ $item->target }}</div>
+                    <div style="width:30%; text-align:center">{{ $item->target }}</div>
                 </div>
                 @endforeach
             </td>
         </tr>
         @endforeach
         <tr style="background-color:aliceblue;">
-            <th class="text-center" style="width:50px" rowspan="3">4</th>
+            <th class="text-center" style="width:2cm" rowspan="3">4</th>
             <th style="background-color:aliceblue;" colspan="2">EVALUASI KINERJA</th>
         </tr>
         <tr>
@@ -196,7 +206,7 @@
             <td><b>BAIK</b></td>
         </tr>
         <tr>
-            <th class="text-center" style="width:50px" rowspan="2">5</th>
+            <th class="text-center" style="width:2cm" rowspan="2">5</th>
             <th style="background-color:aliceblue;" colspan="2">CATATAN/REKOMENDASI</th>
         </tr>
         <tr>
@@ -261,3 +271,10 @@
         @endif
 </div>
 @endsection
+
+
+
+
+
+
+

@@ -8,6 +8,28 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 1cm;
+            }
+            body {
+                font-size: 12px;
+            }
+            .container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 0 10px;
+            }
+            table {
+                font-size: 11px;
+            }
+            .btn {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>

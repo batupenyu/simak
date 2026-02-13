@@ -278,8 +278,8 @@ Route::get('/project.evaluasi/{id}', [EvaluasiController::class, 'show']);
 
 // Route::get('/project.index', [Laporan_1_Controller::class, 'index']);
 Route::get('/project.report/{id}', [Laporan_1_Controller::class, 'show']);
-Route::get('/laporan', [LaporanController::class, 'index']);
-Route::get('/laporan/cetak', [LaporanController::class, 'cetak']);
+Route::get('/laporan', [LegalController::class, 'index']);
+Route::get('/laporan/cetak', [LegalController::class, 'cetak']);
 Route::get('/ekspektasi.edit_perilaku_1/{id}', [EkspektasiController::class, 'edit_1']);
 Route::get('/ekspektasi.add1', [EkspektasiController::class, 'create1']);
 Route::get('/ekspektasi.edit_perilaku_2/{id}', [EkspektasiController::class, 'edit_2']);

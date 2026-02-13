@@ -47,16 +47,8 @@ class CutiController extends Controller
     public function generateCutiReport()
     {
         $cutiData = Cuti::with(['user'])->get(); // Fetch cuti data with user relations
-        $holidays = Customer::all()->pluck('tgl_libur')->toArray();
-        $cuti = Cuti::all();
 
-        foreach ($cutiData as $cuti) {
-            $tgl_awal = $cuti->tgl_awal;
-            $jlh_hari = $cuti->jlh_hari;
-        }
-        $currentDate = $this->addWorkingDays($tgl_awal, $jlh_hari);
-
-        $view = view()->make('cuti.report', compact('cutiData', 'currentDate', 'holidays', 'cuti')); // Create a view for the report
+        $view = view()->make('cuti.report', compact('cutiData')); // Create a view for the report
         $html = $view->render();
 
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
