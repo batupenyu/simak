@@ -303,9 +303,9 @@
                                 @foreach ($data->tupoksi as $item)
                                 <div class="container ">
                                 <div class="row">
-                                    <div class="col-6 col-sm-2 ">{{ $item->aspek }}</div>
-                                    <div class="col-6 col-sm-1 "><strong style="padding-left: 15px">:</strong></div>
-                                    <div class="col-6 col-sm-7 " style="text-align: justify">{{ $item->indikator }}</div>
+                                    <div class="col-6 col-sm-3 ">{{ $item->aspek }}</div>
+                                    <div class="col-6 col-sm-1 "><strong style="padding-left: 17px">:</strong></div>
+                                    <div class="col-6 col-sm-6" style="text-align: justify">{{ $item->indikator }}</div>
                                     <div class="col-6 col-sm-1">{{ $item->target }}</div>
                                 
                                     <!-- Force next columns to break to new line -->
