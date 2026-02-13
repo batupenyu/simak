@@ -26,8 +26,8 @@ class TutiController extends Controller
         //     'satuan' => 'required'
         // ]);
 
-        Tuti::create($request->all());
-        return redirect('project');
+        $tuti = Tuti::create($request->all());
+        return redirect('project.main/'.$tuti->tutam->user_id);
     }
 
     public function editTuti($id)
@@ -40,7 +40,7 @@ class TutiController extends Controller
     {
         $tuti = Tuti::findOrFail($id);
         $tuti->update($request->all());
-        return redirect('project')->with('status','Update Berhasil');
+        return redirect('project.main/'.$tuti->tutam->user_id)->with('status','Update Berhasil');
     }
 
     public function delete($id)
@@ -51,7 +51,8 @@ class TutiController extends Controller
     public function destroy($id,)
     {
         $hapus = Tuti::findOrFail($id);
+        $user_id = $hapus->tutam->user_id;
         $hapus->delete();
-        return redirect('project');
+        return redirect('project.main/'.$user_id);
     }
 }

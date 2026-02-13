@@ -593,14 +593,14 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        $user = User::with(['tugas', 'eks', 'skema', 'kon', 'sdm', 'tupoksi', 'tutam', 'penilai', 'atasan'])->findOrFail($id);
+        $user = User::with(['tugas', 'tupoksi', 'tutam.tuti', 'eks', 'skema', 'kon', 'sdm', 'penilai', 'atasan'])->findOrFail($id);
         // return $user;
         return view('project.rencana_skp', compact('user'));
     }
 
     public function rencana_pdf($id)
     {
-        $user = User::with(['tugas', 'tupoksi', 'tutam', 'tuti', 'eks', 'skema', 'kon', 'sdm'])->findOrFail($id);
+        $user = User::with(['tugas', 'tupoksi', 'tutam.tuti', 'eks', 'skema', 'kon', 'sdm'])->findOrFail($id);
         $view = view()->make('project.rencana_skp', compact('user'));
         $html = $view->render();
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);

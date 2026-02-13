@@ -2,16 +2,15 @@
 @section('content')
 
 <style type="text/css">
-    table { page-break-inside:auto; width: 100%; }
+    @media print {
+        .btn, .nav-tabs, .tampil { display: none !important; }
+    }
+    table { page-break-inside:auto }
     tr    { page-break-inside:avoid; page-break-after:auto }
     thead { display:table-header-group }
     tfoot { display:table-footer-group }
     .page-number:before {
     content: "Page: " counter(page);}
-    .table-responsive {
-        width: 100%;
-        overflow-x: auto;
-    }
 </style>
 
 <ul class="nav nav-tabs mb-3" id="skpTab" role="tablist">
@@ -26,8 +25,10 @@
     </li>
 </ul>
 
-<div class="container-fluid mt-3" style="max-width: 80%; margin: 0 auto;">
-    <a class="float-end" href="{{ url('project.rencana_pdf/'.$user->id) }}"><i class="bi-printer-fill"></i> Cetak PDF</a>
+<div class="container-xxl">
+    <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
+    <div class="container-fluid mt-3">
+        <button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 float-end" media="print">Cetak</button>
     @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
         <h4 style="text-align:center">SASARAN KINERJA PEGAWAI PEJABAT FUNGSIONAL <br>
             {{ $user->jabatan }} <br>

@@ -67,7 +67,7 @@ class TupoksiController extends Controller
         ]);
 
         // $tupoksi = Tupoksi::create($request->all( ));
-        return redirect('project');
+        return redirect('project.main/'.request('user_id'));
 
         // $tupoksi = Tupoksi::findOrFail($id);
         // $tupoksi->create($request->all());
@@ -85,7 +85,7 @@ class TupoksiController extends Controller
     {
         $tupoksi = Tupoksi::findOrFail($id);
         $tupoksi->update($request->all());
-        return redirect('project');
+        return redirect('project.main/'.$tupoksi->user_id);
 
     }
 
@@ -136,7 +136,8 @@ class TupoksiController extends Controller
     public function destroy($id,)
     {
         $hapus = Tupoksi::findOrFail($id);
+        $user_id = $hapus->user_id;
         $hapus->delete();
-        return redirect('project');
+        return redirect('project.main/'.$user_id);
     }
 }
