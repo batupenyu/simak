@@ -19,8 +19,10 @@
                 </ol>
             </td>
             <td style="width: 300px;">Ekspektasi Khusus Pimpinan:<br>
-                {{ $user->eks->eks1 }} <br>
-                <a href="/ekspektasi.edit_perilaku_1/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit "></i></a> 
+                {{ optional($user->eks)->eks1 ?? '' }} <br>
+                @if($user->eks)
+                <a href="/ekspektasi.edit_perilaku_1/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit "></i></a>
+                @endif 
             </td>
         </tr>
         
@@ -40,8 +42,10 @@
                 </ol>
             </td>
             <td style="width: 30%;" >Ekspektasi Khusus Pimpinan:<br>
-                {{ $user->eks->eks2 }} <br>
-                <a href="/ekspektasi.edit_perilaku_2/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a> 
+                {{ optional($user->eks)->eks2 ?? '' }} <br>
+                @if($user->eks)
+                <a href="/ekspektasi.edit_perilaku_2/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                @endif 
             </td>
         </tr>
         <tr>
@@ -61,8 +65,10 @@
             <td style="width: 300px;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
-                {{ $user->eks->eks3 }} <br>
-                <a href="/ekspektasi.edit_perilaku_3/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a> 
+                {{ optional($user->eks)->eks3 ?? '' }} <br>
+                @if($user->eks)
+                <a href="/ekspektasi.edit_perilaku_3/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                @endif 
             </td>
         </tr>
         <tr>
@@ -84,8 +90,10 @@
             <td style="width: 300px;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
-                {{ $user->eks->eks4 }} <br>
-                <a href="/ekspektasi.edit_perilaku_4/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a> 
+                {{ optional($user->eks)->eks4 ?? '' }} <br>
+                @if($user->eks)
+                <a href="/ekspektasi.edit_perilaku_4/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                @endif 
             </td>
         </tr>
         <tr>
@@ -107,8 +115,10 @@
             <td style="width: 300px;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
-                {{ $user->eks->eks5 }} <br>
-                <a href="/ekspektasi.edit_perilaku_5/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a> 
+                {{ optional($user->eks)->eks5 ?? '' }} <br>
+                @if($user->eks)
+                <a href="/ekspektasi.edit_perilaku_5/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                @endif 
             </td>
         </tr>
         <tr>
@@ -130,8 +140,10 @@
             <td style="width: 300px;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
-                {{ $user->eks->eks6 }} <br>
-                <a href="/ekspektasi.edit_perilaku_6/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a> 
+                {{ optional($user->eks)->eks6 ?? '' }} <br>
+                @if($user->eks)
+                <a href="/ekspektasi.edit_perilaku_6/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                @endif 
             </td>
         </tr>
         <tr>
@@ -153,8 +165,10 @@
             <td style="width: 300px;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
-                {{ $user->eks->eks7 }} <br>
-                <a href="/ekspektasi.edit_perilaku_7/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a> 
+                {{ optional($user->eks)->eks7 ?? '' }} <br>
+                @if($user->eks)
+                <a href="/ekspektasi.edit_perilaku_7/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                @endif 
             </td>
         </tr>
 </table>

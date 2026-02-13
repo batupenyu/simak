@@ -72,6 +72,15 @@
           <li class="nav-item tampil">
             <a class="nav-link " href="/project">Home</a>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              SKP
+            </a>
+            <ul class="dropdown-menu">
+              <!-- <li><a class="dropdown-item" href="/project/">Rencana SKP</a></li> -->
+              <li><a class="dropdown-item" href="/ekspektasi/index">Ekspektasi</a></li>
+            </ul>
+          </li>
           <li class="nav-item tampil">
             {{-- <a class="nav-link " href="/pasangan.index">Pasangan</a> --}}
           </li>

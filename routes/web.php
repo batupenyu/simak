@@ -402,8 +402,7 @@ Route::delete('/tupoksi.destroy/{id}', [TupoksiController::class, 'destroy']);
 
 
 // Tugas
-Route::get('/tugas.index', [TugasController::class, 'index']);
-Route::get('/tugas.tambah', [TugasController::class, 'create']);
+Route::get('/tugas.tambah/{id}', [TugasController::class, 'create']);
 Route::post('/tugas.simpan', [TugasController::class, 'store']);
 Route::get('/tugas.edit_tugas/{id}', [TugasController::class, 'edit']);
 Route::put('/tugas/update/{id}', [TugasController::class, 'update']);
@@ -411,7 +410,7 @@ Route::get('/tugas.hapus/{id}', [TugasController::class, 'delete']);
 Route::delete('/tugas.delete/{id}', [TugasController::class, 'destroy']);
 
 // Tutam
-Route::get('/project.main/tutam.tambah/{id}', [TutamController::class, 'create'])->name('create');
+Route::get('/tutam.tambah/{id}', [TutamController::class, 'create'])->name('create');
 Route::post('/tutam.simpan', [TutamController::class, 'store']);
 Route::get('/tutam.edit/{id}', [TutamController::class, 'editTutam']);
 Route::put('/tutam.update/{id}', [TutamController::class, 'updateTutam']);

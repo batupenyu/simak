@@ -55,6 +55,18 @@
               <li>
                 <a href="{{ url('cuti.index') }}">Cuti Pegawai</a>
               </li>
+              <li>
+                <a href="{{ url('project/') }}">Rencana SKP</a>
+              </li>
+              <li>
+                <a href="{{ url('ekspektasi/index') }}">Ekspektasi</a>
+              </li>
+              <li class="nav-item tampil">
+                <a class="nav-link " href="/atasan.index">Atasan</a>
+              </li>
+              <li class="nav-item tampil">
+                <a class="nav-link " href="/penilai.index">Penilai</a>
+              </li>
 
             </ul>
           </li>

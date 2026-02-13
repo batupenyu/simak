@@ -17,30 +17,24 @@
                         <form class="form-card" action="{{ url('/tugas/update/'.$data->id) }}" method="post">
                             @csrf
                             @method('PUT')
-                            <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong> Pegawai</strong><span class="text-danger"> *</span></label> 
-                                    <select name="user_id" id="" class="form-control">
-                                        <option value="{{ $data->user->id }}">{{ $data->user->name }}</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-12 mt-2">
-                                    <label class="form-control-label px-3"><strong> Rencana kerja atasan yang di intervensi</strong><span class="text-danger"> *</span></label> 
-                                    <select class="form-control" name="rk_id" id=""> 
-                                        @foreach ($rk as $item)
-                                        <option value="{{ $item->id }}" {{ $data->rk->id == $item->id ? 'selected':'' }} >
-                                            {{ $item->name }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                <div>
-                                <div>
-                                    <label class="form-control-label px-3"><strong> Rencana Kerja Pegawai</strong><span class="text-danger"> *</span></label> 
-                                    <textarea class="form-control mb-2 " name="name" id="" cols="80" rows="3" >{{$data->name }} </textarea>
-                                </div>
-                                <div class="row justify-content-end mt-3">
-                                    <div class="form-group col-sm-0 "> 
-                                        <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-check"></i> Simpan</button>
-                                    </div>
+                            <input type="hidden" name="user_id" value="{{ $data->user->id }}">
+                            <div class="col-md-12 mt-2">
+                                <label class="form-control-label px-3"><strong> Rencana kerja atasan yang di intervensi</strong><span class="text-danger"> *</span></label> 
+                                <select class="form-control" name="rk_id" id=""> 
+                                    @foreach ($rk as $item)
+                                    <option value="{{ $item->id }}" {{ $data->rk->id == $item->id ? 'selected':'' }} >
+                                        {{ $item->name }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            <div>
+                            <div>
+                                <label class="form-control-label px-3"><strong> Rencana Kerja Pegawai</strong><span class="text-danger"> *</span></label> 
+                                <textarea class="form-control mb-2 " name="name" id="" cols="80" rows="3" >{{$data->name }} </textarea>
+                            </div>
+                            <div class="row justify-content-end mt-3">
+                                <div class="form-group col-sm-0 "> 
+                                    <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-check"></i> Simpan</button>
                                 </div>
                             </div>
                         </form>    

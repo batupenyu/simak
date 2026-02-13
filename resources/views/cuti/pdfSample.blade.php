@@ -374,16 +374,16 @@
                 <div>
                     Kepala Sekolah
                     <br>
-                    {{ $user->penilai->unit_kerja }}
+                    {{ optional($user->penilai)->unit_kerja ?? '' }}
                     <br>
                     <br>
                     <br>
                     <br>
-                    <u>{{ $user->penilai->nama }}</u>
+                    <u>{{ optional($user->penilai)->nama ?? '' }}</u>
                     <br>
-                    {{ $user->penilai->pangkat_gol }}
+                    {{ optional($user->penilai)->pangkat_gol ?? '' }}
                     <br>
-                    NIP. {{ $user->penilai->nip }}
+                    {{ optional($user->penilai)->nip ?? '' }}
                 </div>
             </strong>
             </td>
@@ -410,19 +410,19 @@
             <td  rowspan="9" style="text-align: center; width:35%">
             <strong>
                 <div>
-                    {{ $user->atasan->unit_kerja }}
+                    {{ optional($user->atasan)->unit_kerja ?? '' }}
                     <br>
                     Dinas Pendidikan Prov. Kep. Babel <br>
-                    {{ $user->atasan->jabatan }}
+                    {{ optional($user->atasan)->jabatan ?? '' }}
                     <br>
                     <br>
                     <br>
                     <br>
-                    {{ $user->atasan->nama }}
+                    {{ optional($user->atasan)->nama ?? '' }}
                     <br>
-                    {{ $user->atasan->pangkat_gol }}
+                    {{ optional($user->atasan)->pangkat_gol ?? '' }}
                     <br>
-                    NIP. {{ $user->atasan->nip }}
+                    {{ optional($user->atasan)->nip ?? '' }}
                 </div>
             </strong>
             </td>

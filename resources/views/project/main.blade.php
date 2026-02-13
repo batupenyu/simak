@@ -12,8 +12,21 @@
     content: "Page: " counter(page);}
 </style>
 
+<ul class="nav nav-tabs mb-3" id="skpTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="rencana-tab" data-bs-toggle="tab" data-bs-target="#rencana" type="button" role="tab" aria-controls="rencana" aria-selected="true">Rencana SKP</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="evaluasi-tab" data-bs-toggle="tab" data-bs-target="#evaluasi" type="button" role="tab" aria-controls="evaluasi" aria-selected="false">Evaluasi</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="report-tab" data-bs-toggle="tab" data-bs-target="#report" type="button" role="tab" aria-controls="report" aria-selected="false">Laporan</button>
+    </li>
+</ul>
 
-<div class="container-xl container-fluid mt-3">
+<div class="tab-content" id="skpTabContent">
+    <div class="tab-pane fade show active" id="rencana" role="tabpanel" aria-labelledby="rencana-tab">
+        <div class="container-xl container-fluid mt-3">
 
     <div class="instansi-pegawai-skp-view box box-primary">
         <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
@@ -100,7 +113,7 @@
                     <td style="text-align: center;">3</td>
                     <td>PANGKAT/GOL RUANG</td>
                     <td style=" padding-left: 30px">
-                        {{ $user->penilai ->pangkat_gol }}
+                        {{ optional($user->penilai)->pangkat_gol ?? '' }}
                     </td>
                 </tr>
                 <tr>
@@ -132,8 +145,8 @@
 
 
         <div style="overflow-x: auto">
-            <a href="/tugas.tambah" class="btn btn-sm btn-success btn-flat tampil" ><i class="fa fa-plus"></i> RKU</a>
-            <a href="{{ ('tutam.tambah/'.$user->id ) }}" class="btn btn-sm btn-success btn-flat tampil" ><i class="fa fa-plus"></i> RKT</a>
+            <a href="{{ url('tugas.tambah/' . $user->id) }}" class="btn btn-sm btn-success btn-flat tampil" ><i class="fa fa-plus"></i> RKU</a>
+            <a href="{{ url('tutam.tambah/'.$user->id ) }}" class="btn btn-sm btn-success btn-flat tampil" ><i class="fa fa-plus"></i> RKT</a>
             <table class="table table-sm table-bordered border-dark mt-2"  >
                 <tbody>
                     
@@ -318,6 +331,14 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="tab-pane fade" id="evaluasi" role="tabpanel" aria-labelledby="evaluasi-tab">
+    @include('lampiran.evaluasi')
+</div>
+<div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
+    @include('project.report')
+</div>
 </div>
 <div class="page-number"></div>
 

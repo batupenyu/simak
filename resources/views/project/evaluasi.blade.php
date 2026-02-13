@@ -36,6 +36,18 @@
     content: "Page: " counter(page);}
 </style>
 
+<ul class="nav nav-tabs mb-3" id="skpTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" href="{{ url('project.main/'.$user->id) }}">Rencana SKP</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" href="{{ url('project.evaluasi/'.$user->id) }}">Evaluasi</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" href="{{ url('project.report/'.$user->id) }}">Laporan</a>
+    </li>
+</ul>
+
 <div class="container-xxl">
 
     <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
@@ -118,7 +130,7 @@
                     <td style="text-align: center;">3</td>
                     <td>PANGKAT/GOL RUANG</td>
                     <td style="padding-left: 30px">
-                        {{ $user->penilai ->pangkat_gol }}
+                        {{ optional($user->penilai)->pangkat_gol ?? '' }}
                     </td>
                 </tr>
                 <tr>

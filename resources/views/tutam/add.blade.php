@@ -16,13 +16,7 @@
                     <div class="row register-form">
                         <form class="form-card" action="{{ url('tutam.simpan') }} " method="post">
                             @csrf
-                            <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Pegawai<span class="text-danger"> *</span></label> 
-                                    <select name="user_id" id="" class="form-control">
-                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                    </select>
-                                </div>
-                            </div>
+                            <input type="hidden" name="user_id" value="{{ $user->id }}">
                             <div class="col-md-12 mt-2">
                                 <div>
                                     <label class="form-control-label px-3">Rencana kerja atasan<span class="text-danger"> *</span></label> 
@@ -42,7 +36,7 @@
                                     @enderror
                                 </div>
                             </div>
-                           
+                            
                             <div class="row justify-content-end mt-3">
                                 <div class="form-group col-sm-0 "> 
                                 <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-check"></i> Simpan</button>
@@ -54,6 +48,7 @@
         </div>
     </div>
 </div>
+
 
 
 

@@ -27,8 +27,7 @@ class TutamController extends Controller
         // ]);
 
         Tutam::create($request->all());
-
-        return redirect('project');
+        return redirect('project.main/' . $request->user_id)->with('status', 'Berhasil Simpan');
     }
 
     public function editTutam($id)
@@ -44,7 +43,7 @@ class TutamController extends Controller
     {
         $tutam = Tutam::findOrFail($id);
         $tutam->update($request->all());
-        return redirect('project')->with('status','Berhasil Update');
+        return redirect('project.main/' . $request->user_id)->with('status','Berhasil Update');
     }
 
     public function delete($id)
@@ -52,10 +51,11 @@ class TutamController extends Controller
         Tutam::findOrFail($id);
     }
 
-    public function destroy($id,)
+    public function destroy($id)
     {
-        $hapus = Tutam::findOrFail($id);
-        $hapus->delete();
-        return redirect('project');
+        $tutam = Tutam::findOrFail($id);
+        $user_id = $tutam->user_id;
+        $tutam->delete();
+        return redirect('project.main/' . $user_id)->with('status', 'Berhasil Hapus');
     }
 }

@@ -1,6 +1,17 @@
 @extends('layout.master')
 @section('content')
 
+<ul class="nav nav-tabs mb-3" id="skpTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" href="{{ url('project.main/'.$user->id) }}">Rencana SKP</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" href="{{ url('project.evaluasi/'.$user->id) }}">Evaluasi</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" href="{{ url('project.report/'.$user->id) }}">Laporan</a>
+    </li>
+</ul>
 
 <button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 mt-3 float-end" media="print">Cetak</button>
 <img src={{ asset('image/garuda.png') }} style="display:block; margin:auto;">
@@ -83,23 +94,23 @@
         </tr>
         <tr>
             <th width="500px">NAMA</th>
-            <td scope="row"><b>{{ $user->penilai->nama }}</b></td>
+            <td scope="row"><b>{{ optional($user->penilai)->nama ?? '' }}</b></td>
         </tr>
         <tr>
             <th width="500px">NIP</th>
-            <td scope="row">{{ $user->penilai->nip }}</td>
+            <td scope="row">{{ optional($user->penilai)->nip ?? '' }}</td>
         </tr>
         <tr>
             <th width="500px">PANGKAT/GOL. RUANG</th>
-            <td scope="row">{{ $user->penilai->pangkat_gol }}</td>
+            <td scope="row">{{ optional($user->penilai)->pangkat_gol ?? '' }}</td>
         </tr>
         <tr>
             <th width="500px">JABATAN</th>
-            <td scope="row">{{ $user->penilai->jabatan }}</td>
+            <td scope="row">{{ optional($user->penilai)->jabatan ?? '' }}</td>
         </tr>
         <tr>
             <th width="500px">UNIT KERJA</th>
-            <td scope="row">{{ $user->penilai->unit_kerja }}</td>
+            <td scope="row">{{ optional($user->penilai)->unit_kerja ?? '' }}</td>
         </tr>
         <tr>
             <th class="text-center" width="50px" rowspan="6">3</th>
@@ -107,37 +118,99 @@
         </tr>
         <tr>
             <th width="500px">NAMA</th>
-            <td scope="row"><b>{{ $user->atasan->nama }}</b>
+            <td scope="row"><b>{{ optional($user->atasan)->nama ?? '' }}</b>
+                @if($user->atasan)
                 <a href="{{ url('atasan.edit/'.$user->atasan->id) }}"><i class="fa fa-edit tampil"></i></a>
+                @endif
             </td>
         </tr>
         <tr>
             <th width="500px">NIP</th>
-            <td scope="row">{{ $user->atasan->nip }}</td>
+            <td scope="row">{{ optional($user->atasan)->nip ?? '' }}</td>
         </tr>
         <tr>
             <th width="500px">PANGKAT/GOL. RUANG</th>
-            <td scope="row">{{ $user->atasan->pangkat_gol }}</td>
+            <td scope="row">{{ optional($user->atasan)->pangkat_gol ?? '' }}</td>
         </tr>
         <tr>
             <th width="500px">JABATAN</th>
-            <td scope="row">{{ $user->atasan->jabatan }}</td>
+            <td scope="row">{{ optional($user->atasan)->jabatan ?? '' }}</td>
         </tr>
         <tr>
             <th width="500px">UNIT KERJA</th>
-            <td scope="row">{{ $user->atasan->unit_kerja }}</td>
+            <td scope="row">{{ optional($user->atasan)->unit_kerja ?? '' }}</td>
+        </tr>
+    </table>
+
+    <!-- Rencana Kinerja Table -->
+    <table class="table mb-0 table-sm table-responsive-sm table-bordered border-primary mt-3">
+        <tr style="background-color:aliceblue;">
+            <th style="text-align: center; width:30px"><b>NO</b></th>
+            <th style="text-align: center;" colspan="2"><b>RENCANA HASIL KERJA ATASAN YANG DIINTERVENSI</b></th>
+            <th style="text-align: center;" colspan="2"><b>RENCANA HASIL KERJA</b></th>
+            <th colspan="3" style="text-align: center;"><b>INDIKATOR KINERJA</b></th>
         </tr>
         <tr>
-            <th class="text-center" width="50px" rowspan="3">4</th>
-            <th colspan="2" style="background-color:aliceblue;" width="500px">EVALUASI KINERJA</th>
+            <th style="text-align: center;">&nbsp;</th>
+            <th style="text-align: center;" colspan="2">&nbsp;</th>
+            <th style="text-align: center;" colspan="2">&nbsp;</th>
+            <th style="text-align: center;">ASPEK</th>
+            <th style="text-align: center;">INDIKATOR</th>
+            <th style="text-align: center;">TARGET</th>
+        </tr>
+        @foreach ($user->tugas as $data)
+        <tr>
+            <td style="text-align: center;">{{ $loop->iteration }}</td>
+            <td colspan="2">{{ $data->name }}</td>
+            <td colspan="2">{{ $data->name }}</td>
+            <td colspan="3">
+                @foreach ($data->tupoksi as $item)
+                <table class="table table-sm table-borderless">
+                    <tr>
+                        <td style="width: 100px">{{ $item->aspek }}</td>
+                        <td style="width: 30px">:</td>
+                        <td style="width: 250px; text-align:justify">{{ $item->indikator }}</td>
+                        <td style="text-align: center">{{ $item->target }}</td>
+                    </tr>
+                </table>
+                @endforeach
+            </td>
+        </tr>
+        @endforeach
+
+        @foreach ($user->tutam as $data)
+        <tr style="background-color:aliceblue;">
+            <td style="text-align: center;">{{ $loop->iteration }}</td>
+            <td colspan="2">{{ $data->rk->name }}</td>
+            <td colspan="2">{{ $data->name }}</td>
+            <td colspan="3">
+                @foreach ($data->tuti as $item)
+                <table class="table table-sm table-borderless">
+                    <tr>
+                        <td style="width: 100px">{{ $item->aspek }}</td>
+                        <td style="width: 30px">:</td>
+                        <td style="width: 250px; text-align:justify">{{ $item->indikator }}</td>
+                        <td style="text-align: center">{{ $item->target }}</td>
+                    </tr>
+                </table>
+                @endforeach
+            </td>
+        </tr>
+        @endforeach
+    </table>
+
+    <table class="table mb-0 table-sm table-responsive-sm table-bordered border-primary mt-3">
+        <tr style="background-color:aliceblue;">
+            <th class="text-center" width="50px" rowspan="2">4</th>
+            <th colspan="2" style="background-color:aliceblue;">EVALUASI KINERJA</th>
         </tr>
         <tr>
             <th style="background-color:aliceblue;" width="500px">CAPAIAN KINERJA ORGANISASI</th>
-            <td scope="row"><b>BAIK</td>
+            <td scope="row"><b>BAIK</b></td>
         </tr>
         <tr>
             <th style="background-color:aliceblue;">PREDIKAT KINERJA PEGAWAI</th>
-            <td scope="row"><b>BAIK</td>
+            <td scope="row"><b>BAIK</b></td>
         </tr>
 
         <tr>

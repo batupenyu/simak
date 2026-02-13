@@ -12,12 +12,12 @@ use Illuminate\Http\Request;
 class TugasController extends Controller
 {
 
-    public function create()
+    public function create($id)
     {
-        $project=Project::all();
-        $user=User::all();
-        $rk=Rk::all();
-        return view('tugas.add',compact('project','user','rk'));
+        $project = Project::all();
+        $user = User::where('id', $id)->first();
+        $rk = Rk::all();
+        return view('tugas.add', compact('project', 'user', 'rk'));
     }
 
     public function store(Request $request)
@@ -26,8 +26,8 @@ class TugasController extends Controller
         //     'tugas' => 'required'
         // ]);
 
-       Tugas::create($request->all());
-        return redirect('project');
+        Tugas::create($request->all());
+        return redirect('project.main/' . $request->user_id)->with('status', 'Berhasil Simpan');
     }
 
     public function edit($id)
@@ -44,10 +44,9 @@ class TugasController extends Controller
 
     public function update($id, Request $request)
     {
-
         $tugas = Tugas::findOrFail($id);
         $tugas->update($request->all());
-        return redirect()->to('project')->with('status', 'Data berhasil di update');
+        return redirect('project.main/' . $request->user_id)->with('status', 'Data berhasil di update');
     }
 
     public function delete($id)
@@ -55,10 +54,11 @@ class TugasController extends Controller
         Tugas::findOrFail($id);
     }
 
-    public function destroy($id, )
+    public function destroy($id)
     {
-        $hapus = Tugas::findOrFail($id);
-        $hapus->delete();
-        return redirect('project');
+        $tugas = Tugas::findOrFail($id);
+        $user_id = $tugas->user_id;
+        $tugas->delete();
+        return redirect('project.main/' . $user_id)->with('status', 'Berhasil Hapus');
     }
 }
