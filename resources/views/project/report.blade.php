@@ -60,14 +60,14 @@
     }
 </style>
 
-<div class="container-xl container-fluid">
+<div class="container-xxl">
     <div class="row">
         <div class="col-md-12">
             <div class="card-header">
                 <h4 style="text-align: center">DOKUMEN EVALUASI KINERJA PEGAWAI
                     <br>
                     PERIODE : TAHUN
-                    {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat(' Y ') }} 
+                    {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat(' Y ') }}
                 </h4>
                 <hr>
             </div>
@@ -75,7 +75,7 @@
     </div>
 
 
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-3">
 
     <div class="row justify-content-between fw-bold upper">
         <div class="col-5">
@@ -96,7 +96,7 @@
         </div>
     </div>
 
-    <table class="table table-custom mb-0 table-sm table-bordered border-primary">
+    <table class="table table-custom mb-0 table-sm table-bordered border-primary" style="background-color: beige">
         <tr style="background-color:aliceblue;">
             <th class="text-center" style="width:1cm" rowspan="6">1</th>
             <th colspan="2" style="width:100%; background-color:aliceblue;">PEGAWAI YANG DINILAI</th>
