@@ -253,7 +253,7 @@ Route::get('/ak.pdfReport/{id}', [AngkakreditController::class, 'pdfReport'])->n
 //project
 Route::get('/project', [ProjectController::class, 'index'])->name('index');
 Route::get('/project.main/{id}', [ProjectController::class, 'show'])->name('show');
-Route::get('/project.rencana_pdf/{id}', [ProjectController::class, 'rencana_pdf']);
+Route::get('/project.rencana_pdf/{id}', [ProjectController::class, 'rencana_pdf'])->name('project.rencana_pdf');
 Route::get('/project.main_pdf/{id}/cetak', [ProjectController::class, 'cetak']);
 Route::get('/tabel', [ProjectController::class, 'tabel']);
 Route::get('/tabelpdf', [ProjectController::class, 'tabelPdf']);

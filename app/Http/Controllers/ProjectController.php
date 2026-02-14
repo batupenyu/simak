@@ -603,27 +603,27 @@ class ProjectController extends Controller
         $user = User::with(['tugas', 'tupoksi', 'tutam.tuti', 'eks', 'skema', 'kon', 'sdm'])->findOrFail($id);
         $view = view()->make('project.rencana_skp', compact('user'));
         $html = $view->render();
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
+        $pdf = new \Elibyy\TCPDF\TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
 
 
         if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
             require_once(dirname(__FILE__) . '/lang/eng.php');
-            $pdf::setLanguageArray($l);
+            $pdf->setLanguageArray($l);
         }
 
-        $pdf::SetFont('zapfdingbats', '', 14);
-        $pdf::setCellPaddings(0, 0, 0, 0);
-        $pdf::AddPage('L', 'A4');
-        $pdf::setCellPaddings(0, '', '', 0);
-        $pdf::SetFont('Helvetica', '', 9.5);
-        $pdf::lastPage();
-        $pdf::setCellHeightRatio(1.5);
-        $pdf::SetLeftMargin(30);
-        $pdf::SetTopMargin(5);
-        $pdf::SetTitle('rencana_skp');
-        $pdf::writeHTML($html, true, false, true, false, '');
-        $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        $pdf::Output('rencana_skp. .pdf');
+        $pdf->SetFont('zapfdingbats', '', 14);
+        $pdf->setCellPaddings(0, 0, 0, 0);
+        $pdf->AddPage('L', 'A4');
+        $pdf->setCellPaddings(0, '', '', 0);
+        $pdf->SetFont('Helvetica', '', 9.5);
+        $pdf->lastPage();
+        $pdf->setCellHeightRatio(1.5);
+        $pdf->SetLeftMargin(30);
+        $pdf->SetTopMargin(5);
+        $pdf->SetTitle('rencana_skp');
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->Output('rencana_skp.pdf', 'I');
     }
 
 
@@ -647,11 +647,35 @@ class ProjectController extends Controller
 
     public function cetak($id)
     {
+        // This method should work with user ID like rencana_pdf, not project ID
+        // First, try to find as a user ID (most likely scenario based on route)
+        $user = User::with(['tugas', 'tupoksi', 'tutam.tuti', 'eks', 'skema', 'kon', 'sdm', 'penilai'])->findOrFail($id);
+        
+        // Create a dummy project object to match the expected variable in the view
+        $dummyProject = (object) ['user' => $user];
+        
+        $view = view()->make('project.main_pdf', ['project' => $dummyProject, 'user' => $user]);
+        $html = $view->render();
+        $pdf = new \Elibyy\TCPDF\TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
 
-        $project = Project::with(['user', 'users', 'penilai', 'tugas', 'tupoksi', 'tutam', 'tuti', 'tasks'])
-            ->findOrFail($id);
-        // $pdf = PDF::loadview('project.main_pdf', ['project' => $project])->setPaper('F4', 'landscape');
-        // return $pdf->stream();
 
+        if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+            require_once(dirname(__FILE__) . '/lang/eng.php');
+            $pdf->setLanguageArray($l);
+        }
+
+        $pdf->SetFont('zapfdingbats', '', 14);
+        $pdf->setCellPaddings(0, 0, 0, 0);
+        $pdf->AddPage('L', 'A4');
+        $pdf->setCellPaddings(0, '', '', 0);
+        $pdf->SetFont('Helvetica', '', 9.5);
+        $pdf->lastPage();
+        $pdf->setCellHeightRatio(1.5);
+        $pdf->SetLeftMargin(30);
+        $pdf->SetTopMargin(5);
+        $pdf->SetTitle('rencana_skp_cetak');
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $pdf->Output('rencana_skp_cetak.pdf', 'I');
     }
 }

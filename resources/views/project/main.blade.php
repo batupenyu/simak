@@ -3,6 +3,11 @@
 @section('content')
 
 
+<!-- TEST BUTTON -->
+<form action="{{ url('project.rencana_pdf/'.$user->id) }}" method="GET" target="_blank">
+    <button type="submit" class="btn btn-success" style="position: fixed; top: 10px; right: 10px; z-index: 99999;">TEST CETAK</button>
+</form>
+
 <style type="text/css">
     table { page-break-inside:auto }
     tr    { page-break-inside:avoid; page-break-after:auto }
@@ -32,7 +37,7 @@
         <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
         {{-- <a href="/project.main_pdf/{{ $project->user->id }}/cetak" class="btn btn-primary mt-1" target="_blank" style="text-decoration: none"> CETAK</a> --}}
         {{-- <button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 float-end mt-1" media="print">Cetak</button> --}}
-        <a class="float-end" href="{{ url('project.rencana_pdf/'.$user->id) }}"><i class="bi-printer-fill"></i></a>
+        <a href="{{ url('project.rencana_pdf/'.$user->id) }}" target="_blank" class="btn btn-primary float-end" style="text-decoration: none; z-index: 9999; position: relative;"><i class="bi-printer-fill"></i> CETAK</a>
         @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
             <h4 style="text-align:center">SASARAN KINERJA PEGAWAI PEJABAT FUNGSIONAL <br>
                 {{ $user->jabatan }} <br>
