@@ -85,7 +85,7 @@ class TupoksiController extends Controller
     {
         $tupoksi = Tupoksi::findOrFail($id);
         $tupoksi->update($request->all());
-        return redirect('project.main/'.$tupoksi->user_id);
+        return redirect('project.evaluasi/'.$tupoksi->user_id);
 
     }
 
@@ -99,7 +99,7 @@ class TupoksiController extends Controller
     {
         $tupoksi = Tupoksi::findOrFail($id);
         $tupoksi->update($request->all());
-        return redirect('project.index');
+        return redirect('project.evaluasi/'.$tupoksi->user_id);
     }
 
     public function editAspek($id)
@@ -112,7 +112,7 @@ class TupoksiController extends Controller
     {
         $tupoksi = Tupoksi::findOrFail($id);
         $tupoksi->update($request->all());
-        return redirect('project.main/'.$id);
+        return redirect('project.evaluasi/'.$tupoksi->user_id);
     }
 
     public function editTarget($id)
@@ -125,7 +125,7 @@ class TupoksiController extends Controller
     {
         $tupoksi = Tupoksi::findOrFail($id);
         $tupoksi->update($request->all());
-        return redirect('project.index');
+        return redirect('project.evaluasi/'.$tupoksi->user_id);
     }
 
     public function delete($id)
@@ -139,5 +139,20 @@ class TupoksiController extends Controller
         $user_id = $hapus->user_id;
         $hapus->delete();
         return redirect('project.main/'.$user_id);
+    }
+
+    public function getAtasanProfileForReport($id)
+    {
+        $tupoksi = Tupoksi::with(['user', 'user.atasan', 'user.penilai'])->findOrFail($id);
+        
+        // Return data for the report
+        $data = [
+            'tupoksi' => $tupoksi,
+            'user' => $tupoksi->user,
+            'atasan' => $tupoksi->user->atasan ?? null,
+            'penilai' => $tupoksi->user->penilai ?? null
+        ];
+        
+        return view('tupoksi.report', $data);
     }
 }

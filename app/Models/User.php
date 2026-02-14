@@ -93,7 +93,7 @@ class User extends Authenticatable
     }
     public function atasan()
     {
-        return $this->belongsTo(Atasan::class);
+        return $this->hasOne(Atasan::class, 'user_id');
     }
     public function phone()
     {

@@ -131,7 +131,13 @@ class UserController extends Controller
         $pasangan = Pasangan::orderBy('name', 'ASC')->get();
         $user = User::all();
         $mapel = Mapel::orderBy('name', 'ASC')->get() ?? [];
-        return view('pegawai.add', compact('user', 'pasangan', 'penilai', 'atasan', 'mapel'));
+        $unitKerjaOptions = [
+            "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG",
+            "Dinas Pendidikan Prov. Kep. Bangka Belitung",
+            "Cabang Dinas Wilayah I",
+            "Other"
+        ];
+        return view('pegawai.add', compact('user', 'pasangan', 'penilai', 'atasan', 'mapel', 'unitKerjaOptions'));
     }
 
     // public function store(Request $request)
@@ -246,7 +252,13 @@ class UserController extends Controller
             "Brown Bear",
             "Giant Panda"
         ];
-        return view('project.edit_user', compact('user', 'pasangan', 'penilai', 'atasan', 'recommended_foods', 'mapel'));
+        $unitKerjaOptions = [
+            "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG",
+            "Dinas Pendidikan Prov. Kep. Bangka Belitung",
+            "Cabang Dinas Wilayah I",
+            "Other"
+        ];
+        return view('project.edit_user', compact('user', 'pasangan', 'penilai', 'atasan', 'recommended_foods', 'mapel', 'unitKerjaOptions'));
     }
 
     public function update($id, Request $request)

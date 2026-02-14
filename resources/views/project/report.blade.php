@@ -80,17 +80,19 @@
     <div class="row justify-content-between fw-bold upper">
         <div class="col-5">
             @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
-            Nama Instansi : <br> KEJAKSAAN TINGGI KEP. BANGKA BELITUNG
+            Nama Instansi : <a href="{{ url('project.edit_user/'.$user->id) }}"><i class="fa fa-edit tampil"></i></a><br> KEJAKSAAN TINGGI KEP. BANGKA BELITUNG
             @else
-            Nama Instansi : <br> Dinas Pendidikan Prov. Kep. Bangka Belitung
+            Nama Instansi : <a href="{{ url('project.edit_user/'.$user->id) }}"><i class="fa fa-edit tampil"></i></a><br> Dinas Pendidikan Prov. Kep. Bangka Belitung
             @endif
 
         </div>
         <div class="col-4">
-            Periode Penilaian : <br> 
-            {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }} 
-            s.d 
-            {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }} 
+            Periode Penilaian : 
+            <a href="{{ url('project.edit_user/'.$user->id) }}"><i class="fa fa-edit tampil"></i></a>
+            <br>
+            {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }}
+            s.d
+            {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }}
         </div>
     </div>
 
@@ -102,9 +104,13 @@
         <tr>
             <th style="width:20%">NAMA</th>
             @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
-                <td style="text-transform:uppercase"><b>{{ $user->name }}</b></td>
+                <td style="text-transform:uppercase"><b>{{ $user->name }}</b>
+                    <a href="{{ url('project.edit_user/'.$user->id) }}"><i class="fa fa-edit tampil"></i></a>
+                </td>
             @else
-                <td><b>{{ $user->name }}</b></td>
+                <td><b>{{ $user->name }}</b>
+                    <a href="{{ url('project.edit_user/'.$user->id) }}"><i class="fa fa-edit tampil"></i></a>
+                </td>
             @endif
         </tr>
         <tr>
@@ -129,7 +135,11 @@
         </tr>
         <tr>
             <th>NAMA</th>
-            <td><b>{{ optional($user->penilai)->nama ?? '' }}</b></td>
+            <td><b>{{ optional($user->penilai)->nama ?? '' }}</b>
+                @if($user->penilai)
+                <a href="{{ url('penilai.edit/'.$user->penilai->id) }}"><i class="fa fa-edit tampil"></i></a>
+                @endif
+            </td>
         </tr>
         <tr>
             <th>NIP</th>

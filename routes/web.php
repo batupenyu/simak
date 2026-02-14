@@ -397,6 +397,7 @@ Route::get('/edit_target/{id}', [TupoksiController::class, 'editTarget']);
 Route::put('/update_target/{id}', [TupoksiController::class, 'updateTarget']);
 Route::get('/tupoksi.delete/{id}', [TupoksiController::class, 'delete']);
 Route::delete('/tupoksi.destroy/{id}', [TupoksiController::class, 'destroy']);
+Route::get('/tupoksi.report/{id}', [TupoksiController::class, 'getAtasanProfileForReport'])->name('tupoksi.report');
 
 
 

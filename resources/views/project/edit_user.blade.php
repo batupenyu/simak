@@ -149,7 +149,16 @@
                         <div class="row justify-content-between text-left">
 <div class="form-group col-sm-6 d-flex align-items-center"> <label class="form-control-label px-3 me-3 mb-0">Tgl.kp4<span class="text-danger"> </span></label> <input type="date" id="tgl_kp4" name="tgl_kp4" placeholder="" onblur="validate(3)" value="{{ $user->tgl_kp4}}" > </div>
 
-<div class="form-group col-sm-6 d-flex align-items-center"> <label class="form-control-label px-3 me-3 mb-0">Unit Kerja<span class="text-danger"> </span></label> <input type="text" id="unit_kerja" name="unit_kerja" placeholder="" onblur="validate(7)" value="{{ $user->unit_kerja }}"> </div>
+<div class="form-group col-sm-6 d-flex align-items-center"> <label class="form-control-label px-3 me-3 mb-0">Unit Kerja<span class="text-danger"> </span></label> 
+    <select id="unit_kerja" name="unit_kerja" class="form-control">
+        <option value="">-- Pilih Unit Kerja --</option>
+        @foreach($unitKerjaOptions as $option)
+            <option value="{{ $option }}" {{ $user->unit_kerja == $option ? 'selected' : '' }}>
+                {{ $option }}
+            </option>
+        @endforeach
+    </select>
+</div>
 
                         </div>
                         <div class="row justify-content-between text-left">

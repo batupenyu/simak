@@ -18,7 +18,7 @@ class Laporan_1_Controller extends Controller
 
     public function show($id)
     {
-        $user = User::with([ 'tugas',   'tutam' ])
+        $user = User::with([ 'tugas', 'tutam', 'penilai', 'atasan' ])
         ->findOrFail($id);
         return view('project.report', ['user' => $user]);
     }

@@ -292,7 +292,12 @@
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl.kp4<span class="text-danger"> *</span></label> <input type="date" id="tgl_kp4" name="tgl_kp4" placeholder="" onblur="validate(8)"> </div>
                         <div class="form-group col-sm-6 flex-column d-flex">
                             {{-- <label class="form-control-label px-3">Unit Kerja<span class="text-danger"> *</span></label>  --}}
-                            <input type="text" id="unit_kerja" value="-" name="unit_kerja" placeholder="Unit Kerja" onblur="validate(7)">
+                            <select id="unit_kerja" name="unit_kerja" class="form-control">
+                                <option value="">-- Pilih Unit Kerja --</option>
+                                @foreach($unitKerjaOptions as $option)
+                                    <option value="{{ $option }}">{{ $option }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="row justify-content-between text-left">
