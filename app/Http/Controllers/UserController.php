@@ -12,6 +12,7 @@ use App\Models\Project;
 use Illuminate\Support\Carbon;
 use App\Models\Pasangan;
 use Elibyy\TCPDF\Facades\TCPDF;
+use Dompdf\Dompdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -198,32 +199,30 @@ class UserController extends Controller
     public function rekap_pdf()
     {
         $data = User::with(['anak', 'pasangan'])->get();
-        $hasil = User::with(['anak', 'pasangan'])->where('status', '=', 'PNS')->where('status', '=', 'P3K')->get();
-        $unitKerja = UnitKerja::first(); // or fetch as needed
-        $penilai = Penilai::first(); // or fetch as needed
-        $view = view()->make('pegawai.rekap_pdf', compact('data', 'hasil', 'unitKerja', 'penilai'));
-        $html = $view->render();
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
-
-
-        if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-            require_once(dirname(__FILE__) . '/lang/eng.php');
-            $pdf::setLanguageArray($l);
-        }
-
-        $pdf::SetFont('zapfdingbats', '', 14);
-        $pdf::setCellPaddings(0, 0, 0, 0);
-        $pdf::AddPage('L', 'A4');
-        $pdf::setCellPaddings(0, '', '', 0);
-        $pdf::SetFont('Helvetica', '', 7);
-        $pdf::lastPage();
-        $pdf::setCellHeightRatio(1.5);
-        $pdf::SetLeftMargin(30);
-        $pdf::SetTopMargin(20);
-        $pdf::SetTitle('rekap_kp4');
-        $pdf::writeHTML($html, true, false, true, false, '');
-        $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        $pdf::Output('rekap_kp4. .pdf');
+        $hasil = User::with(['anak', 'pasangan'])->where('status', 'PNS')->orWhere('status', 'P3K')->get();
+        $unitKerja = UnitKerja::first();
+        $penilai = Penilai::first();
+        
+        // Try simple view first to check if issue is with view
+        return view('pegawai.rekap_pdf', [
+            'data' => $data, 
+            'hasil' => $hasil, 
+            'unitKerja' => $unitKerja, 
+            'penilai' => $penilai
+        ]);
+        
+        // Dompdf code commented out for debugging
+        // $dompdf = new \Dompdf\Dompdf();
+        // $dompdf->setPaper('A4', 'landscape');
+        // $html = view('pegawai.rekap_pdf', [
+        //     'data' => $data, 
+        //     'hasil' => $hasil, 
+        //     'unitKerja' => $unitKerja, 
+        //     'penilai' => $penilai
+        // ])->render();
+        // $dompdf->loadHtml($html);
+        // $dompdf->render();
+        // $dompdf->stream('rekap_kp4.pdf');
     }
 
     public function show($id)

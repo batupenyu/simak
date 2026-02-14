@@ -11,6 +11,14 @@ class Pists extends Model
 {
     use HasFactory;
     protected $table = 'pists';
+    protected $casts = [
+        'cat' => 'array',
+        'selected' => 'boolean',
+        'tgl_surat' => 'date',
+        'tgl_surat_dasar' => 'date',
+        'tgl_awal' => 'date',
+        'tgl_akhir' => 'date',
+    ];
     protected $fillable = [
         'penilai_id',
         'path_bukti_pengajuan',
@@ -33,28 +41,6 @@ class Pists extends Model
         'jam_2',
         'tempat'
     ];
-
-    /**
-     * Set the categories
-     *
-     */
-    public function setCatAttribute($value)
-    {
-        $this->attributes['cat'] = json_encode($value);
-    }
-
-    /**
-     * Get the categories
-     *
-     */
-
-    public function getCatAttribute($value)
-    {
-        return json_decode($value);
-        // return $this->attributes['cat'] = json_decode($value);
-        // return explode(',', $this->attributes['cat']);
-    }
-
 
     public function user()
     {
@@ -83,9 +69,11 @@ class Pists extends Model
 
     public function simpanBuktiPengajuan(Request $request, $field)
     {
-        $file = $request->file($field);
-        $this->path_bukti_pengajuan = $file->store('bukti_pengajuan');
-        $this->save();
+        if ($request->hasFile($field)) {
+            $file = $request->file($field);
+            $this->path_bukti_pengajuan = $file->store('bukti_pengajuan');
+            $this->save();
+        }
     }
 
     public function bacaBuktiPengajuan()
@@ -95,9 +83,11 @@ class Pists extends Model
 
     public function simpanBuktiPengajuanEdit(Request $request, $field)
     {
-        $file = $request->file($field);
-        $this->path_bukti_pengajuan = $file->store('bukti_pengajuan');
-        $this->save();
+        if ($request->hasFile($field)) {
+            $file = $request->file($field);
+            $this->path_bukti_pengajuan = $file->store('bukti_pengajuan');
+            $this->save();
+        }
     }
 
     public function bacaBuktiPengajuanEdit()

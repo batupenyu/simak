@@ -42,9 +42,13 @@
                 {{ Carbon\Carbon::Parse($end_date)->translatedFormat(' d F Y') }} <br>
                 Kepala Sekolah
                 <br><br><br>
+                @if($ttd && $ttd->user && $ttd->user->penilai)
                 {{ $ttd->user->penilai->nama }}
                 <br>
                 NIP. {{ $ttd->user->penilai->nip }}
+                @else
+                [Nama Penanda Tangan]
+                @endif
                 </b>
             </td>
         </tr>

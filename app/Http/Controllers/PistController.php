@@ -164,9 +164,33 @@ class PistController extends Controller
 
     public function postData(Request $request)
     {
-        $data = $request->all();
+        // Explicitly validate and prepare data
+        $data = [
+            'penilai_id' => $request->penilai_id,
+            'no_surat' => $request->no_surat,
+            'tgl_surat' => $request->tgl_surat,
+            'tgl_surat_dasar' => $request->tgl_surat_dasar,
+            'asal_surat' => $request->asal_surat,
+            'no_asal_surat' => $request->no_asal_surat,
+            'description' => $request->description,
+            'maksud' => $request->maksud,
+            'tujuan' => $request->tujuan,
+            'acara' => $request->acara,
+            'ulasan' => $request->ulasan,
+            'tgl_awal' => $request->tgl_awal,
+            'tgl_akhir' => $request->tgl_akhir,
+            'jam_1' => $request->jam_1,
+            'jam_2' => $request->jam_2,
+            'tempat' => $request->tempat,
+            'cat' => $request->cat ?? [],
+            'selected' => is_array($request->selected) ? count($request->selected) : (int) $request->selected,
+        ];
+        
         $ajukan = Pists::create($data);
-        $ajukan->simpanBuktiPengajuan($request, 'surat-pengajuan');
+        
+        if ($request->hasFile('surat-pengajuan')) {
+            $ajukan->simpanBuktiPengajuan($request, 'surat-pengajuan');
+        }
 
         return redirect('pists.index')
             ->with([

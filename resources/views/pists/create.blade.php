@@ -90,7 +90,7 @@
                                 <label><strong>Peserta :</strong></label><br/>
                                 <select class="select2-multiple form-control" name="cat[]" multiple="multiple" id="select2-multiple" multiple onchange="getCount()">
                                     @foreach  ($pegawai as $item)
-                                    <option value="{{ $item->name }}-{{ $item->pangkat_gol }}-{{ $item->nip }}-{{ $item->jabatan }}">{{ $item->jabatan }}</option>
+                                    <option value="{{ $item->name }}-{{ $item->pangkat_gol }}-{{ $item->nip }}-{{ $item->jabatan }}">{{ $item->name }} - {{ $item->jabatan }}</option>
                                     @endforeach
                                 </select>
                                 <input class="form-control" type="text" id="selected" name="selected" hidden>

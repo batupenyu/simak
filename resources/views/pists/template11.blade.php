@@ -31,13 +31,6 @@
             $a = $name [0];
             $b = $name [2];
             $c = $name [1];
-            $count = array_sum(array($a));
-            // echo $count;
-            // $result3 = array_map(function () {
-            //     return array_sum(func_get_args());
-            // }, $fullname);
-
-            // print_r($result3);
             @endphp
         </td>
         <td style="witdh 10px">:</td>

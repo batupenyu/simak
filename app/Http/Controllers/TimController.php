@@ -9,6 +9,7 @@ use App\Models\Tim;
 use App\Models\UnitKerja;
 use App\Models\User;
 use Elibyy\TCPDF\Facades\TCPDF;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 
 class TimController extends Controller
@@ -35,26 +36,12 @@ class TimController extends Controller
         $anggota = User::all();
         $view = view()->make('tim.timpdf', compact('tim', 'unit', 'rkatasan', 'penilai', 'anggota'));
         $html = $view->render();
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
 
-        if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-            require_once(dirname(__FILE__) . '/lang/eng.php');
-            $pdf::setLanguageArray($l);
-        }
-
-        $pdf::SetAutoPageBreak(TRUE, 10);
-        $pdf::SetFont('zapfdingbats', '', 14);
-        $pdf::setCellPaddings(2, 4, 6, 8);
-        $pdf::AddPage('L', 'A4', 'C');
-        $pdf::setCellPaddings(0, '', '', 0);
-        $pdf::SetFont('freesans', '', 9, '', true);
-        $pdf::setCellHeightRatio(1.5);
-        $pdf::SetLeftMargin(10);
-        $pdf::SetTopMargin(5);
-        $pdf::SetTitle('Timpdf');
-        $pdf::lastPage();
-        $pdf::writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-        $pdf::Output('timpdf.pdf');
+        $pdf = new Dompdf();
+        $pdf->loadHtml($html);
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+        return $pdf->stream('timpdf.pdf');
     }
 
 

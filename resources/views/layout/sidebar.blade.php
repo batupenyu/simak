@@ -55,9 +55,9 @@
               <li>
                 <a href="{{ url('cuti.index') }}">Cuti Pegawai</a>
               </li>
-              <li>
+              <!-- <li>
                 <a href="{{ url('project/') }}">Rencana SKP</a>
-              </li>
+              </li> -->
               <li>
                 <a href="{{ url('ekspektasi/index') }}">Ekspektasi</a>
               </li>
@@ -84,7 +84,7 @@
                 <a class="nav-link " href="/penilai.index">Penilai</a>
               </li>
               <li class="nav-item tampil">
-                <a class="nav-link " href="/rk">Rencana Kerja</a>
+                <a class="nav-link " href="/rk">RK Atasan</a>
               </li>
               <li class="nav-item tampil">
                 <a class="nav-link " href="/tim.index">Tim Kerja</a>
@@ -94,7 +94,7 @@
               </li>
               <li class="nav-item tampil">
                 {{-- <a class="nav-link " href="{{ route('logo.index') }}">Logo</a> --}}
-                <a href="{{ route('image.index') }}">Gambar</a>
+                <a href="{{ route('image.index') }}">Photo</a>
               </li>
               <li class="nav-item tampil">
                 <a class="nav-link " href="/filter">Rekap Cuti</a>

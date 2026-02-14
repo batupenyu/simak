@@ -8,19 +8,19 @@
 <a href="{{ url('pegawai.info/'.$item->id) }}" class="btn btn-sm btn-outline-primary" role="button">{{ $loop->iteration }}. {{ $item->name }}</a>
 @endforeach
 
-<hr>
+<!-- <hr> -->
 
 @foreach ($p3k as $item)
 <a href="{{ url('pegawai.info/'.$item->id) }}" class="btn btn-sm btn-outline-success" role="button">{{ $loop->iteration }}. {{ $item->name }}</a>
 @endforeach
 
-<hr>
+<!-- <hr> -->
 
 @foreach ($honor as $item)
 <a href="{{ url('pegawai.info/'.$item->id) }}" class="btn btn-sm btn-outline-dark" role="button">{{ $loop->iteration }}. {{ $item->name }}</a>
 @endforeach
 
-<hr>
+<!-- <hr> -->
 
 @foreach ($data as $item)
 <h3>Profil Pegawai</h3>

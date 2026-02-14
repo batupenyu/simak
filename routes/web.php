@@ -296,8 +296,10 @@ Route::get('/ekspektasi/index', [EkspektasiController::class, 'index']);
 Route::get('/penilai.index', [PenilaiController::class, 'index'])->name('penilai.index');
 Route::get('/penilai.create', [PenilaiController::class, 'create'])->name('penilai.create');
 Route::post('/penilai.store', [PenilaiController::class, 'store'])->name('penilai.store');
-Route::get('/penilai.edit/{id}', [PenilaiController::class, 'edit']);
-Route::put('/penilai.update/{id}', [PenilaiController::class, 'update']);
+Route::get('/penilai.edit/{id}', [PenilaiController::class, 'edit'])->name('penilai.edit');
+Route::get('/penilai.edit_penilai/{id}', [PenilaiController::class, 'edit'])->name('penilai.edit_penilai');
+Route::put('/penilai.update/{id}', [PenilaiController::class, 'update'])->name('penilai.update');
+Route::put('/penilai.update_penilai/{id}', [PenilaiController::class, 'update'])->name('penilai.update_penilai');
 Route::get('/penilai.delete/{id}', [PenilaiController::class, 'delete'])->name('penilai.delete');
 Route::delete('/penilai.destroy/{id}', [PenilaiController::class, 'destroy'])->name('penilai.destroy');
 
