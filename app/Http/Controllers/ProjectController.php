@@ -674,17 +674,64 @@ class ProjectController extends Controller
 
     public function rencana_pdf($id)
     {
-        $user = User::with([
-            'tugas.tupoksi', 
-            'tutam.rk', 
-            'tutam.tuti', 
-            'penilai'
-        ])->findOrFail($id);
+        // Use cache to improve performance for the PDF generation
+        $cacheKey = "rencana_pdf_{$id}_" . request()->user()?->id;
+        $ttl = now()->addMinutes(10); // Cache for 10 minutes
         
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('project.rencana_pdf', compact('user'));
-        $pdf->setPaper('A4', 'landscape');
+        return Cache::remember($cacheKey, $ttl, function () use ($id) {
+            $user = User::with([
+                'tugas:id,user_id,name,rk_id',
+                'tugas.rk:id,name',
+                'tugas.tupoksi:id,tugas_id,aspek,indikator,target,realisasi,satuan',
+                'tutam:id,user_id,name,tutam_id',
+                'tutam.rk:id,name',
+                'tutam.tuti:id,tutam_id,aspek,indikator,target,realisasi,satuan',
+                'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja'
+            ])->findOrFail($id);
+
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('project.rencana_pdf', compact('user'));
+            $pdf->setPaper('A4', 'landscape');
+
+            return $pdf->stream('rencana_pdf.pdf');
+        });
+    }
+    public function evaluasi_pdf($id)
+    {
+        // Use cache to improve performance for the PDF generation
+        $cacheKey = "evaluasi_pdf_{$id}_" . request()->user()?->id;
+        $ttl = now()->addMinutes(10); // Cache for 10 minutes
         
-        return $pdf->stream('rencana_pdf.pdf');
+        return Cache::remember($cacheKey, $ttl, function () use ($id) {
+            // Load user with optimized relationships and limited fields
+            $user = User::with([
+                'tugas:id,user_id,name,rk_id',
+                'tugas.rk:id,name',
+                'tugas.tupoksi:id,tugas_id,aspek,indikator,target,realisasi,satuan',
+                'tutam:id,user_id,name,tutam_id',
+                'tutam.rk:id,name',
+                'tutam.tuti:id,tutam_id,aspek,indikator,target,realisasi,satuan',
+                'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja',
+                'eks:id,user_id,eks1,eks2,eks3,eks4,eks5,eks6,eks7',
+                'umpan:id,user_id,umpan1,umpan2,umpan3,umpan4,umpan5,umpan6,umpan7'
+            ])->findOrFail($id);
+
+            // Pre-calculate data to reduce complexity in the view
+            $uniqueRkNames = collect();
+            foreach ($user->tugas as $tugas) {
+                if (isset($tugas->rk) && $tugas->rk) {
+                    $uniqueRkNames->push($tugas->rk->name);
+                }
+            }
+            $uniqueRkNames = $uniqueRkNames->unique()->values();
+
+            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('project.evaluasi_pdf', [
+                'user' => $user,
+                'uniqueRkNames' => $uniqueRkNames
+            ]);
+            $pdf->setPaper('A4', 'landscape');
+            
+            return $pdf->stream('evaluasi_pdf.pdf');
+        });
     }
 }
 

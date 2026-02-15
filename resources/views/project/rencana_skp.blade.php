@@ -179,7 +179,7 @@
             <tr>
                 <td style="text-align: center;" >{{ $loop->iteration }} </td>
                 <td >
-                    {{ $data->name }} <br>
+                    {{ $data->rk->name ?? '-' }}
                     <button class="btn btn-sm tampil">
                         <a href="/tugas.edit_tugas/{{ $data->id }}" style="text-decoration: none" > <i class="fa fa-edit"></i></a> 
                     </button>
