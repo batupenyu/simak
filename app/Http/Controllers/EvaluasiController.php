@@ -21,26 +21,15 @@ class EvaluasiController extends Controller
 
     public function show($id)
     {
-        $user = User::with([ 'tugas', 'tutam'])->findOrFail($id);
+        $user = User::with([
+            'tugas.rk', 
+            'tugas.tupoksi', 
+            'tutam.rk', 
+            'tutam.tuti', 
+            'penilai'
+        ])->findOrFail($id);
         return view('project.evaluasi', compact('user'));
     }
 
 
-    // public function displayImage($filename)
-
-    // {
-
-    //     $path = storage_public('images/' . $filename);
-
-    //     if (!File::exists($path)) {
-    //         abort(404);
-    //     }
-
-    //     $file = File::get($path);
-    //     $type = File::mimeType($path);
-    //     $response = Response::make($file, 200);
-    //     $response->header("Content-Type", $type);
-
-    //     return $response;
-    // }
 }

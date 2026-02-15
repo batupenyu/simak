@@ -77,8 +77,8 @@
 
     <div class="container-fluid mt-3">
 
-    <div class="row justify-content-between fw-bold upper">
-        <div class="col-5">
+    <div class="row align-items-start fw-bold upper">
+        <div class="col-5 text-start">
             @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
             Nama Instansi : <a href="{{ url('project.edit_user/'.$user->id) }}"><i class="fa fa-edit tampil"></i></a><br> KEJAKSAAN TINGGI KEP. BANGKA BELITUNG
             @else
@@ -86,8 +86,8 @@
             @endif
 
         </div>
-        <div class="col-4">
-            Periode Penilaian : 
+        <div class="col-4 text-end">
+            Periode Penilaian :
             <a href="{{ url('project.edit_user/'.$user->id) }}"><i class="fa fa-edit tampil"></i></a>
             <br>
             {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }}

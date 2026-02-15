@@ -3,8 +3,8 @@
         "normal": "font_awesome_5_brands_normal_3a9d2dc471eddb38cb84a2ab88c9cf84"
     },
     "font awesome 5 free": {
-        "normal": "F:\\project_1\\storage\\fonts\/font_awesome_5_free_normal_be90f72f41b130c7aa7eebe409dbb610",
-        "900": "font_awesome_5_free_900_065fd54925dab1d17e1b4198da476a0c"
+        "normal": "font_awesome_5_free_normal_be90f72f41b130c7aa7eebe409dbb610",
+        "900": "D:\\App\\SimAk\\storage\\fonts\/font_awesome_5_free_900_065fd54925dab1d17e1b4198da476a0c"
     },
     "poppins": {
         "300": "D:\\simtu\\storage\\fonts\/poppins_300_61a82fbcf3bfb8d8e19b91e4fd2040bb",
@@ -16,6 +16,6 @@
         "900": "poppins_900_2b9fa44bfcc6dc057d7437ff0435163e"
     },
     "fontawesome": {
-        "normal": "fontawesome_normal_6b8fcb303bfef6f4ea9e882534054307"
+        "normal": "fontawesome_normal_21deb7040ccf5379366eca4ef69772c9"
     }
 }

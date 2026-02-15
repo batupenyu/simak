@@ -59,27 +59,27 @@
                 {{ $user->jabatan }} <br>
                 PENDEKATAN HASIL KERJA KUANTITATIF
             </h4> <br><br><br>
-            <div class="row justify-content-between fw-bold upper">
-                <div class="col-5">
+            <div class="row align-items-start fw-bold upper">
+                <div class="col-5 text-start">
                 Nama Instansi : <br> {{ $user->unit_kerja }}
             </div>
-            <div class="col-4">
-                Periode Penilaian : <br> 
-                {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }} 
-                s.d 
-                {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }} 
+            <div class="col-4 text-end">
+                Periode Penilaian : <br>
+                {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }}
+                s.d
+                {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }}
             </div>
         @else
             <h4 style="text-align:center">SASARAN KINERJA PEGAWAI</h4><br>
-            <div class="row justify-content-between fw-bold upper">
-                <div class="col-5">
+            <div class="row align-items-start fw-bold upper">
+                <div class="col-5 text-start">
             Nama Instansi : <br> Dinas Pendidikan Pro. Kep. Bangka Belitung
             </div>
-            <div class="col-4">
-                Periode Penilaian : <br> 
-                {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }} 
-                s.d 
-                {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }} 
+            <div class="col-4 text-end">
+                Periode Penilaian : <br>
+                {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }}
+                s.d
+                {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }}
             </div>
         @endif
     </div>

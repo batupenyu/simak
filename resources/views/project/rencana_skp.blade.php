@@ -10,7 +10,19 @@
     thead { display:table-header-group }
     tfoot { display:table-footer-group }
     .page-number:before {
-    content: "Page: " counter(page);}
+        content: "Page: " counter(page);
+    }
+    .text-center { text-align: center; }
+    .w-50px { width: 50px; }
+    .w-250px { width: 250px; }
+    .w-300px { width: 300px; }
+    .w-100px { width: 100px; }
+    .w-30px { width: 30px; }
+    .w-3pct { width: 3%; }
+    .w-200px { width: 200px; }
+    .w-380px { width: 380px; }
+    .pd-left-30 { padding-left: 30px; }
+    .upper { text-transform: uppercase; }
 </style>
 
 <ul class="nav nav-tabs mb-3" id="skpTab" role="tablist">
@@ -28,33 +40,29 @@
 <div class="container-xxl">
     <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
     <div class="container-fluid mt-3">
-        <button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 float-end" media="print">Cetak</button>
+        <!-- <button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 float-end" media="print">Cetak</button> -->
+        <a href="{{ url('project.rencana_pdf/'.$user->id) }}" class="btn btn-primary tampil btn-flat mb-3" style="margin-right: 10px;">Cetak PDF</a>
     @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
         <h4 style="text-align:center">SASARAN KINERJA PEGAWAI PEJABAT FUNGSIONAL <br>
             {{ $user->jabatan }} <br>
             PENDEKATAN HASIL KERJA KUANTITATIF
         </h4> <br><br><br>
         <div class="row justify-content-between fw-bold upper">
-            <div class="col-5">
-            Nama Instansi : <br> {{ $user->unit_kerja }}
-        </div>
-        <div class="col-4">
-            Periode Penilaian : <br> 
-            {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }} 
-            s.d 
-            {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }} 
+            <div class="col-6">
+                <span>Nama Instansi : {{ $user->unit_kerja }}</span>
+            </div>
+            <div class="col-6 text-end">
+                <span>Periode Penilaian : {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }} s.d {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }}</span>
+            </div>
         </div>
     @else
         <h4 style="text-align:center">SASARAN KINERJA PEGAWAI</h4><br>
         <div class="row justify-content-between fw-bold upper">
-            <div class="col-5">
-        Nama Instansi : <br> Dinas Pendidikan Pro. Kep. Bangka Belitung
+            <div class="col-6">
+                <span>Nama Instansi : Dinas Pendidikan Pro. Kep. Bangka Belitung</span>
             </div>
-            <div class="col-4">
-                Periode Penilaian : <br> 
-                {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }} 
-                s.d 
-                {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }} 
+            <div class="col-6 text-end">
+                <span>Periode Penilaian : {{ Carbon\Carbon::parse($user->tgl_awal)->translatedFormat('d F Y ') }} s.d {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }}</span>
             </div>
         </div>
     @endif
@@ -147,24 +155,21 @@
     <table class="table table-sm table-bordered border-dark mt-2"  >
         <tbody>
             
-            <tr style="overflow-x: auto ">
-                <th style="text-align: center; width: 50px;">No</th>
-                <th style="text-align: center; width: 250px;">Rencana Hasil Kerja Atasan Yang Diintervensi</th>
-                <th style="text-align: center; width: 300px;">Rencana Hasil Kerja</th>
-                <th colspan="3">
-                    <table class="table table-sm table-borderless">
-                        <tr>
-                            <td style="width: 100px; text-align:center">Aspek
-                            </td>
-                            <td style="width: 30px; text-align:center"></td>
-                            <td style="width: 250px;  text-align:center">Indikator Kinerja
-                            </td>
-                            <td style=" text-align:center">Target
-                            </td>
-                        </tr>
-                    </table>
-                </th>
-            </tr>
+            <tr>
+                    <th class="text-center w-50px">No</th>
+                    <th class="text-center w-250px">Rencana Hasil Kerja Atasan Yang Diintervensi</th>
+                    <th class="text-center w-300px">Rencana Hasil Kerja</th>
+                    <th colspan="3">
+                        <table class="table table-sm table-borderless">
+                            <tr>
+                                <td class="w-100px text-center">Aspek</td>
+                                <td class="w-30px text-center"></td>
+                                <td class="w-250px text-center">Indikator Kinerja</td>
+                                <td class="text-center">Target</td>
+                            </tr>
+                        </table>
+                    </th>
+                </tr>
             <tr>
                 <th colspan="6">Utama
                 </th>

@@ -17,6 +17,7 @@ use Elibyy\TCPDF\Facades\TCPDF;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Auth\Events\Validated;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
@@ -593,39 +594,21 @@ class ProjectController extends Controller
 
     public function show($id)
     {
-        $user = User::with(['tugas', 'tupoksi', 'tutam.tuti', 'eks', 'skema', 'kon', 'sdm', 'penilai', 'atasan'])->findOrFail($id);
+        $user = User::with([
+            'tugas.tupoksi', 
+            'tupoksi', 
+            'tutam.rk', 
+            'tutam.tuti', 
+            'eks', 
+            'skema', 
+            'kon', 
+            'sdm', 
+            'penilai', 
+            'atasan'
+        ])->findOrFail($id);
         // return $user;
         return view('project.rencana_skp', compact('user'));
     }
-
-    public function rencana_pdf($id)
-    {
-        $user = User::with(['tugas', 'tupoksi', 'tutam.tuti', 'eks', 'skema', 'kon', 'sdm'])->findOrFail($id);
-        $view = view()->make('project.rencana_skp', compact('user'));
-        $html = $view->render();
-        $pdf = new \Elibyy\TCPDF\TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
-
-
-        if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-            require_once(dirname(__FILE__) . '/lang/eng.php');
-            $pdf->setLanguageArray($l);
-        }
-
-        $pdf->SetFont('zapfdingbats', '', 14);
-        $pdf->setCellPaddings(0, 0, 0, 0);
-        $pdf->AddPage('L', 'A4');
-        $pdf->setCellPaddings(0, '', '', 0);
-        $pdf->SetFont('Helvetica', '', 9.5);
-        $pdf->lastPage();
-        $pdf->setCellHeightRatio(1.5);
-        $pdf->SetLeftMargin(30);
-        $pdf->SetTopMargin(5);
-        $pdf->SetTitle('rencana_skp');
-        $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        $pdf->Output('rencana_skp.pdf', 'I');
-    }
-
 
     public function edit($id)
     {
@@ -649,7 +632,17 @@ class ProjectController extends Controller
     {
         // This method should work with user ID like rencana_pdf, not project ID
         // First, try to find as a user ID (most likely scenario based on route)
-        $user = User::with(['tugas', 'tupoksi', 'tutam.tuti', 'eks', 'skema', 'kon', 'sdm', 'penilai'])->findOrFail($id);
+        $user = User::with([
+            'tugas.tupoksi', 
+            'tupoksi', 
+            'tutam.rk', 
+            'tutam.tuti', 
+            'eks', 
+            'skema', 
+            'kon', 
+            'sdm', 
+            'penilai'
+        ])->findOrFail($id);
         
         // Create a dummy project object to match the expected variable in the view
         $dummyProject = (object) ['user' => $user];
@@ -678,4 +671,20 @@ class ProjectController extends Controller
         $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
         $pdf->Output('rencana_skp_cetak.pdf', 'I');
     }
+
+    public function rencana_pdf($id)
+    {
+        $user = User::with([
+            'tugas.tupoksi', 
+            'tutam.rk', 
+            'tutam.tuti', 
+            'penilai'
+        ])->findOrFail($id);
+        
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('project.rencana_pdf', compact('user'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->stream('rencana_pdf.pdf');
+    }
 }
+

@@ -8,18 +8,15 @@ use Illuminate\Http\Request;
 
 class Laporan_1_Controller extends Controller
 {
-    // public function index()
-    // {
-
-    //     $project = Project::get();
-    //     return view('project.index', ['projectlist' => $project]);
-    // }
-
 
     public function show($id)
     {
-        $user = User::with([ 'tugas', 'tutam', 'penilai', 'atasan' ])
-        ->findOrFail($id);
+        $user = User::with([
+            'tutam.rk', 
+            'tutam.tuti', 
+            'penilai', 
+            'atasan'
+        ])->findOrFail($id);
         return view('project.report', ['user' => $user]);
     }
 }
