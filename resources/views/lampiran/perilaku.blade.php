@@ -18,16 +18,16 @@
                     </li>
                 </ol>
             </td>
-            <td style="width: 300px;">Ekspektasi Khusus Pimpinan:<br>
+            <td style="width: 30%;">Ekspektasi Khusus Pimpinan:<br>
                 {{ optional($user->eks)->eks1 ?? '' }} <br>
                 @if($user->eks)
                 <a href="/ekspektasi.edit_perilaku_1/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit "></i></a>
-                @endif 
+                @endif
             </td>
         </tr>
         
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">2 </td>
+            <td style="text-align: center; width: 5%;" rowspan="2">2 </td>
             <td colspan="2">Akuntabel </td>
         </tr>
         <tr>
@@ -45,11 +45,11 @@
                 {{ optional($user->eks)->eks2 ?? '' }} <br>
                 @if($user->eks)
                 <a href="/ekspektasi.edit_perilaku_2/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
-                @endif 
+                @endif
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">3 </td>
+            <td style="text-align: center; width: 5%;" rowspan="2">3 </td>
             <td colspan="2">Kompeten </td>
         </tr>
         <tr>
@@ -62,17 +62,17 @@
                     <li>Melaksanakan tugas dengan kualitas terbaik</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks3 ?? '' }} <br>
                 @if($user->eks)
                 <a href="/ekspektasi.edit_perilaku_3/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
-                @endif 
+                @endif
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 4 </td>
             <td colspan="2">
                 Harmonis </td>
@@ -87,17 +87,17 @@
                     <li>Membangun lingkungan kerja yang kondusif</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks4 ?? '' }} <br>
                 @if($user->eks)
                 <a href="/ekspektasi.edit_perilaku_4/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
-                @endif 
+                @endif
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 5 </td>
             <td colspan="2">
                 Loyal </td>
@@ -112,17 +112,17 @@
                     <li>Menjaga rahasia jabatan dan negara</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks5 ?? '' }} <br>
                 @if($user->eks)
                 <a href="/ekspektasi.edit_perilaku_5/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
-                @endif 
+                @endif
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 6 </td>
             <td colspan="2">
                 Adaptif </td>
@@ -137,17 +137,17 @@
                     <li>Bertindak proaktif</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks6 ?? '' }} <br>
                 @if($user->eks)
                 <a href="/ekspektasi.edit_perilaku_6/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
-                @endif 
+                @endif
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 7 </td>
             <td colspan="2">
                 Kolaboratif </td>
@@ -162,13 +162,13 @@
                     <li>Menggerakkan pemanfaatan berbagai sumber daya untuk tujuan bersama</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks7 ?? '' }} <br>
                 @if($user->eks)
                 <a href="/ekspektasi.edit_perilaku_7/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
-                @endif 
+                @endif
             </td>
         </tr>
 </table>

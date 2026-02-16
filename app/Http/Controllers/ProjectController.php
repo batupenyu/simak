@@ -22,6 +22,7 @@ use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Auth\Events\Validated;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
+use App\Services\MpdfService;
 
 class ProjectController extends Controller
 {
@@ -202,17 +203,34 @@ class ProjectController extends Controller
 
     public function jekel()
     {
-        $pnsguru = User::where('status', '=', 'PNS')->orderBy('nip', 'ASC')->where('jenis', '=', 'GURU')->count();
-        $pnstu = User::where('status', '=', 'PNS')->orderBy('nip', 'ASC')->where('jenis', '=', 'TU')->count();
-        $p3k = User::where('status', '=', 'P3K')->orderBy('nip', 'ASC')->count();
-        $gtt = User::where('jabatan', '=', 'GTT')->count();
-        $ptt = User::where('jabatan', '=', 'PTT')->count();
-        $gttapbd = User::where('jabatan', '=', 'GTT')->where('sumber_gaji', '=', 'APBD')->count();
-        $gttapbn = User::where('jabatan', '=', 'GTT')->where('sumber_gaji', '=', 'APBN')->count();
-        $gttipp = User::where('jabatan', '=', 'GTT')->where('sumber_gaji', '=', 'IPP')->count();
-        $pttapbd = User::where('jabatan', '=', 'PTT')->where('sumber_gaji', '=', 'APBD')->count();
-        $pttapbn = User::where('jabatan', '=', 'PTT')->where('sumber_gaji', '=', 'APBN')->count();
-        $pttipp = User::where('jabatan', '=', 'PTT')->where('sumber_gaji', '=', 'IPP')->count();
+        // Use single query with GROUP BY for better performance
+        $counts = User::selectRaw('status, jenis, COUNT(*) as total')
+            ->groupBy('status', 'jenis')
+            ->get();
+        
+        $pnsguru = $counts->firstWhere(fn($c) => $c->status === 'PNS' && $c->jenis === 'GURU')->total ?? 0;
+        $pnstu = $counts->firstWhere(fn($c) => $c->status === 'PNS' && $c->jenis === 'TU')->total ?? 0;
+        $p3k = $counts->firstWhere(fn($c) => $c->status === 'P3K')->total ?? 0;
+        $gtt = $counts->firstWhere(fn($c) => $c->jenis === 'GURU' && $c->status === 'honor')->total ?? 0;
+        $ptt = $counts->firstWhere(fn($c) => $c->jenis === 'TU' && $c->status === 'honor')->total ?? 0;
+        
+        // Count by sumber_gaji for GTT
+        $gttCounts = User::where('jabatan', '=', 'GTT')
+            ->selectRaw('sumber_gaji, COUNT(*) as total')
+            ->groupBy('sumber_gaji')
+            ->get();
+        $gttapbd = $gttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'APBD')->total ?? 0;
+        $gttapbn = $gttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'APBN')->total ?? 0;
+        $gttipp = $gttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'IPP')->total ?? 0;
+        
+        // Count by sumber_gaji for PTT
+        $pttCounts = User::where('jabatan', '=', 'PTT')
+            ->selectRaw('sumber_gaji, COUNT(*) as total')
+            ->groupBy('sumber_gaji')
+            ->get();
+        $pttapbd = $pttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'APBD')->total ?? 0;
+        $pttapbn = $pttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'APBN')->total ?? 0;
+        $pttipp = $pttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'IPP')->total ?? 0;
 
         return view('pegawai.jekel', compact('pnsguru', 'p3k', 'gtt', 'pnstu', 'ptt', 'gttapbd', 'gttapbn', 'gttipp', 'pttapbd', 'pttapbn', 'pttipp'));
     }
@@ -220,18 +238,34 @@ class ProjectController extends Controller
 
     public function jekelpdf()
     {
-
-        $pnsguru = User::where('status', '=', 'PNS')->orderBy('nip', 'ASC')->where('jenis', '=', 'GURU')->count();
-        $pnstu = User::where('status', '=', 'PNS')->orderBy('nip', 'ASC')->where('jenis', '=', 'TU')->count();
-        $p3k = User::where('status', '=', 'P3K')->orderBy('nip', 'ASC')->count();
-        $gtt = User::where('jabatan', '=', 'GTT')->count();
-        $ptt = User::where('jabatan', '=', 'PTT')->count();
-        $gttapbd = User::where('jabatan', '=', 'GTT')->where('sumber_gaji', '=', 'APBD')->count();
-        $gttapbn = User::where('jabatan', '=', 'GTT')->where('sumber_gaji', '=', 'APBN')->count();
-        $gttipp = User::where('jabatan', '=', 'GTT')->where('sumber_gaji', '=', 'IPP')->count();
-        $pttapbd = User::where('jabatan', '=', 'PTT')->where('sumber_gaji', '=', 'APBD')->count();
-        $pttapbn = User::where('jabatan', '=', 'PTT')->where('sumber_gaji', '=', 'APBN')->count();
-        $pttipp = User::where('jabatan', '=', 'PTT')->where('sumber_gaji', '=', 'IPP')->count();
+        // Use single query with GROUP BY for better performance
+        $counts = User::selectRaw('status, jenis, COUNT(*) as total')
+            ->groupBy('status', 'jenis')
+            ->get();
+        
+        $pnsguru = $counts->firstWhere(fn($c) => $c->status === 'PNS' && $c->jenis === 'GURU')->total ?? 0;
+        $pnstu = $counts->firstWhere(fn($c) => $c->status === 'PNS' && $c->jenis === 'TU')->total ?? 0;
+        $p3k = $counts->firstWhere(fn($c) => $c->status === 'P3K')->total ?? 0;
+        $gtt = $counts->firstWhere(fn($c) => $c->jenis === 'GURU' && $c->status === 'honor')->total ?? 0;
+        $ptt = $counts->firstWhere(fn($c) => $c->jenis === 'TU' && $c->status === 'honor')->total ?? 0;
+        
+        // Count by sumber_gaji for GTT
+        $gttCounts = User::where('jabatan', '=', 'GTT')
+            ->selectRaw('sumber_gaji, COUNT(*) as total')
+            ->groupBy('sumber_gaji')
+            ->get();
+        $gttapbd = $gttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'APBD')->total ?? 0;
+        $gttapbn = $gttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'APBN')->total ?? 0;
+        $gttipp = $gttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'IPP')->total ?? 0;
+        
+        // Count by sumber_gaji for PTT
+        $pttCounts = User::where('jabatan', '=', 'PTT')
+            ->selectRaw('sumber_gaji, COUNT(*) as total')
+            ->groupBy('sumber_gaji')
+            ->get();
+        $pttapbd = $pttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'APBD')->total ?? 0;
+        $pttapbn = $pttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'APBN')->total ?? 0;
+        $pttipp = $pttCounts->firstWhere(fn($c) => $c->sumber_gaji === 'IPP')->total ?? 0;
 
         $view = view()->make('pegawai.jekelpdf', compact('pnsguru', 'p3k', 'gtt', 'pnstu', 'ptt', 'gttapbd', 'gttapbn', 'gttipp', 'pttapbd', 'pttapbn', 'pttipp'));
         $html = $view->render();
@@ -695,6 +729,7 @@ class ProjectController extends Controller
             return $pdf->stream('rencana_pdf.pdf');
         });
     }
+
     public function evaluasi_pdf($id)
     {
         // Use cache to improve performance for the PDF generation
@@ -723,14 +758,81 @@ class ProjectController extends Controller
                 }
             }
             $uniqueRkNames = $uniqueRkNames->unique()->values();
-
-            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('project.evaluasi_pdf', [
-                'user' => $user,
-                'uniqueRkNames' => $uniqueRkNames
-            ]);
-            $pdf->setPaper('A4', 'landscape');
+            $tugasChunks = $user->tugas->chunk(10); // 10 baris per tabel
             
-            return $pdf->stream('evaluasi_pdf.pdf');
+            // Render the view to HTML
+            $html = view('project.evaluasi_pdf', [
+                'user' => $user,
+                'uniqueRkNames' => $uniqueRkNames,
+                'tugasChunks' => $tugasChunks
+            ])->render();
+
+            // Create mPDF instance with specific configuration for better table handling
+            $mpdf = new \Mpdf\Mpdf([
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'L', // Landscape
+                'tempDir' => storage_path('temp'),
+                'margin_left' => 10,
+                'margin_right' => 10,
+                'margin_top' => 10,
+                'margin_bottom' => 10,
+                'table_min_cell_height' => 5,
+                'table_min_row_height' => 5,
+            ]);
+
+            // Write HTML to PDF
+            $mpdf->WriteHTML($html);
+
+            // Stream the PDF
+            return $mpdf->Output('evaluasi_pdf.pdf', 'I');
+        });
+    }
+
+    public function report_pdf($id)
+    {
+        // Use cache to improve performance for the PDF generation
+        $cacheKey = "report_pdf_{$id}_" . request()->user()?->id;
+        $ttl = now()->addMinutes(10); // Cache for 10 minutes
+
+        return Cache::remember($cacheKey, $ttl, function () use ($id) {
+            // Load user with optimized relationships and limited fields
+            $user = User::select([
+                'id', 'name', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja', 
+                'tgl_awal', 'tgl_akhir', 'tgl_pegawai', 'tgl_penilai', 'tgl_atasan'
+            ])->with([
+                'tutam:id,user_id,name,rk_id',
+                'tutam.rk:id,name',
+                'tutam.tuti:id,tutam_id,aspek,indikator,target,satuan,realisasi',
+                'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja',
+                'atasan:id,nama,nip,pangkat_gol,jabatan,unit_kerja'
+            ])->findOrFail($id);
+
+            // Render the view to HTML
+            $html = view('project.report_pdf', [
+                'user' => $user
+            ])->render();
+
+            // Create mPDF instance with specific configuration for better table handling
+            $mpdf = new \Mpdf\Mpdf([
+                'mode' => 'utf-8',
+                'format' => 'A4',
+                'orientation' => 'L', // Landscape for better table display
+                'tempDir' => storage_path('temp'),
+                'margin_left' => 10,
+                'margin_right' => 10,
+                'margin_top' => 10,
+                'margin_bottom' => 10,
+                'table_min_cell_height' => 5,
+                'table_min_row_height' => 5,
+                'default_font_size' => 8,
+            ]);
+
+            // Write HTML to PDF
+            $mpdf->WriteHTML($html);
+
+            // Stream the PDF
+            return $mpdf->Output('report_pdf.pdf', 'I');
         });
     }
 }

@@ -255,6 +255,7 @@ Route::get('/project', [ProjectController::class, 'index'])->name('index');
 Route::get('/project.main/{id}', [ProjectController::class, 'show'])->name('show');
 Route::get('/project.rencana_pdf/{id}', [ProjectController::class, 'rencana_pdf'])->name('project.rencana_pdf');
 Route::get('/project.evaluasi_pdf/{id}', [ProjectController::class, 'evaluasi_pdf'])->name('project.evaluasi_pdf');
+Route::get('/project.report_pdf/{id}', [ProjectController::class, 'report_pdf'])->name('project.report_pdf');
 // Route::get('/project.main_pdf/{id}/cetak', [ProjectController::class, 'cetak']);
 // Route::get('/project.rencana_pdf/{id}/cetak', [ProjectController::class, 'rencana_pdf'])->name('project.rencana_pdf.cetak');
 Route::get('/tabel', [ProjectController::class, 'tabel']);

@@ -11,7 +11,7 @@
             BERDASARKAN BUKTI DUKUNG</b></td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 1 </td>
             <td colspan="3">
                 Berorientasi Pelayanan </td>
@@ -26,7 +26,7 @@
                     <li>Melakukan perbaikan tiada henti</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks1 ?? '' }}
@@ -34,7 +34,7 @@
                 <a href="/ekspektasi.edit_perilaku_1/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
                 @endif
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan1 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit1/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
@@ -43,7 +43,7 @@
         </tr>
         
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 2 </td>
                 <td colspan="3">
                     Akuntabel </td>
@@ -58,7 +58,7 @@
                             <li>Tidak menyalahgunakan kewenangan jabatan</li>
                         </ol>
                     </td>
-                    <td style="width: 300px;">
+                    <td style="width: 30%;">
                         Ekspektasi Khusus Pimpinan:
                         <br>
                         {{ optional($user->eks)->eks2 ?? '' }}
@@ -66,7 +66,7 @@
                         <a href="/ekspektasi.edit_perilaku_2/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
                         @endif
                     </td>
-                    <td style="width: 300px;">
+                    <td style="width: 30%;">
                         {{ optional($user->umpan)->umpan2 ?? '' }}
                         @if($user->umpan)
                         <a href="{{ url('umpan.edit2/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil "></i> </a>
@@ -74,7 +74,7 @@
                     </td>
                 </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 3 </td>
             <td colspan="3">
                 Kompeten </td>
@@ -89,7 +89,7 @@
                     <li>Melaksanakan tugas dengan kualitas terbaik</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks3 ?? '' }}
@@ -97,7 +97,7 @@
                 <a href="/ekspektasi.edit_perilaku_3/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
                 @endif
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan3 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit3/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
@@ -105,7 +105,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 4 </td>
             <td colspan="3">
                 Harmonis </td>
@@ -120,7 +120,7 @@
                     <li>Membangun lingkungan kerja yang kondusif</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks4 ?? '' }}
@@ -128,7 +128,7 @@
                 <a href="/ekspektasi.edit_perilaku_4/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
                 @endif
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan4 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit4/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
@@ -136,7 +136,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 5 </td>
             <td colspan="3">
                 Loyal </td>
@@ -151,7 +151,7 @@
                     <li>Menjaga rahasia jabatan dan negara</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks5 ?? '' }}
@@ -159,7 +159,7 @@
                 <a href="/ekspektasi.edit_perilaku_5/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
                 @endif
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan5 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit5/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
@@ -167,7 +167,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 6 </td>
             <td colspan="3">
                 Adaptif </td>
@@ -182,7 +182,7 @@
                     <li>Bertindak proaktif</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks6 ?? '' }}
@@ -190,7 +190,7 @@
                 <a href="/ekspektasi.edit_perilaku_6/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
                 @endif
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan6 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit6/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
@@ -198,7 +198,7 @@
             </td>
         </tr>
         <tr>
-            <td style="text-align: center; width: 50px;" rowspan="2">
+            <td style="text-align: center; width: 5%;" rowspan="2">
                 7 </td>
                 <td colspan="3">
                 Kolaboratif </td>
@@ -213,7 +213,7 @@
                     <li>Menggerakkan pemanfaatan berbagai sumber daya untuk tujuan bersama</li>
                 </ol>
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks7 ?? '' }}
@@ -221,7 +221,7 @@
                 <a href="/ekspektasi.edit_perilaku_7/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
                 @endif
             </td>
-            <td style="width: 300px;">
+            <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan7 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit7/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>

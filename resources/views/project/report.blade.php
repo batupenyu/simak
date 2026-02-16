@@ -13,7 +13,10 @@
     </li>
 </ul>
 
-<button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 mt-3 float-end" media="print">Cetak</button>
+<!-- <button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 mt-3 float-end" media="print">Cetak</button> -->
+
+<a href="{{ url('project.report_pdf/'.$user->id) }}" class="btn btn-primary tampil btn-flat mb-3 float-end" style="margin-right: 10px;">Cetak PDF</a>
+
 <img src={{ asset('image/garuda.png') }} style="display:block; margin:auto;">
 <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
 <style>
@@ -186,12 +189,14 @@
             <td>{{ optional($user->atasan)->unit_kerja ?? '' }}</td>
         </tr>
      
+        @if($user->tutam)
         @foreach ($user->tutam as $data)
         <tr style="background-color:aliceblue;">
             <td class="text-center">{{ $loop->iteration }}</td>
-            <td>{{ $data->rk->name }}</td>
+            <td>{{ $data->rk ? $data->rk->name : '' }}</td>
             <td>{{ $data->name }}</td>
             <td colspan="3">
+                @if($data->tuti)
                 @foreach ($data->tuti as $item)
                 <div class="d-flex mb-1">
                     <div style="width:15%">{{ $item->aspek }}</div>
@@ -200,9 +205,11 @@
                     <div style="width:30%; text-align:center">{{ $item->target }}</div>
                 </div>
                 @endforeach
+                @endif
             </td>
         </tr>
         @endforeach
+        @endif
         <tr style="background-color:aliceblue;">
             <th class="text-center" style="width:2cm" rowspan="3">4</th>
             <th style="background-color:aliceblue;" colspan="2">EVALUASI KINERJA</th>
