@@ -60,6 +60,36 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Trusted Proxies
+    |--------------------------------------------------------------------------
+    |
+    | This option allows you to configure trusted proxies for your
+    | application. This is important when using ngrok or other reverse
+    | proxies as it ensures that the correct URL/Scheme is detected.
+    |
+    */
+
+    'trusted_proxies' => env('TRUSTED_PROXIES', '*'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Trusted Hosts
+    |--------------------------------------------------------------------------
+    |
+    | This option allows you to configure trusted hosts for your application.
+    | This prevents attacks from HTTP Host header injection.
+    |
+    */
+
+    'trusted_hosts' => [
+        'localhost',
+        '127.0.0.1',
+        '::1',
+        env('APP_URL', 'http://localhost'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

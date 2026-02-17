@@ -24,8 +24,8 @@
 
 <a href="{{ url('project.report_pdf/'.$user->id) }}" class="btn btn-primary tampil btn-flat mb-3 float-end" style="margin-right: 10px;">Cetak</a>
 
-<img src={{ asset('image/garuda.png') }} style="display:block; margin:auto;">
-<link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
+<img src="{{ url('image/garuda.png') }}" style="display:block; margin:auto;">
+<link rel="stylesheet" type="text/css" href="{{ url('css/app.css') }}">
 <style>
     @page {
         size: A4;

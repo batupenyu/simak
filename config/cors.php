@@ -15,20 +15,30 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie', '/*'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://localhost',
+        'http://127.0.0.1',
+        'http://localhost:8000',
+        'https://*.ngrok-free.app',
+        'https://*.ngrok.io',
+        'https://*.tunnel.pyjam.as',
+    ],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => [
+        '/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/',
+        '/^https?:\/\/[a-z0-9-]+\.ngrok(-free)?\.app$/',
+    ],
 
     'allowed_headers' => ['*'],
 
-    'exposed_headers' => [],
+    'exposed_headers' => ['X-Total-Count', 'X-Page-Current'],
 
-    'max_age' => 0,
+    'max_age' => 86400,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];

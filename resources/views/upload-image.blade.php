@@ -9,6 +9,23 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/upload-image') }}">Upload Image</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -34,10 +51,9 @@
                         <hr>
 
                         <h4 class="mt-4">Current Image:</h4>
-                        @if($images)
+                        @if($images && $images->filepath)
                         <p>Image path: {{ $images->filepath }}</p>
-                        <p>Image URL: {{ Storage::url($images->filepath) }}</p>
-                        <img src="{{ Storage::url($images->filepath) }}" alt="Current Image" class="img-fluid mt-2" id="currentImage">
+                        <img src="{{ url('storage/' . $images->filepath) }}" alt="Current Image" class="img-fluid mt-2" id="currentImage">
                         <p class="mt-2">{{ $images->filename }}</p>
                         @else
                         <p>No image uploaded yet.</p>

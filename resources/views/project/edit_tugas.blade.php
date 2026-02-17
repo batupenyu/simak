@@ -5,7 +5,7 @@
 <div class="container register py-5">
     <div class="row">
         <div class="col-md-3 register-left">
-            <img src="{{ asset('image/garuda.png') }}" alt="" style="display: block; margin:auto">
+            <img src="{{ url('image/garuda.png') }}" alt="" style="display: block; margin:auto">
             <h3 class="register-heading">Rencana Kerja Atasan</h3>
         </div>
         <div class="col-md-9 register-right">

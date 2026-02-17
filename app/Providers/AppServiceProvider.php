@@ -34,10 +34,17 @@ class AppServiceProvider extends ServiceProvider
             return number_format($price, 0, ',', '.');
         });
 
+        Str::macro('imageUrl', function ($path) {
+            return url('image/' . ltrim($path, '/'));
+        });
+
         Blade::directive('currency', function ($expression) {
             return " <?php echo number_format($expression,0,',','.'); ?>";
         });
-        
+
+        Blade::directive('image', function ($path) {
+            return "<?php echo url('image/' . ltrim($path, '/')); ?>";
+        });
 
         PaginationPaginator::useBootstrap();
 

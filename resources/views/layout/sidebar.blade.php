@@ -17,8 +17,7 @@
   <title>@yield('title') | Sistem Manajemen Cuti</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+  <link rel="stylesheet" href="{{ url('css/style.css') }}">
 </head>
 
 <body>
@@ -163,8 +162,8 @@
   <!-- <script src="{{asset ('js/popper.js') }}"></script> -->
   <!-- <script src="{{asset ('js/bootstrap.min.js') }}"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-  <script src="{{asset ('js/main.js') }}"></script>
-  <script src="{{asset ('js/script.js') }}"></script>
+  <script src="{{ url('js/main.js') }}"></script>
+  <script src="{{ url('js/script.js') }}"></script>
   
   <script>
     // Initialize Bootstrap collapse for submenus

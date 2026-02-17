@@ -162,7 +162,7 @@
                 <tr>
                     <td colspan="6">
                         POLA DISTRIBUSI: KURVA DISTRIBUSI PREDIKAT KINERJA PEGAWAI DENGAN CAPAIAN KINERJA ORGANISASI BAIK <br><br>
-                        <img src="{{ asset('image/pola_1.jpg') }}" style="display:block; margin:auto" class="d-block w-50" alt=""><br>
+                        <img src="{{ url('image/pola_1.jpg') }}" style="display:block; margin:auto" class="d-block w-50" alt=""><br>
                     </td>
                 </tr>
             </tbody>
