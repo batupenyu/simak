@@ -29,9 +29,7 @@ class PasanganController extends Controller
         $tmt_pangkat = Carbon::parse($data->tmt_pangkat); // hitung masa kerja
         $tgl_lahir = Carbon::parse($data->tgl_lahir); //hitung umur
 
-        $posts = User::withCount(['anak'])
-            ->having('anak_count', '=', 1)
-            ->count();
+        $posts = User::has('anak', '=', 1)->count();
 
         return view('pasangan.kp4', compact('data', 'anak', 'tmt_pangkat', 'posts'));
     }
@@ -113,9 +111,7 @@ class PasanganController extends Controller
         $tmt_pangkat = Carbon::parse($data->tmt_pangkat); // hitung masa kerja
         $tgl_lahir = Carbon::parse($data->tgl_lahir); //hitung umur
 
-        $posts = User::withCount(['anak'])
-            ->having('anak_count', '=', 1)
-            ->count();
+        $posts = User::has('anak', '=', 1)->count();
 
         return view('pasangan.kp3', compact('data', 'anak', 'tmt_pangkat', 'posts'));
     }
