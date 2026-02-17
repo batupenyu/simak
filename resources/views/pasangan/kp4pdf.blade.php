@@ -123,7 +123,7 @@
             <td>Kelahiran</td>
             <td>Perkawinan</td>
         </tr>
-        @if ($data->pasangan->status == 'menanggung')
+        @if ($data->pasangan && $data->pasangan->status == 'menanggung')
             <tr>
                 <td>-</td>
                 <td>-</td>
@@ -134,24 +134,21 @@
             </tr>
         @else
             <tr style="text-align: center">
-                <td>{{ $data->pasangan->name }}
+                <td>{{ $data->pasangan ? $data->pasangan->name : '-' }}
                 </td>
                 <td>
-                    @if ($data->pasangan->name =='-')
-                    @else
-                    {{ Carbon\Carbon::parse($data->pasangan->tgl_lahir)->translatedFormat('d - m - Y ') }} 
+                    @if ($data->pasangan && $data->pasangan->name !='-')
+                    {{ Carbon\Carbon::parse($data->pasangan->tgl_lahir)->translatedFormat('d - m - Y ') }}
                     @endif
                 </td>
                 <td>
-                    @if ($data->pasangan->name =='-')
-                    @else
-                    {{ Carbon\Carbon::parse($data->pasangan->tgl_kawin)->translatedFormat('d - m - Y ') }} 
+                    @if ($data->pasangan && $data->pasangan->name !='-')
+                    {{ Carbon\Carbon::parse($data->pasangan->tgl_kawin)->translatedFormat('d - m - Y ') }}
                     @endif
                 </td>
-                <td>{{ $data->pasangan->job  }}</td>
+                <td>{{ $data->pasangan ? $data->pasangan->job : '-' }}</td>
                 <td>
-                    @if ($data->pasangan->name =='-')
-                    @else
+                    @if ($data->pasangan && $data->pasangan->name !='-')
                     {{number_format($data->pasangan->net,2)}}
                     @endif
                 </td>
@@ -212,20 +209,11 @@
                     @endif
                 </td>
                 <td>
-                    @if ($data->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
                         Pangkalpinang, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }} <br>
-                        Yang menerangkan,<br><br><br>
-                        {{ $data->name }} <{br>
-                        NIP.
-                        {{ $data->nip }}}
-                    @else
-                        Simpang Rimba, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }} 
-                        <br>
                         Yang menerangkan,<br><br><br>
                         {{ $data->name }} <br>
                         NIP.
                         {{ $data->nip }}
-                    @endif
                 </td>
             </tr>
         </table>
