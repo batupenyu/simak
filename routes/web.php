@@ -216,14 +216,14 @@ Route::get('/phone', [PhoneController::class, 'index']);
 //user
 
 
-Route::get('/user.index', [UserController::class, 'index'])->name('index');
+Route::get('/user.index', [UserController::class, 'index'])->name('user.index');
 Route::get('/pegawai.pns', [UserController::class, 'pns'])->name('pns');
 Route::get('/pegawai.p3k', [UserController::class, 'p3k'])->name('p3k');
 Route::get('/pegawai.gtt', [UserController::class, 'gtt'])->name('gtt');
 Route::get('/pegawai.ptt', [UserController::class, 'ptt'])->name('ptt');
-Route::get('/pegawai.create', [UserController::class, 'create'])->name('create');
-Route::post('/pegawai.store', [UserController::class, 'store'])->name('store');
-Route::get('/pegawai.index', [UserController::class, 'index'])->name('index');
+Route::get('/pegawai.create', [UserController::class, 'create'])->name('pegawai.create');
+Route::post('/pegawai.store', [UserController::class, 'store'])->name('pegawai.store');
+Route::get('/pegawai.index', [UserController::class, 'index'])->name('pegawai.index');
 Route::get('/show_ak', [UserController::class, 'show_ak'])->name('show_ak');
 Route::get('/pegawai.info/{id}', [UserController::class, 'info'])->name('info');
 Route::get('/project.edit_user/{id}', [UserController::class, 'edit']);
@@ -231,18 +231,18 @@ Route::put('/project/update/{id}', [UserController::class, 'update']);
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 Route::get('/pegawai.delete/{id}', [UserController::class, 'delete']);
 Route::delete('/pegawai.destroy/{id}', [UserController::class, 'destroy']);
-Route::get('/pegawai.rekap', [UserController::class, 'rekap'])->name('rekap');
+Route::get('/pegawai.rekap', [UserController::class, 'rekap'])->name('pegawai.rekap');
 Route::get('/rekap_kp4_pdf', [UserController::class, 'rekap_pdf'])->name('rekap_pdf');
 
 
 // angka kredit
-Route::get('/ak.create', [AngkakreditController::class, 'postCreate'])->name('postCreate');
-Route::post('/ak.postData', [AngkakreditController::class, 'postData'])->name('postData');
+Route::get('/ak.create', [AngkakreditController::class, 'postCreate'])->name('ak.postCreate');
+Route::post('/ak.postData', [AngkakreditController::class, 'postData'])->name('ak.postData');
 Route::get('/angka_kredit/{id}', [AngkakreditController::class, 'index'])->name('angka_kredit');
-Route::get('/ak.edit/{id}', [AngkakreditController::class, 'edit'])->name('edit');
+Route::get('/ak.edit/{id}', [AngkakreditController::class, 'edit'])->name('ak.edit');
 Route::put('/ak.update/{id}', [AngkakreditController::class, 'update'])->name('updateAK');
-Route::get('/ak.delete/{id}', [AngkakreditController::class, 'delete'])->name('delete');
-Route::delete('/ak.destroy/{id}', [AngkakreditController::class, 'destroy'])->name('destroy');
+Route::get('/ak.delete/{id}', [AngkakreditController::class, 'delete'])->name('ak.delete');
+Route::delete('/ak.destroy/{id}', [AngkakreditController::class, 'destroy'])->name('ak.destroy');
 Route::get('/ak.konversi/{id}', [AngkakreditController::class, 'konversi'])->name('konversi');
 Route::get('/ak.akumulasi/{id}', [AngkakreditController::class, 'akumulasi'])->name('akumulasi');
 Route::get('/ak.penetapan/{id}', [AngkakreditController::class, 'penetapan'])->name('penetapan');
@@ -251,8 +251,8 @@ Route::get('/ak.pdfReport/{id}', [AngkakreditController::class, 'pdfReport'])->n
 
 
 //project
-Route::get('/project', [ProjectController::class, 'index'])->name('index');
-Route::get('/project.main/{id}', [ProjectController::class, 'show'])->name('show');
+Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
+Route::get('/project.main/{id}', [ProjectController::class, 'show'])->name('project.show');
 Route::get('/project.rencana_pdf/{id}', [ProjectController::class, 'rencana_pdf'])->name('project.rencana_pdf');
 Route::get('/project.evaluasi_pdf/{id}', [ProjectController::class, 'evaluasi_pdf'])->name('project.evaluasi_pdf');
 Route::get('/project.report_pdf/{id}', [ProjectController::class, 'report_pdf'])->name('project.report_pdf');
@@ -309,33 +309,33 @@ Route::delete('/penilai.destroy/{id}', [PenilaiController::class, 'destroy'])->n
 
 //anak
 Route::get('/anak', [AnakController::class, 'index']);
-Route::get('/project.index_anak/{id}', [AnakController::class, 'show'])->name('show');
+Route::get('/project.index_anak/{id}', [AnakController::class, 'show'])->name('anak.show');
 Route::get('/daftar.anak/{id}', [AnakController::class, 'anakpdf'])->name('anakpdf');
 Route::get('/project.anak_tambah', [AnakController::class, 'create']);
 Route::post('/project.index', [AnakController::class, 'store']);
 Route::get('/project.edit_anak/{id}', [AnakController::class, 'edit']);
-Route::put('/anak/update_anak/{id}', [AnakController::class, 'update'])->name('update');
+Route::put('/anak/update_anak/{id}', [AnakController::class, 'update'])->name('anak.update');
 Route::get('/hapus_anak/{id}', [AnakController::class, 'delete']);
 Route::delete('/project.hapus_anak/{id}', [AnakController::class, 'destroy']);
 
 
 //pasangan
-Route::get('pasangan.index', [PasanganController::class, 'index'])->name('index');
+Route::get('pasangan.index', [PasanganController::class, 'index'])->name('pasangan.index');
 Route::get('pasangan.kp4/{id}', [PasanganController::class, 'kp4'])->name('kp4');
 Route::get('kp4pdf/{id}', [PasanganController::class, 'kp4pdf'])->name('kp4pdf');
 Route::get('kp4newpdf/{id}', [PasanganController::class, 'kp4newpdf'])->name('kp4newpdf');
 Route::get('pasangan.kp3/{id}', [PasanganController::class, 'kp3'])->name('kp3');
-Route::get('pasangan.add', [PasanganController::class, 'create'])->name('create');
-Route::post('pasangan.index', [PasanganController::class, 'store'])->name('store');
-Route::get('pasangan.edit/{id}', [PasanganController::class, 'edit'])->name('edit');
-Route::put('pasangan.update/{id}', [PasanganController::class, 'update'])->name('update');
+Route::get('pasangan.add', [PasanganController::class, 'create'])->name('pasangan.create');
+Route::post('pasangan.index', [PasanganController::class, 'store'])->name('pasangan.store');
+Route::get('pasangan.edit/{id}', [PasanganController::class, 'edit'])->name('pasangan.edit');
+Route::put('pasangan.update/{id}', [PasanganController::class, 'update'])->name('pasangan.update');
 
 
 
 //atasan
 Route::get('/atasan.index', [AtasanController::class, 'index'])->name('index_atasan');
-Route::get('/atasan.edit/{id}', [AtasanController::class, 'edit'])->name('edit');
-Route::put('/atasan.update/{id}', [AtasanController::class, 'update'])->name('update');
+Route::get('/atasan.edit/{id}', [AtasanController::class, 'edit'])->name('atasan.edit');
+Route::put('/atasan.update/{id}', [AtasanController::class, 'update'])->name('atasan.update');
 
 Route::get('/atasan.create', [AtasanController::class, 'create'])->name('create_atasan');
 Route::post('/atasan.store', [AtasanController::class, 'store'])->name('store_atasan');
@@ -344,32 +344,32 @@ Route::delete('/atasan.destroy/{id}', [AtasanController::class, 'destroy'])->nam
 
 
 // sdm
-Route::get('/sdm.index', [SdmController::class, 'index'])->name('index');
-Route::get('/sdm.add', [SdmController::class, 'create'])->name('create');
-Route::post('/sdm.index', [SdmController::class, 'store'])->name('index');
-Route::get('/sdm.edit/{id}', [SdmController::class, 'edit'])->name('edit');
-Route::put('/sdm.update/{id}', [SdmController::class, 'update'])->name('update');
-Route::get('/hapus_sdm/{id}', [SdmController::class, 'delete'])->name('delete');
-Route::delete('/delete_sdm/{id}', [SdmController::class, 'destroy'])->name('destroy');
+Route::get('/sdm.index', [SdmController::class, 'index'])->name('sdm.index');
+Route::get('/sdm.add', [SdmController::class, 'create'])->name('sdm.create');
+Route::post('/sdm.index', [SdmController::class, 'store'])->name('sdm.store');
+Route::get('/sdm.edit/{id}', [SdmController::class, 'edit'])->name('sdm.edit');
+Route::put('/sdm.update/{id}', [SdmController::class, 'update'])->name('sdm.update');
+Route::get('/hapus_sdm/{id}', [SdmController::class, 'delete'])->name('sdm.delete');
+Route::delete('/delete_sdm/{id}', [SdmController::class, 'destroy'])->name('sdm.destroy');
 
 // skema
-Route::get('/skema.index', [SkemaController::class, 'index'])->name('index');
-Route::get('/skema.add', [SkemaController::class, 'create'])->name('create');
-Route::post('/skema.index', [SkemaController::class, 'store'])->name('store');
-Route::get('/skema.edit/{id}', [SkemaController::class, 'edit'])->name('edit');
-Route::put('/skema.update/{id}', [SkemaController::class, 'update'])->name('update');
-Route::get('/hapus_skema/{id}', [SkemaController::class, 'delete'])->name('delete');
-Route::delete('/delete_skema/{id}', [SkemaController::class, 'destroy'])->name('destroy');
+Route::get('/skema.index', [SkemaController::class, 'index'])->name('skema.index');
+Route::get('/skema.add', [SkemaController::class, 'create'])->name('skema.create');
+Route::post('/skema.index', [SkemaController::class, 'store'])->name('skema.store');
+Route::get('/skema.edit/{id}', [SkemaController::class, 'edit'])->name('skema.edit');
+Route::put('/skema.update/{id}', [SkemaController::class, 'update'])->name('skema.update');
+Route::get('/hapus_skema/{id}', [SkemaController::class, 'delete'])->name('skema.delete');
+Route::delete('/delete_skema/{id}', [SkemaController::class, 'destroy'])->name('skema.destroy');
 
 // kon
 
-Route::get('/kon.index', [KonController::class, 'index'])->name('index');
-Route::get('/kon.add', [KonController::class, 'create'])->name('create');
-Route::post('/kon.index', [KonController::class, 'store'])->name('store');
-Route::get('/kon.edit/{id}', [KonController::class, 'edit'])->name('edit');
-Route::put('/kon.update/{id}', [KonController::class, 'update'])->name('update');
-Route::get('/hapus_kon/{id}', [KonController::class, 'delete'])->name('delete');
-Route::delete('/delete_kon/{id}', [KonController::class, 'destroy'])->name('destroy');
+Route::get('/kon.index', [KonController::class, 'index'])->name('kon.index');
+Route::get('/kon.add', [KonController::class, 'create'])->name('kon.create');
+Route::post('/kon.index', [KonController::class, 'store'])->name('kon.store');
+Route::get('/kon.edit/{id}', [KonController::class, 'edit'])->name('kon.edit');
+Route::put('/kon.update/{id}', [KonController::class, 'update'])->name('kon.update');
+Route::get('/hapus_kon/{id}', [KonController::class, 'delete'])->name('kon.delete');
+Route::delete('/delete_kon/{id}', [KonController::class, 'destroy'])->name('kon.destroy');
 
 
 // umpan 
@@ -416,7 +416,7 @@ Route::get('/tugas.hapus/{id}', [TugasController::class, 'delete']);
 Route::delete('/tugas.delete/{id}', [TugasController::class, 'destroy']);
 
 // Tutam
-Route::get('/tutam.tambah/{id}', [TutamController::class, 'create'])->name('create');
+Route::get('/tutam.tambah/{id}', [TutamController::class, 'create'])->name('tutam.create');
 Route::post('/tutam.simpan', [TutamController::class, 'store']);
 Route::get('/tutam.edit/{id}', [TutamController::class, 'editTutam']);
 Route::put('/tutam.update/{id}', [TutamController::class, 'updateTutam']);
@@ -475,19 +475,19 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/session', [App\Http\Controllers\HomeController::class, 'session'])->name('session');
 
 //Cuti
-Route::get('/cuti.index', [CutiController::class, 'index'])->name('index');
+Route::get('/cuti.index', [CutiController::class, 'index'])->name('cuti.index');
 Route::get('/cuti.form_1/{id}', [CutiController::class, 'form_1'])->name('form_1');
 Route::get('/cuti.form_2/{id}', [CutiController::class, 'form_2'])->name('form_2');
 Route::get('/cuti.sementara/{id}', [CutiController::class, 'sementara'])->name('sementara');
 Route::get('/cuti.kendali/{id}', [CutiController::class, 'kendali'])->name('kendali');
 Route::get('/kendalipdf/{id}', [CutiController::class, 'kendaliPdf'])->name('kendaliPdf');
-Route::get('/cuti.create', [CutiController::class, 'create'])->name('create');
-Route::post('/cuti.store', [CutiController::class, 'store'])->name('store');
-Route::get('/cuti.edit/{id}', [CutiController::class, 'edit'])->name('edit');
-Route::put('/cuti.update/{id}', [CutiController::class, 'update'])->name('update');
-Route::get('/cuti.delete/{id}', [CutiController::class, 'delete'])->name('delete');
-Route::delete('/cuti.destroy/{id}', [CutiController::class, 'destroy'])->name('delete');
-Route::get('/cuti.rekap', [CutiController::class, 'rekap'])->name(('rekap'));
+Route::get('/cuti.create', [CutiController::class, 'create'])->name('cuti.create');
+Route::post('/cuti.store', [CutiController::class, 'store'])->name('cuti.store');
+Route::get('/cuti.edit/{id}', [CutiController::class, 'edit'])->name('cuti.edit');
+Route::put('/cuti.update/{id}', [CutiController::class, 'update'])->name('cuti.update');
+Route::get('/cuti.delete/{id}', [CutiController::class, 'delete'])->name('cuti.delete');
+Route::delete('/cuti.destroy/{id}', [CutiController::class, 'destroy'])->name('cuti.destroy');
+Route::get('/cuti.rekap', [CutiController::class, 'rekap'])->name(('cuti.rekap'));
 Route::get('/filter', [CutiController::class, 'filter'])->name(('filter'));
 Route::get('/cutipdf', [CutiController::class, 'cutipdf'])->name(('cutipdf'));
 Route::get('/pdf/{id}', [CutiController::class, 'pdf']);
@@ -507,32 +507,32 @@ Route::post('/sesi/create', [SessionController::class, 'create']);
 
 //Izin
 Route::get('/izin.show/{id}', [IzinController::class, 'show']);
-Route::get('/izin.form/{id}', [IzinController::class, 'form'])->name('form');
+Route::get('/izin.form/{id}', [IzinController::class, 'form'])->name('izin.form');
 Route::get('/izin.srtizin/{id}', [IzinController::class, 'srtizin'])->name('srtizin');
 Route::get('/izin.keluar/{id}', [IzinController::class, 'keluar'])->name('keluar');
 Route::get('/izin.suket/{id}', [IzinController::class, 'suket'])->name('suket');
 Route::get('/izin.surat/{id}', [IzinController::class, 'surat'])->name('surat');
-Route::get('/izin.create', [IzinController::class, 'create'])->name('create');
-Route::post('/izin.store', [IzinController::class, 'store'])->name('store');
-Route::get('/izin.edit/{id}', [IzinController::class, 'edit'])->name('edit');
-Route::put('/izin.update/{id}', [IzinController::class, 'update'])->name('update');
-Route::get('/izin.index', [IzinController::class, 'index'])->name('index');
-Route::get('/izin.delete/{id}', [IzinController::class, 'delete'])->name('delete');
-Route::delete('/izin.destroy/{id}', [IzinController::class, 'destroy'])->name('delete');
+Route::get('/izin.create', [IzinController::class, 'create'])->name('izin.create');
+Route::post('/izin.store', [IzinController::class, 'store'])->name('izin.store');
+Route::get('/izin.edit/{id}', [IzinController::class, 'edit'])->name('izin.edit');
+Route::put('/izin.update/{id}', [IzinController::class, 'update'])->name('izin.update');
+Route::get('/izin.index', [IzinController::class, 'index'])->name('izin.index');
+Route::get('/izin.delete/{id}', [IzinController::class, 'delete'])->name('izin.delete');
+Route::delete('/izin.destroy/{id}', [IzinController::class, 'destroy'])->name('izin.destroy');
 
 Route::get('/izin.img/{izinId}', [ImgController::class, 'img'])->name('img');
-Route::post('/izin.store/{izinId}', [ImgController::class, 'store'])->name('store');
-Route::get('/img.hapus/{izinId}', [ImgController::class, 'destroy'])->name('destroy');
+Route::post('/izin.store/{izinId}', [ImgController::class, 'store'])->name('img.store');
+Route::get('/img.hapus/{izinId}', [ImgController::class, 'destroy'])->name('img.destroy');
 
 //pists
-Route::get('/pists.create', [PistController::class, 'postCreate'])->name('postCreate');
-Route::post('/pists.postData', [PistController::class, 'postData'])->name('postData');
-Route::get('/pists.index', [PistController::class, 'index'])->name('index');
-Route::get('/pists.edit/{id}', [PistController::class, 'edit'])->name('edit');
-Route::put('/pists.update/{id}', [PistController::class, 'update'])->name('update');
-Route::get('/pists.delete/{id}', [PistController::class, 'delete'])->name('delete');
-Route::delete('/pists.destroy/{id}', [PistController::class, 'destroy'])->name('destroy');
-Route::get('/pists.form/{id}', [PistController::class, 'form'])->name('form');
+Route::get('/pists.create', [PistController::class, 'postCreate'])->name('pists.postCreate');
+Route::post('/pists.postData', [PistController::class, 'postData'])->name('pists.postData');
+Route::get('/pists.index', [PistController::class, 'index'])->name('pists.index');
+Route::get('/pists.edit/{id}', [PistController::class, 'edit'])->name('pists.edit');
+Route::put('/pists.update/{id}', [PistController::class, 'update'])->name('pists.update');
+Route::get('/pists.delete/{id}', [PistController::class, 'delete'])->name('pists.delete');
+Route::delete('/pists.destroy/{id}', [PistController::class, 'destroy'])->name('pists.destroy');
+Route::get('/pists.form/{id}', [PistController::class, 'form'])->name('pists.form');
 Route::get('/pists.laporan/{id}', [PistController::class, 'laporan'])->name('laporan');
 Route::get('/pists.laporanpdf/{id}', [PistController::class, 'laporanpdf'])->name('laporanpdf');
 Route::get('/pists.form2/{id}', [PistController::class, 'form2'])->name('form2');
@@ -550,8 +550,8 @@ Route::get('/status/{pists}/suratizin', [PistController::class, 'statusCutiSurat
 
 
 Route::get('/pists.photo/{pistsId}', [PhotoController::class, 'photo'])->name('photo');
-Route::post('/pists.store/{pistsId}', [PhotoController::class, 'store'])->name('store');
-Route::get('/photo.hapus/{photoId}', [PhotoController::class, 'destroy'])->name('destroy');
+Route::post('/pists.store/{pistsId}', [PhotoController::class, 'store'])->name('photo.store');
+Route::get('/photo.hapus/{photoId}', [PhotoController::class, 'destroy'])->name('photo.destroy');
 
 // Route::get('/create',function(){
 //     return view('create');
@@ -565,14 +565,14 @@ Route::get('/photo.hapus/{photoId}', [PhotoController::class, 'destroy'])->name(
 
 
 //sk
-Route::get('/sk.index', [SkController::class, 'index'])->name('index');
+Route::get('/sk.index', [SkController::class, 'index'])->name('sk.index');
 Route::get('/sk.spmt/{id}', [SkController::class, 'spmt'])->name('spmt');
-Route::get('/sk.create', [SkController::class, 'create'])->name('create');
-Route::post('/sk.store', [SkController::class, 'store'])->name('store');
-Route::get('/sk.edit/{id}', [SkController::class, 'edit'])->name('edit');
-Route::put('/sk.update/{id}', [SkController::class, 'update'])->name('update');
-Route::get('/sk.delete/{id}', [SkController::class, 'delete'])->name('delete');
-Route::delete('/sk.destroy/{id}', [SkController::class, 'destroy'])->name('destroy');
+Route::get('/sk.create', [SkController::class, 'create'])->name('sk.create');
+Route::post('/sk.store', [SkController::class, 'store'])->name('sk.store');
+Route::get('/sk.edit/{id}', [SkController::class, 'edit'])->name('sk.edit');
+Route::put('/sk.update/{id}', [SkController::class, 'update'])->name('sk.update');
+Route::get('/sk.delete/{id}', [SkController::class, 'delete'])->name('sk.delete');
+Route::delete('/sk.destroy/{id}', [SkController::class, 'destroy'])->name('sk.destroy');
 Route::get('sk.cetak/{id}', [SkController::class, 'spmtPDF'])->name('spmtPDF');
 
 Route::controller(ImageController::class)->group(function () {
@@ -580,13 +580,13 @@ Route::controller(ImageController::class)->group(function () {
     Route::post('image-upload', 'store')->name('image.store');
 });
 
-Route::get('/bku.bku', [BkuController::class, 'index'])->name('index');
-Route::get('/bku/pdf', [BkuController::class, 'generatePdf'])->name('bku.pdf');
+Route::get('/bku.bku', [BkuController::class, 'index'])->name('bku.index');
+Route::get('/bku/pdf', [BkuController::class, 'generatePdf'])->name('bku.pdf.list');
 Route::get('/bku/pdf/{id}', [BkuController::class, 'generatePdf'])->name('bku.pdf');
 Route::get('/bku.umum', [BkuController::class, 'umum'])->name('umum');
 Route::get('/bku.pengeluaran', [BkuController::class, 'pengeluaran'])->name('pengeluaran');
-Route::get('/bku.create', [BkuController::class, 'create'])->name('create');
-Route::post('/bku.store', [BkuController::class, 'store'])->name('store');
+Route::get('/bku.create', [BkuController::class, 'create'])->name('bku.create');
+Route::post('/bku.store', [BkuController::class, 'store'])->name('bku.store');
 Route::get('/filterpengeluaran', [BkuController::class, 'filterpengeluaran'])->name(('filterpengeluaran'));
 Route::get('/filterpengeluaranPDF', [BkuController::class, 'filterpengeluaranPDF'])->name(('filterpengeluaranPDF'));
 Route::get('/filterpenerimaan', [BkuController::class, 'filterpenerimaan'])->name(('filterpenerimaan'));
@@ -595,8 +595,8 @@ Route::get('/filterpenerimaan', [BkuController::class, 'filterpenerimaan'])->nam
 Route::get('form/holidays/new', [HolidayController::class, 'holiday'])->name('form/holidays/new');
 Route::post('form/holidays/save', [HolidayController::class, 'saveRecord'])->name('form/holidays/save');
 Route::post('form/holidays/update',  [HolidayController::class, 'updateRecord'])->name('form/holidays/update');
-Route::get('/delete/{id}', [HolidayController::class, 'delete'])->name('delete');
-Route::delete('/destroy/{id}', [HolidayController::class, 'destroy'])->name('delete');
+Route::get('/delete/{id}', [HolidayController::class, 'delete'])->name('holiday.delete');
+Route::delete('/destroy/{id}', [HolidayController::class, 'destroy'])->name('holiday.destroy');
 
 Route::resource('products-ajax-crud', \App\Http\Controllers\LiburController::class);
 
@@ -615,12 +615,20 @@ Route::delete('/tim.destroy/{id}', [TimController::class, 'destroy'])->name('tim
 Route::get('/timpdf', [TimController::class, 'timpdf'])->name('timpdf');
 
 //Barang
-Route::get('indexbarang', [BarangController::class, 'index'])->name('index');
-Route::get('bastb/{id}', [BarangController::class, 'show'])->name('show');
+Route::get('indexbarang', [BarangController::class, 'index'])->name('barang.index');
+Route::get('bastb/{id}', [BarangController::class, 'show'])->name('barang.show');
 Route::get('lampiran', [BarangController::class, 'lampiran'])->name('lampiran');
 
 
-Route::resource('karyawan', KaryawanController::class);
+Route::resource('karyawan', KaryawanController::class)->names([
+    'index' => 'karyawan.index',
+    'create' => 'karyawan.create',
+    'store' => 'karyawan.store',
+    'show' => 'karyawan.show',
+    'edit' => 'karyawan.edit',
+    'update' => 'karyawan.update',
+    'destroy' => 'karyawan.destroy'
+]);
 
 Route::get('logo', [LogoController::class, 'index'])->name('logo.index');
 Route::post('logo', [LogoController::class, 'store'])->name('logo.store');
@@ -637,6 +645,6 @@ Route::get('logo/{id}/preview', [LogoController::class, 'preview'])->name('logo.
 
 
 Route::get('/upload-image', [GambarController::class, 'index'])->name('image.index');
-Route::post('/upload-image', [GambarController::class, 'store'])->name('image.store');
+Route::post('/upload-image', [GambarController::class, 'store'])->name('gambar.store');
 // Di routes/web.php
 Route::get('/latest-image', [GambarController::class, 'getLatestImage']);

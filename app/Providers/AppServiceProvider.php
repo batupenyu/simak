@@ -25,13 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
-
-        Carbon::setlocale('id');
-
-        Relation::morphMap([
-            'Comment'   => Comment::class,
-        ]);
+        // Comment::class not available - commented out
+        // Relation::morphMap([
+        //     'Comment'   => Comment::class,
+        // ]);
 
         Str::macro('currency', function ($price) {
             return number_format($price, 0, ',', '.');

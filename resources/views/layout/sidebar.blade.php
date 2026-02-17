@@ -8,19 +8,10 @@
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="{{ url('assets/bootstrap/bootstrap.min.css') }}">
-  <link rel="stylesheet" href="{{ url('assets/bootstrap/bootstrap-icons.css') }}">
-  <script src="{{ url('assets/bootstrap/bootstrap.bundle.min.js') }}"></script>
-
-  <!-- jQuery -->
-  <script src="{{ url('assets/jquery/jquery-3.6.0.min.js') }}"></script>
 
   <!-- Main Application -->
   <title>@yield('title') | Sistem Manajemen Cuti</title>
@@ -37,7 +28,7 @@
       <div class="p-3 pt-5">
         <ul class="list-unstyled components mb-5">
           <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+            <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="homeSubmenuToggle">Home</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li>
                 <a href="{{ url('project/') }}">Pegawai</a>
@@ -72,7 +63,7 @@
           </li>
 
           <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Halaman</a>
+            <a href="#pageSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Halaman</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('unit_kerja.index') }}" id="unit_kerja">Unit Kerja</a>
@@ -153,7 +144,7 @@
             <span class="sr-only">Toggle Menu</span>
           </button>
 
-          <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-bs-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fa fa-bars"></i>
           </button>
 
@@ -168,11 +159,46 @@
     </div>
   </div>
 
-  <script src="{{asset ('js/jquery.min.js') }}"></script>
-  <script src="{{asset ('js/popper.js') }}"></script>
-  <script src="{{asset ('js/bootstrap.min.js') }}"></script>
+  <!-- <script src="{{asset ('js/jquery.min.js') }}"></script> -->
+  <!-- <script src="{{asset ('js/popper.js') }}"></script> -->
+  <!-- <script src="{{asset ('js/bootstrap.min.js') }}"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   <script src="{{asset ('js/main.js') }}"></script>
   <script src="{{asset ('js/script.js') }}"></script>
+  
+  <script>
+    // Initialize Bootstrap collapse for submenus
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize all collapse elements
+      const collapseElementList = document.querySelectorAll('.collapse');
+      collapseElementList.forEach(collapseEl => {
+        new bootstrap.Collapse(collapseEl, {
+          toggle: false
+        });
+      });
+      
+      // Handle submenu toggle clicks
+      const submenuToggles = document.querySelectorAll('[data-bs-toggle="collapse"]');
+      submenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = this.getAttribute('href');
+          const targetElement = document.querySelector(target);
+          
+          if (targetElement) {
+            const collapseInstance = bootstrap.Collapse.getInstance(targetElement);
+            if (collapseInstance) {
+              collapseInstance.toggle();
+            }
+          }
+          
+          // Toggle aria-expanded
+          const isExpanded = this.getAttribute('aria-expanded') === 'true';
+          this.setAttribute('aria-expanded', !isExpanded);
+        });
+      });
+    });
+  </script>
 
 
 

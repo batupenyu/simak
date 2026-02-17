@@ -19,9 +19,9 @@ class Penilai extends Model
         'unit_kerja',
     ]);
 
-    public function penilai()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(User::class, 'penilai_id');
     }
 
     public function pists()

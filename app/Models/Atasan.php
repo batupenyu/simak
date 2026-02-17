@@ -17,6 +17,7 @@ class Atasan extends Model
         'pangkat_gol',
         'jabatan',
         'unit_kerja',
+        'user_id',
     ]);
 
     public function user()

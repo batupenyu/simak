@@ -27,7 +27,7 @@
                     <td style="font-size:75%; width:20%">
                         @if ($d->asal_surat == '-')
                         @else
-                            <a style="text-decoration:none"  data-toggle="collapse" href="#collapseExample{{ $d->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <a style="text-decoration:none"  data-bs-toggle="collapse" href="#collapseExample{{ $d->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                             {{ $d->no_asal_surat }}
                             </a>
                             <div class="collapse" id="collapseExample{{ $d->id }}">

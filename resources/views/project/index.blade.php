@@ -4,7 +4,7 @@
 
 <div class="btn-group">
     @foreach ($pegawai as $item)
-    <button type="button" class="btn btn-outline-danger dropdown-toggle dropend mt-3 me-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-outline-danger dropdown-toggle dropend mt-3 me-2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{$item->name}}
     </button>
     <div class="dropdown-menu">

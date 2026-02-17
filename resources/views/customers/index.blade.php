@@ -16,7 +16,7 @@
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-right">
-        <a href="javascript:void(0)" class="btn btn-success mb-2" id="new-customer" data-toggle="modal" data-target="#crud-modal">+ Hari Libur</a>
+        <a href="javascript:void(0)" class="btn btn-success mb-2" id="new-customer" data-bs-toggle="modal" data-target="#crud-modal">+ Hari Libur</a>
         <a href="{{ url('pegawai.index') }}" class="btn btn-success mb-2"  >Dok Pegawai</a>
         </div>
     </div>
@@ -45,10 +45,10 @@
         {{-- <td>{{ $customer->address }}</td> --}}
         <td class="text-center">
             <div class="dropdown dropdown-action">
-                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">
-                        <a href="javascript:void(0)" class="btn btn-sm btn-success" id="edit-customer" data-toggle="modal" data-id="{{ $customer->id }}">Edit </a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-success" id="edit-customer" data-bs-toggle="modal" data-id="{{ $customer->id }}">Edit </a>
                         @csrf
                         @method('delete')
                         <button type="submit" class="btn btn-sm btn-danger">delete</button>

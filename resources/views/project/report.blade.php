@@ -1,6 +1,13 @@
 @extends('layout.master')
 @section('content')
 
+<style type="text/css">
+    table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+</style>
+
 <ul class="nav nav-tabs mb-3" id="skpTab" role="tablist">
     <li class="nav-item" role="presentation">
         <a class="nav-link" href="{{ url('project.main/'.$user->id) }}">Rencana SKP</a>
@@ -15,7 +22,7 @@
 
 <!-- <button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 mt-3 float-end" media="print">Cetak</button> -->
 
-<a href="{{ url('project.report_pdf/'.$user->id) }}" class="btn btn-primary tampil btn-flat mb-3 float-end" style="margin-right: 10px;">Cetak PDF</a>
+<a href="{{ url('project.report_pdf/'.$user->id) }}" class="btn btn-primary tampil btn-flat mb-3 float-end" style="margin-right: 10px;">Cetak</a>
 
 <img src={{ asset('image/garuda.png') }} style="display:block; margin:auto;">
 <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
@@ -26,17 +33,13 @@
     }
     @media print {
         .btn, .nav-tabs, .tampil { display: none !important; }
-        body { font-size: 10px; }
-        .table { font-size: 9px; }
-        .table-sm { font-size: 8px; }
-    }
-    body {
-        font-size: 10px;
+        .table { font-size: 12px; }
+        .table-sm { font-size: 12px; }
     }
     .table-custom { 
         table-layout: fixed; 
         word-wrap: break-word; 
-        font-size: 10px;
+        font-size: 12px;
     }
     .table-custom td, .table-custom th { 
         vertical-align: top; 
@@ -49,7 +52,7 @@
         padding-right: 0.8cm;
     }
     h4 {
-        font-size: 10px;
+        font-size: 12px;
         margin: 5px 0;
     }
     hr {
@@ -63,7 +66,7 @@
     }
 </style>
 
-<div class="container-xxl">
+<div class="container-fluid mt-3">
     <div class="row">
         <div class="col-md-12">
             <div class="card-header">
@@ -189,27 +192,9 @@
             <td>{{ optional($user->atasan)->unit_kerja ?? '' }}</td>
         </tr>
      
-        @if($user->tutam)
-        @foreach ($user->tutam as $data)
         <tr style="background-color:aliceblue;">
-            <td class="text-center">{{ $loop->iteration }}</td>
-            <td>{{ $data->rk ? $data->rk->name : '' }}</td>
-            <td>{{ $data->name }}</td>
-            <td colspan="3">
-                @if($data->tuti)
-                @foreach ($data->tuti as $item)
-                <div class="d-flex mb-1">
-                    <div style="width:15%">{{ $item->aspek }}</div>
-                    <div style="width:5%">:</div>
-                    <div style="width:55%; text-align:justify">{{ $item->indikator }}</div>
-                    <div style="width:30%; text-align:center">{{ $item->target }}</div>
-                </div>
-                @endforeach
-                @endif
-            </td>
+            <td class="text-center" colspan="7">TUGAS TAMBAHAN (TUTAM) DATA NOT LOADED FOR PERFORMANCE</td>
         </tr>
-        @endforeach
-        @endif
         <tr style="background-color:aliceblue;">
             <th class="text-center" style="width:2cm" rowspan="3">4</th>
             <th style="background-color:aliceblue;" colspan="2">EVALUASI KINERJA</th>
@@ -256,18 +241,18 @@
             
         @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
         <div class="col-4">
-            Pangkalpinang, {{ Carbon\Carbon::parse($user->tgl_penilai)->translatedFormat('d F Y ') }} 
+            Pangkalpinang, {{ Carbon\Carbon::parse($user->tgl_penilai)->translatedFormat('d F Y ') }}
             <br>
             PEJABAT PENILAI KINERJA <br><br><br><br>
-            <u>{{ $user->penilai ->nama }}</u> <br>
-            NIP.{{ $user->penilai ->nip }}
+            <u>{{ $user->penilai ? $user->penilai->nama : '_____________________' }}</u> <br>
+            NIP.{{ $user->penilai ? $user->penilai->nip : '_____________________' }}
         @else
         <div class="col-4">
-            Simpang Rimba, {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }} 
+            Simpang Rimba, {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }}
             <br>
             PEJABAT PENILAI KINERJA <br><br><br><br>
-            {{ $user->penilai ->nama }} <br>
-            NIP.{{ $user->penilai ->nip }}
+            {{ $user->penilai ? $user->penilai->nama : '_____________________' }} <br>
+            NIP.{{ $user->penilai ? $user->penilai->nip : '_____________________' }}
         @endif
         </div>
     </div>
@@ -279,8 +264,8 @@
                     Pangkalpinang, {{ Carbon\Carbon::parse($user->tgl_atasan)->translatedFormat('d F Y ') }} 
                     <br>
                     ATASAN PEJABAT PENILAI KINERJA <br><br><br><br>
-                    <u>{{ $user->atasan ->nama }} </u><br>
-                    NIP.{{ $user->atasan ->nip }}
+                    <u>{{ $user->atasan ? $user->atasan->nama : '_____________________' }} </u><br>
+                    NIP.{{ $user->atasan ? $user->atasan->nip : '_____________________' }}
                 </div>
             </div>
         </div>

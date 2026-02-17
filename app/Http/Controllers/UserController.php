@@ -38,13 +38,8 @@ class UserController extends Controller
 
     public function index()
     {
-        // $pegawai = User::where('nip', '!=', '')->where('pangkat_gol', '!=', 'IX')->get();
-        $p3k = User::where('status', '=', 'p3k')->orderBy('name', 'ASC')->get();
-        $honor = User::where('status', 'HONOR')->get();
         $pegawai = User::where('status', '!=', 'P3K')->where('status', '!=', 'HONOR')->orderBy('name', 'ASC')->get();
-        $ak = Angka_kredit::with(['user'])->get();
-        $akintegrasi = Angka_kredit::with(['user'])->orderBy('tgl_akhir_penilaian', 'DESC')->first();
-        return view('project.index', compact('pegawai', 'ak', 'akintegrasi', 'p3k', 'honor'));
+        return view('project.index', compact('pegawai'));
     }
 
     public function show_ak()

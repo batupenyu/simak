@@ -24,7 +24,7 @@
                     <td style="text-align:center">{{ ($data ->currentpage()-1) * $data ->perpage() + $loop->index + 1 }}.</td>
                     <td style="text-align: end; width:250px">
                         <button type="button" class="btn btn-sm btn-outline-dark" data-bs-toggle="dropdown" aria-expanded="false">
-                            <a style="text-decoration:none"  data-toggle="collapse" href="#collapseExample{{ $d->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            <a style="text-decoration:none"  data-bs-toggle="collapse" href="#collapseExample{{ $d->id }}" role="button" aria-expanded="false" aria-controls="collapseExample">
                                 <i>@include('pists.tanggal')</i> 
                             </a>
                             @if ($d->selected  <= 1)

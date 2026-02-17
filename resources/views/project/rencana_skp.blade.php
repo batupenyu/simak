@@ -41,7 +41,7 @@
     <link rel="stylesheet" type="text/css" href="{!! asset('css/app.css') !!}">
     <div class="container-fluid mt-3">
         <!-- <button onclick="window.print();" class="btn btn-success tampil btn-flat mb-3 float-end" media="print">Cetak</button> -->
-        <a href="{{ url('project.rencana_pdf/'.$user->id) }}" class="btn btn-primary tampil btn-flat mb-3" style="margin-right: 10px;">Cetak PDF</a>
+        <a href="{{ url('project.rencana_pdf/'.$user->id) }}" class="btn btn-primary tampil btn-flat mb-3" style="margin-right: 10px;">Cetak</a>
     @if ($user->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
         <h4 style="text-align:center">SASARAN KINERJA PEGAWAI PEJABAT FUNGSIONAL <br>
             {{ $user->jabatan }} <br>

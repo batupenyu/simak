@@ -708,132 +708,115 @@ class ProjectController extends Controller
 
     public function rencana_pdf($id)
     {
-        // Use cache to improve performance for the PDF generation
-        $cacheKey = "rencana_pdf_{$id}_" . request()->user()?->id;
-        $ttl = now()->addMinutes(10); // Cache for 10 minutes
-        
-        return Cache::remember($cacheKey, $ttl, function () use ($id) {
-            $user = User::with([
-                'tugas:id,user_id,name,rk_id',
-                'tugas.rk:id,name',
-                'tugas.tupoksi:id,tugas_id,aspek,indikator,target,realisasi,satuan',
-                'tutam:id,user_id,name,tutam_id',
-                'tutam.rk:id,name',
-                'tutam.tuti:id,tutam_id,aspek,indikator,target,realisasi,satuan',
-                'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja'
-            ])->findOrFail($id);
+        $user = User::with([
+            'tugas:id,user_id,name,rk_id',
+            'tugas.rk:id,name',
+            'tugas.tupoksi:id,tugas_id,aspek,indikator,target,realisasi,satuan',
+            'tutam:id,user_id,name,tutam_id',
+            'tutam.rk:id,name',
+            'tutam.tuti:id,tutam_id,aspek,indikator,target,realisasi,satuan',
+            'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja'
+        ])->findOrFail($id);
 
-            $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('project.rencana_pdf', compact('user'));
-            $pdf->setPaper('A4', 'landscape');
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('project.rencana_pdf', compact('user'));
+        $pdf->setPaper('A4', 'landscape');
 
-            return $pdf->stream('rencana_pdf.pdf');
-        });
+        $fileName = 'Rencana_SKP_' . str_replace(' ', '_', $user->name) . '.pdf';
+        return $pdf->stream($fileName);
     }
 
     public function evaluasi_pdf($id)
     {
-        // Use cache to improve performance for the PDF generation
-        $cacheKey = "evaluasi_pdf_{$id}_" . request()->user()?->id;
-        $ttl = now()->addMinutes(10); // Cache for 10 minutes
-        
-        return Cache::remember($cacheKey, $ttl, function () use ($id) {
-            // Load user with optimized relationships and limited fields
-            $user = User::with([
-                'tugas:id,user_id,name,rk_id',
-                'tugas.rk:id,name',
-                'tugas.tupoksi:id,tugas_id,aspek,indikator,target,realisasi,satuan',
-                'tutam:id,user_id,name,tutam_id',
-                'tutam.rk:id,name',
-                'tutam.tuti:id,tutam_id,aspek,indikator,target,realisasi,satuan',
-                'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja',
-                'eks:id,user_id,eks1,eks2,eks3,eks4,eks5,eks6,eks7',
-                'umpan:id,user_id,umpan1,umpan2,umpan3,umpan4,umpan5,umpan6,umpan7'
-            ])->findOrFail($id);
+        // Load user with optimized relationships and limited fields
+        $user = User::with([
+            'tugas:id,user_id,name,rk_id',
+            'tugas.rk:id,name',
+            'tugas.tupoksi:id,tugas_id,aspek,indikator,target,realisasi,satuan',
+            'tutam:id,user_id,name,tutam_id',
+            'tutam.rk:id,name',
+            'tutam.tuti:id,tutam_id,aspek,indikator,target,realisasi,satuan',
+            'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja',
+            'eks:id,user_id,eks1,eks2,eks3,eks4,eks5,eks6,eks7',
+            'umpan:id,user_id,umpan1,umpan2,umpan3,umpan4,umpan5,umpan6,umpan7'
+        ])->findOrFail($id);
 
-            // Pre-calculate data to reduce complexity in the view
-            $uniqueRkNames = collect();
-            foreach ($user->tugas as $tugas) {
-                if (isset($tugas->rk) && $tugas->rk) {
-                    $uniqueRkNames->push($tugas->rk->name);
-                }
+        // Pre-calculate data to reduce complexity in the view
+        $uniqueRkNames = collect();
+        foreach ($user->tugas as $tugas) {
+            if (isset($tugas->rk) && $tugas->rk) {
+                $uniqueRkNames->push($tugas->rk->name);
             }
-            $uniqueRkNames = $uniqueRkNames->unique()->values();
-            $tugasChunks = $user->tugas->chunk(10); // 10 baris per tabel
-            
-            // Render the view to HTML
-            $html = view('project.evaluasi_pdf', [
-                'user' => $user,
-                'uniqueRkNames' => $uniqueRkNames,
-                'tugasChunks' => $tugasChunks
-            ])->render();
+        }
+        $uniqueRkNames = $uniqueRkNames->unique()->values();
+        $tugasChunks = $user->tugas->chunk(10);
 
-            // Create mPDF instance with specific configuration for better table handling
-            $mpdf = new \Mpdf\Mpdf([
-                'mode' => 'utf-8',
-                'format' => 'A4',
-                'orientation' => 'L', // Landscape
-                'tempDir' => storage_path('temp'),
-                'margin_left' => 10,
-                'margin_right' => 10,
-                'margin_top' => 10,
-                'margin_bottom' => 10,
-                'table_min_cell_height' => 5,
-                'table_min_row_height' => 5,
-            ]);
+        // Render the view to HTML
+        $html = view('project.evaluasi_pdf', [
+            'user' => $user,
+            'uniqueRkNames' => $uniqueRkNames,
+            'tugasChunks' => $tugasChunks
+        ])->render();
 
-            // Write HTML to PDF
-            $mpdf->WriteHTML($html);
+        // Create mPDF instance with specific configuration for better table handling
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'orientation' => 'L',
+            'tempDir' => storage_path('temp'),
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 10,
+            'margin_bottom' => 10,
+            'table_min_cell_height' => 5,
+            'table_min_row_height' => 5,
+        ]);
 
-            // Stream the PDF
-            return $mpdf->Output('evaluasi_pdf.pdf', 'I');
-        });
+        // Write HTML to PDF
+        $mpdf->WriteHTML($html);
+
+        // Stream the PDF with filename based on user name
+        $fileName = 'Evaluasi_Kinerja_' . str_replace(' ', '_', $user->name) . '.pdf';
+        return $mpdf->Output($fileName, 'I');
     }
 
     public function report_pdf($id)
     {
-        // Use cache to improve performance for the PDF generation
-        $cacheKey = "report_pdf_{$id}_" . request()->user()?->id;
-        $ttl = now()->addMinutes(10); // Cache for 10 minutes
+        // Load user with only essential relationships
+        $user = User::select([
+            'id', 'name', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja', 'penilai_id',
+            'tgl_awal', 'tgl_akhir', 'tgl_pegawai', 'tgl_penilai', 'tgl_atasan'
+        ])->with(['penilai' => function($q) {
+            $q->select(['id', 'nama', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja']);
+        }, 'atasan' => function($q) {
+            $q->select(['id', 'nama', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja', 'user_id']);
+        }])->findOrFail($id);
 
-        return Cache::remember($cacheKey, $ttl, function () use ($id) {
-            // Load user with optimized relationships and limited fields
-            $user = User::select([
-                'id', 'name', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja', 
-                'tgl_awal', 'tgl_akhir', 'tgl_pegawai', 'tgl_penilai', 'tgl_atasan'
-            ])->with([
-                'tutam:id,user_id,name,rk_id',
-                'tutam.rk:id,name',
-                'tutam.tuti:id,tutam_id,aspek,indikator,target,satuan,realisasi',
-                'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja',
-                'atasan:id,nama,nip,pangkat_gol,jabatan,unit_kerja'
-            ])->findOrFail($id);
+        // Render the view to HTML
+        $html = view('project.report_pdf', [
+            'user' => $user
+        ])->render();
 
-            // Render the view to HTML
-            $html = view('project.report_pdf', [
-                'user' => $user
-            ])->render();
+        // Create mPDF instance with optimized configuration
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'orientation' => 'P',
+            'tempDir' => storage_path('temp'),
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 10,
+            'margin_bottom' => 10,
+            'default_font_size' => 8,
+            'autoScriptToLang' => false,
+            'autoLangToFont' => false,
+        ]);
 
-            // Create mPDF instance with specific configuration for better table handling
-            $mpdf = new \Mpdf\Mpdf([
-                'mode' => 'utf-8',
-                'format' => 'A4',
-                'orientation' => 'L', // Landscape for better table display
-                'tempDir' => storage_path('temp'),
-                'margin_left' => 10,
-                'margin_right' => 10,
-                'margin_top' => 10,
-                'margin_bottom' => 10,
-                'table_min_cell_height' => 5,
-                'table_min_row_height' => 5,
-                'default_font_size' => 8,
-            ]);
+        // Write HTML to PDF
+        $mpdf->WriteHTML($html);
 
-            // Write HTML to PDF
-            $mpdf->WriteHTML($html);
-
-            // Stream the PDF
-            return $mpdf->Output('report_pdf.pdf', 'I');
-        });
+        // Stream the PDF with filename based on user name
+        $fileName = 'Laporan_Kinerja_' . str_replace(' ', '_', $user->name) . '.pdf';
+        return $mpdf->Output($fileName, 'I');
     }
 }
 
