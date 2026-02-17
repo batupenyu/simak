@@ -718,11 +718,47 @@ class ProjectController extends Controller
             'penilai:id,nama,nip,pangkat_gol,jabatan,unit_kerja'
         ])->findOrFail($id);
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('project.rencana_pdf', compact('user'));
-        $pdf->setPaper('A4', 'landscape');
+        // Pre-calculate data for the view
+        $uniqueRkNames = collect();
+        foreach ($user->tugas as $tugas) {
+            if (isset($tugas->rk) && $tugas->rk) {
+                $uniqueRkNames->push($tugas->rk->name);
+            }
+        }
+        $uniqueRkNames = $uniqueRkNames->unique()->values();
+        $tugasChunks = $user->tugas->chunk(10);
 
+        // Render the view to HTML
+        $html = view('project.rencana_pdf', [
+            'user' => $user,
+            'uniqueRkNames' => $uniqueRkNames,
+            'tugasChunks' => $tugasChunks
+        ])->render();
+
+        // Create mPDF instance
+        $mpdf = new \Mpdf\Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'orientation' => 'L',
+            'tempDir' => storage_path('temp'),
+            'margin_left' => 10,
+            'margin_right' => 10,
+            'margin_top' => 15,
+            'margin_bottom' => 15,
+            'default_font_size' => 8,
+            'autoScriptToLang' => false,
+            'autoLangToFont' => false,
+            'useActiveForms' => false,
+            'watermarkImgAlphaBlend' => 'normal',
+            'watermarkImgBehind' => false,
+        ]);
+
+        // Write HTML to PDF
+        $mpdf->WriteHTML($html);
+
+        // Stream the PDF with filename based on user name
         $fileName = 'Rencana_SKP_' . str_replace(' ', '_', $user->name) . '.pdf';
-        return $pdf->stream($fileName);
+        return $mpdf->Output($fileName, 'I');
     }
 
     public function evaluasi_pdf($id)

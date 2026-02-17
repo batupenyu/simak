@@ -10,7 +10,6 @@
         page-break-after: always;
     }
 
-    /* PENTING: Mencegah baris tabel terpecah */
     table {
         page-break-inside: auto;
         border-collapse: collapse;
@@ -18,37 +17,29 @@
     }
 
     tr {
-        page-break-inside: avoid !important;
+        page-break-inside: auto;
         page-break-after: auto;
-    }
-    
-    /* Specific rule for perilaku kerja table rows to prevent page breaks */
-    table.table-bordered tr {
-        page-break-inside: avoid !important;
-    }
-    
-    /* More specific rules for perilaku kerja table */
-    table.table-bordered tbody tr {
-        page-break-inside: avoid !important;
-        page-break-after: auto;
-    }
-    
-    /* Force no page breaks inside table cells */
-    table.table-bordered td {
-        page-break-inside: avoid !important;
-    }
-    
-    /* Additional rule to prevent page breaks inside perilaku kerja rows */
-    .perilaku-row {
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
     }
 
     td, th {
-        page-break-inside: avoid !important;
+        page-break-inside: auto;
         vertical-align: top;
         border: 1px solid #000;
         padding: 4px;
+    }
+
+    ol {
+        margin: 0;
+        padding: 0;
+        list-style-position: outside;
+        margin-left: 25px;
+    }
+
+    ol li {
+        margin-bottom: 3px;
+        line-height: 1.4;
+        margin-left: 0;
+        padding-left: 0;
     }
 
     table.table-borderless,
@@ -59,7 +50,7 @@
 
     /* Wrapper untuk konten agar tidak terpotong */
     .cell-content {
-        page-break-inside: avoid !important;
+        page-break-inside: auto;
         margin: 4px 0;
     }
 
@@ -70,23 +61,22 @@
     tfoot {
         display: table-footer-group;
     }
-    
+
     .text-center { text-align: center; }
     .text-justify { text-align: justify; }
     .fw-bold { font-weight: bold; }
     .mb-3 { margin-bottom: 1rem; }
     .mt-2 { margin-top: 0.5rem; }
     .border-dark { border-color: #000 !important; }
-    
-    /* Signature table specific styles for mPDF */
+
     .signature-table {
-        page-break-inside: avoid !important;
+        page-break-inside: auto;
     }
-    
+
     .signature-table td {
-        page-break-inside: avoid !important;
-        width: 50% !important;
-        vertical-align: top !important;
+        page-break-inside: auto;
+        width: 50%;
+        vertical-align: top;
     }
 </style>
 
@@ -105,12 +95,15 @@
 </table>
 
 <table class="table table-sm mt-2" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
-    <tr>
-        <th style="border: 1px solid #000; padding: 4px; text-align: center;">NO</th>
-        <th style="border: 1px solid #000; padding: 4px;" colspan="3">PEGAWAI YANG DINILAI</th>
-        <th style="border: 1px solid #000; padding: 4px; text-align: center;">NO</th>
-        <th style="border: 1px solid #000; padding: 4px;" colspan="3">PEJABAT PENILAI KINERJA</th>
-    </tr>
+    <thead>
+        <tr style="background-color: #f0f0f0;">
+            <th style="border: 1px solid #000; padding: 4px; text-align: center;">NO</th>
+            <th style="border: 1px solid #000; padding: 4px;" colspan="3">PEGAWAI YANG DINILAI</th>
+            <th style="border: 1px solid #000; padding: 4px; text-align: center;">NO</th>
+            <th style="border: 1px solid #000; padding: 4px;" colspan="3">PEJABAT PENILAI KINERJA</th>
+        </tr>
+    </thead>
+    <tbody>
     <tr>
         <td style="border: 1px solid #000; padding: 4px; text-align: center;">1.</td>
         <td style="border: 1px solid #000; border-right: none; padding: 4px;">NAMA</td>
@@ -161,6 +154,7 @@
         <td style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; width: 20px; text-align: center;">:</td>
         <td style="border: 1px solid #000; border-left: none; padding: 4px;">{{ $user->penilai ? $user->penilai->unit_kerja : '' }}</td>
     </tr>
+    </tbody>
 </table>
 <br>
 
@@ -177,7 +171,8 @@
 </table>
 
 <table class="table table-sm table-bordered border-dark">
-    <tbody>
+    <thead>
+        
         <tr>
             <th style="text-align: center; width: 50px;">No</th>
             <th style="text-align: center; width: 250px;">Rencana Hasil Kerja Atasan Yang Diintervensi</th>
@@ -194,6 +189,9 @@
             <th style="text-align: center; width: 150px;">Realisasi berdasar bukti dukung</th>
             <th style="text-align: center; width: 150px;">Umpan Balik</th>
         </tr>
+        
+    </thead>
+    <tbody>
         <tr>
             <th colspan="8" style="text-align: left; padding-left: 10px;">Utama </th>
         </tr>
@@ -202,7 +200,6 @@
             $firstRkName = $uniqueRkNames->first() ?? null;
             $overallIndex = 0;
         @endphp
-
         @foreach ($tugasChunks as $chunkIndex => $chunk)
             @foreach ($chunk as $data)
                 @php
@@ -250,7 +247,6 @@
                 </tr>
             @endforeach
             
-            {{-- Add page break after each chunk except the last one --}}
             @if (!$loop->last)
                 <tr>
                     <td colspan="8" class="page-break"></td>
@@ -301,28 +297,30 @@
 </table>
 
 <!-- Page break to ensure Perilaku Kerja table starts on a new page -->
-<div class="page-break"></div>
+<!-- <div class="page-break"></div> -->
 
-<table class="table table-bordered border-primary" style="width: 100%; border-collapse: collapse; page-break-inside: avoid;">
-    <tbody>
+<table class="table table-bordered border-primary" style="width: 100%; border-collapse: collapse;">
+    <thead>
         <tr>
-            <td colspan="2">
+            <th colspan="2" style="background-color: #f0f0f0;">
                 <div style="text-align: center;">
                     <b>PERILAKU KERJA</b>
                 </div>
-            </td>
-            <td colspan="2" style="text-align: center"><b>UMPAN BALIK BERKELANJUTAN <br>
-            BERDASARKAN BUKTI DUKUNG</b></td>
+            </th>
+            <th colspan="2" style="background-color: #f0f0f0; text-align: center;"><b>UMPAN BALIK BERKELANJUTAN <br>
+            BERDASARKAN BUKTI DUKUNG</b></th>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+    </thead>
+    <tbody>
+        <tr class="perilaku-row">
             <td style="text-align: center; width: 5%;" rowspan="2">
                 1 </td>
             <td colspan="3">
                 Berorientasi Pelayanan </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td>
-                <ol style="margin-bottom: 0; padding-left: 17px;">
+                <ol>
                     <li>Memahami dan memenuhi kebutuhan masyarakat
                     </li>
                     <li>Ramah, cekatan, solutif, dan dapat diandalkan
@@ -340,15 +338,15 @@
             </td>
         </tr>
 
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td style="text-align: center; width: 5%;" rowspan="2">
                 2 </td>
                 <td colspan="3">
                     Akuntabel </td>
                 </tr>
-                <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+                <tr class="perilaku-row">
                     <td>
-                        <ol style="margin-bottom: 0; padding-left: 17px;">
+                        <ol>
                             <li>Melaksanakan tugas dengan jujur bertanggung jawab cermat disiplin dan berintegritas tinggi
                             </li>
                             <li>Menggunakan kekayaan dan BMN secara bertanggung jawab efektif dan efisien
@@ -365,15 +363,15 @@
                         {{ optional($user->umpan)->umpan2 ?? '' }}
                     </td>
                 </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td style="text-align: center; width: 5%;" rowspan="2">
             3 </td>
         <td colspan="3">
             Kompeten </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td>
-                <ol style="margin-bottom: 0; padding-left: 17px;">
+                <ol>
                     <li>Meningkatkan kompetensi diri untuk menjawab tantangan yang selalu berubah
                     </li>
                     <li>Membantu orang lain belajar
@@ -390,15 +388,15 @@
                 {{ optional($user->umpan)->umpan3 ?? '' }}
             </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td style="text-align: center; width: 5%;" rowspan="2">
             4 </td>
         <td colspan="3">
             Harmonis </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td>
-                <ol style="margin-bottom: 0; padding-left: 17px;">
+                <ol>
                     <li>Menghargai setiap orang apapun latar belakangnya
                     </li>
                     <li>Suka menolong orang lain
@@ -415,15 +413,15 @@
                 {{ optional($user->umpan)->umpan4 ?? '' }}
             </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td style="text-align: center; width: 5%;" rowspan="2">
             5 </td>
         <td colspan="3">
             Loyal </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td>
-                <ol style="margin-bottom: 0; padding-left: 17px;">
+                <ol>
                     <li>Memegah teguh ideologi Pancasila, Undang-Undang Dasar Negara Republik Indonesia Tahun 1945, setia pada NKRI serta pemerintahan yang sah
                     </li>
                     <li>Menjaga nama baik sesama ASN, Pimpinan, Instansi, dan Negara
@@ -440,15 +438,15 @@
                 {{ optional($user->umpan)->umpan5 ?? '' }}
             </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td style="text-align: center; width: 5%;" rowspan="2">
             6 </td>
         <td colspan="3">
             Adaptif </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td>
-                <ol style="margin-bottom: 0; padding-left: 17px;">
+                <ol>
                     <li>Cepat menyesuaikan diri menghadapi perubahan
                     </li>
                     <li>Terus berinovasi dan mengembangkan kreativitas
@@ -465,15 +463,15 @@
                 {{ optional($user->umpan)->umpan6 ?? '' }}
             </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td style="text-align: center; width: 5%;" rowspan="2">
             7 </td>
             <td colspan="3">
             Kolaboratif </td>
         </tr>
-        <tr class="perilaku-row" style="page-break-inside: avoid !important;">
+        <tr class="perilaku-row">
             <td>
-                <ol style="margin-bottom: 0; padding-left: 17px;">
+                <ol>
                     <li>Memberi kesempatan kepada berbagai pihak untuk berkontribusi
                     </li>
                     <li>Terbuka dalam pengurusama untuk menghasilkan nilai tambah

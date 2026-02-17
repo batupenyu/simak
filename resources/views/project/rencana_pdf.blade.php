@@ -13,17 +13,13 @@
         page-break-after: always;
     }
 
-    .avoid-page-break {
-        page-break-inside: avoid;
-    }
-
     table {
-        page-break-inside: avoid;
+        page-break-inside: auto;
     }
 
     tr {
-        page-break-inside: avoid;
-        page-break-after: avoid;
+        page-break-inside: auto;
+        page-break-after: auto;
     }
 
     thead {
@@ -33,7 +29,7 @@
     tfoot {
         display: table-footer-group;
     }
-    
+
     /* Custom style to remove left and right borders from colon columns */
     .colon-column {
         border-left: none !important;
@@ -58,13 +54,13 @@
 
 <table class="table table-sm mt-2" style="width: 100%; border-collapse: collapse; border: 1px solid #000;">
     <tr>
-        <th style="border: 1px solid #000; padding: 4px; text-align: center;">NO</th>
+        <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 5%;">NO</th>
         <th style="border: 1px solid #000; padding: 4px;" colspan="3">PEGAWAI YANG DINILAI</th>
-        <th style="border: 1px solid #000; padding: 4px; text-align: center;">NO</th>
+        <th style="border: 1px solid #000; padding: 4px; text-align: center; width: 5%;">NO</th>
         <th style="border: 1px solid #000; padding: 4px;" colspan="3">PEJABAT PENILAI KINERJA</th>
     </tr>
     <tr>
-        <td style="border: 1px solid #000; padding: 4px; text-align: center;">1.</td>
+        <td style="border: 1px solid #000; padding: 4px; text-align: center; ">1.</td>
         <td style="border: 1px solid #000; border-right: none; padding: 4px;">NAMA</td>
         <td style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 4px; width: 20px; text-align: center;">:</td>
         <td style="border: 1px solid #000; border-left: none; padding: 4px;">{{ $user->name }}</td>
@@ -122,35 +118,48 @@
             <th style="text-align: center; width: 50px; border: 1px solid #000;">No</th>
             <th style="text-align: center; width: 250px; border: 1px solid #000;">Rencana Hasil Kerja Atasan Yang Diintervensi</th>
             <th style="text-align: center; width: 300px; border: 1px solid #000;">Rencana Hasil Kerja</th>
-            <th>Aspek</th>
-            <th>Indikator Kinerja</th>
-            <th>Target</th>
+            <th style="border: 1px solid #000;">Aspek</th>
+            <th style="border: 1px solid #000;">Indikator Kinerja</th>
+            <th style="border: 1px solid #000;">Target</th>
         </tr>
         <tr>
             <th colspan="6" style="border: 1px solid #000;">Utama</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($user->tugas as $data)
+        @php
+            $firstRkName = $uniqueRkNames->first() ?? null;
+            $overallIndex = 0;
+        @endphp
+        @foreach ($tugasChunks as $chunkIndex => $chunk)
+        @foreach ($chunk as $data)
+            @php
+                $overallIndex++;
+            @endphp
         <tr style="page-break-inside: avoid;">
-            <td style="text-align: justify; border: 1px solid #000; vertical-align: top;">{{ $loop->iteration }} </td>
-            <td style="border: 1px solid #000; vertical-align: top; padding-left: 10px; padding-right: 0px; text-align: justify;">{{ $data->rk->name ?? '-' }}</td>
-            <td style="border: 1px solid #000; vertical-align: top; padding-left: 10px; padding-right: 0px;">{{ $data->name }}</td>
-            <td style="vertical-align:text-top; border: 1px solid #000;" colspan="3">
-                @foreach ($data->tupoksi as $item)
-                <table>
-                    
-                    <tr>
-                        <td style="width:150px; padding-left: 10px; padding-right: 0px;">{{ $item->aspek }}</td>
-                        <td style="width:150px">{{$item->indikator}}</td>
-                        <td style="width:20%">{{$item->target}}</td>
-                    </tr>
-                </table>
-                @endforeach
+            <td style="text-align: center; border: 1px solid #000;vertical-align: top;">
+                {{ $overallIndex }}
             </td>
+            <td style="text-align: justify;padding-left: 10px; vertical-align: top; border: 1px solid #000;">
+                @if ($overallIndex == 1 && $firstRkName)
+                    {{ $firstRkName }}
+                @endif
+            </td>
+            <td style="text-align: left;padding-left: 10px; vertical-align: top; border: 1px solid #000;">{{ $data->name }}</td>
+            @foreach ($data->tupoksi as $item)
+            <td style="border: 1px solid #000; vertical-align: top; padding: 4px;">{{ $item->aspek }}</td>
+            <td style="border: 1px solid #000; vertical-align: top; padding: 4px;">{{ $item->indikator }}</td>
+            <td style="border: 1px solid #000; vertical-align: top; padding: 4px;text-align: right;padding-right: 10px;">{{ $item->target }}</td>
+            @endforeach
         </tr>
         @endforeach
-
+        
+        @if (!$loop->last)
+            <tr>
+                <td colspan="8" class="page-break"></td>
+            </tr>
+        @endif
+        @endforeach
         @if(count($user->tutam) > 0)
         <tr style="page-break-before: auto;">
             <th colspan="6" style="border: 1px solid #000;">
@@ -193,14 +202,24 @@
 </table>
 <br>
 
-<b>PERILAKU KERJA</b>
-<table class="table table-bordered border-dark" style="width: 100%; border-collapse: collapse; page-break-inside: avoid;">
+
+<table class="table table-bordered border-dark" style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th colspan="2" style="background-color: #f0f0f0; border: 1px solid #000; text-align ;">
+                    <b>PERILAKU KERJA</b>
+                </div>
+            </th>
+            <th colspan="2" style="background-color: #f0f0f0; text-align: center; border: 1px solid #000;"><b>UMPAN BALIK BERKELANJUTAN <br>
+            BERDASARKAN BUKTI DUKUNG</b></th>
+        </tr>
+    </thead>
     <tbody>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="text-align: center; width: 5%; border: 1px solid #000; padding-left: 3px;" rowspan="2">1 </td>
             <td colspan="2" style="width: 65%; border: 1px solid #000; padding-left: 3px;">Berorientasi Pelayanan </td>
         </tr>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="border: 1px solid #000; padding-left: 3px;">
                 <ol style="margin-bottom: 0; padding-left: 22px;">
                     <li>Memahami dan memenuhi kebutuhan masyarakat
@@ -215,14 +234,11 @@
                 {{ optional($user->eks)->eks1 ?? '' }} <br>
             </td>
         </tr>
-    </tbody>
-    
-    <tbody>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="text-align: center; width: 50px; border: 1px solid #000; padding-left: 3px;" rowspan="2">2 </td>
             <td colspan="2" style="border: 1px solid #000; padding-left: 3px;">Akuntabel </td>
         </tr>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="border: 1px solid #000; padding-left: 3px;">
                 <ol style="margin-bottom: 0; padding-left: 22px;">
                     <li>Melaksanakan tugas dengan jujur bertanggung jawab cermat disiplin dan berintegritas tinggi
@@ -237,14 +253,11 @@
                 {{ optional($user->eks)->eks2 ?? '' }} <br>
             </td>
         </tr>
-    </tbody>
-    
-    <tbody>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="text-align: center; width: 50px; border: 1px solid #000; padding-left: 3px;" rowspan="2">3 </td>
             <td colspan="2" style="border: 1px solid #000; padding-left: 3px;">Kompeten </td>
         </tr>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="border: 1px solid #000; padding-left: 3px;">
                 <ol style="margin-bottom: 0; padding-left: 22px;">
                     <li>Meningkatkan kompetensi diri untuk menjawab tantangan yang selalu berubah
@@ -258,16 +271,13 @@
                 {{ optional($user->eks)->eks3 ?? '' }} <br>
             </td>
         </tr>
-    </tbody>
-    
-    <tbody>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="text-align: center; width: 50px; border: 1px solid #000; padding-left: 3px;" rowspan="2">
                 4 </td>
             <td colspan="2" style="border: 1px solid #000; padding-left: 3px;">
                 Harmonis </td>
         </tr>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="border: 1px solid #000; padding-left: 3px;">
                 <ol style="margin-bottom: 0; padding-left: 22px;">
                     <li>Menghargai setiap orang apapun latar belakangnya
@@ -281,16 +291,13 @@
                 {{ optional($user->eks)->eks4 ?? '' }} <br>
             </td>
         </tr>
-    </tbody>
-    
-    <tbody>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="text-align: center; width: 50px; border: 1px solid #000; padding-left: 3px;" rowspan="2">
                 5 </td>
             <td colspan="2" style="border: 1px solid #000; padding-left: 3px;">
                 Loyal </td>
         </tr>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="border: 1px solid #000; padding-left: 3px;">
                 <ol style="margin-bottom: 0; padding-left: 22px;">
                     <li>Memegang teguh ideologi Pancasila, Undang-Undang Dasar Negara Republik Indonesia Tahun 1945, setia pada NKRI serta pemerintahan yang sah
@@ -304,16 +311,13 @@
                 {{ optional($user->eks)->eks5 ?? '' }} <br>
             </td>
         </tr>
-    </tbody>
-    
-    <tbody>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="text-align: center; width: 50px; border: 1px solid #000; padding-left: 3px;" rowspan="2">
                 6 </td>
             <td colspan="2" style="border: 1px solid #000; padding-left: 3px;">
                 Adaptif </td>
         </tr>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="border: 1px solid #000; padding-left: 3px;">
                 <ol style="margin-bottom: 0; padding-left: 22px;">
                     <li>Cepat menyesuaikan diri menghadapi perubahan
@@ -327,16 +331,13 @@
                 {{ optional($user->eks)->eks6 ?? '' }} <br>
             </td>
         </tr>
-    </tbody>
-    
-    <tbody>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="text-align: center; width: 50px; border: 1px solid #000; padding-left: 3px;" rowspan="2">
                 7 </td>
             <td colspan="2" style="border: 1px solid #000; padding-left: 3px;">
                 Kolaboratif </td>
         </tr>
-        <tr style="page-break-inside: avoid;">
+        <tr>
             <td style="border: 1px solid #000; padding-left: 3px;">
                 <ol style="margin-bottom: 0; padding-left: 22px;">
                     <li>Memberi kesempatan kepada berbagai pihak untuk berkontribusi
@@ -352,7 +353,6 @@
         </tr>
     </tbody>
 </table>
-<br>
 
 <div class="box-header with-border">
     <h3 class="box-title">Lampiran SKP</h3>
@@ -391,19 +391,25 @@
 </div>
 <br>
 
-<div class="text-center fw-bold page-break-before" style="display: flex; justify-content: space-between; width: 100%;">
-    <span style="width: 48%; text-transform: uppercase; vertical-align: top; display: inline-block; text-align: center;">
-        <br><br>
-        PEGAWAI YANG DINILAI <br><br><br><br><br>
-        {{ $user->name }} <br>
-        NIP.{{ $user->nip }}
-        </span>
-        <span style="width: 48%; vertical-align: top; display: inline-block; text-align: center;">
-        Pangkalpinang, {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }}
-        <br><br>
-        PEJABAT PENILAI KINERJA <br><br><br><br><br>
-        {{ $user->penilai ? $user->penilai->nama : '' }} <br>
-        NIP.{{ $user->penilai ? $user->penilai->nip : '' }}
-        <br><br>
-        </span>
-</div>
+<table style="width: 100%; border: none;">
+    <tr>
+        <td style="width: 50%; text-align: center; vertical-align: top; border: none;">
+            <div style="text-transform: uppercase; text-align: center;">
+                <br><br>
+                PEGAWAI YANG DINILAI <br><br><br><br><br>
+                {{ $user->name }} <br>
+                NIP.{{ $user->nip }}
+            </div>
+        </td>
+        <td style="width: 50%; text-align: center; vertical-align: top; border: none;">
+            <div style="text-align: center;">
+                Pangkalpinang, {{ Carbon\Carbon::parse($user->tgl_akhir)->translatedFormat('d F Y ') }}
+                <br><br>
+                PEJABAT PENILAI KINERJA <br><br><br><br><br>
+                {{ $user->penilai ? $user->penilai->nama : '' }} <br>
+                NIP.{{ $user->penilai ? $user->penilai->nip : '' }}
+                <br><br>
+            </div>
+        </td>
+    </tr>
+</table>

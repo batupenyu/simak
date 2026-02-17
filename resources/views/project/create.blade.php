@@ -15,7 +15,16 @@
         </div>
         <div class="mb-3">
             <label for="pangkat_gol" class="form-label">Pangkat/Gol</label>
-            <input type="text" class="form-control" id="pangkat_gol" name="pangkat_gol" required>
+            <select class="form-control" id="pangkat_gol" name="pangkat_gol" required>
+                <option value="-">-</option>
+                <option value="IX">IX</option>
+                <option value="MADYA DARMA/II.C.">MADYA DARMA/II.c.</option>
+                <option value="Penata Muda, III/a">Penata Muda, III/a</option>
+                <option value="Penata Muda TK.I, III/b">Penata Muda TK.I, III/b</option>
+                <option value="Penata, III/c">Penata, III/c</option>
+                <option value="Penata TK.I, III/d">Penata TK.I, III/d</option>
+                <option value="Pembina, IV/a">Pembina, IV/a</option>
+            </select>
         </div>
         <div class="mb-3">
             <label for="jabatan" class="form-label">Jabatan</label>

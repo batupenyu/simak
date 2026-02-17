@@ -123,16 +123,17 @@
                         <div class="row justify-content-between text-left">
 
 <div class="form-group col-sm-6 d-flex align-items-center"> 
-    <label class="form-control-label px-3 me-3 mb-0">Pangkat/Gol<span class="text-danger"> </span></label> 
+    <label class="form-control-label px-3 me-3 mb-0">Pangkat/Gol<span class="text-danger"> </span></label>
     <select name="pangkat_gol" id="pangkat_gol" class="form-control">Pangkat
         <option value="-" {{ $user->pangkat_gol === "-" ? 'selected':''}}>-</option>
         <option value="IX" {{ $user->pangkat_gol === "IX" ? 'selected':''}}>IX</option>
+        <option value="MADYA DARMA/II.C." {{ $user->pangkat_gol === "MADYA DARMA/II.c." ? 'selected':''}}>MADYA DARMA/II.c.</option>
         <option value="Penata Muda, III/a" {{ $user->pangkat_gol === "Penata Muda, III/a" ? 'selected':''}}>Penata Muda, III/a</option>
         <option value="Penata Muda TK.I, III/b" {{ $user->pangkat_gol === "Penata Muda TK.I, III/b" ? 'selected':''}}>Penata Muda TK.I, III/b</option>
         <option value="Penata, III/c" {{ $user->pangkat_gol === "Penata, III/c" ? 'selected':''}}>Penata, III/c</option>
         <option value="Penata TK.I, III/d" {{ $user->pangkat_gol === "Penata TK.I, III/d" ? 'selected':''}}>Penata TK.I, III/d</option>
         <option value="Pembina, IV/a" {{ $user->pangkat_gol === "Pembina, IV/a" ? 'selected':''}}>Pembina, IV/a</option>
-    </select> 
+    </select>
 </div>
 
                             <div class="form-group col-sm-6 d-flex align-items-center"> <label class="form-control-label px-3 me-3 mb-0">Jabatan<span class="text-danger"> </span></label> <input type="text" id="jabatan" name="jabatan" placeholder="" onblur="validate(5)" value="{{ $user->jabatan }}"> </div>
