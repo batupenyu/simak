@@ -21,11 +21,11 @@
                         <a href="{{ route('rk.edit',$item->id) }}"><i class="fa fa-edit"></i></a>
                         {{ $item->name}}</td>
                     <td style="text-align: center ">
-                        {{-- <form  onsubmit="return confirm('yakin hapus data?..')" class="d-inline" action="{{ route('rk.destroy',$item->id) }}" method="POST">
+                        <form onsubmit="return confirm('Yakin hapus data?')" class="d-inline" action="{{ route('rk.destroy',$item->id) }}" method="POST">
                             @csrf
                             @method('delete')
-                            <button type="submit" class="btn"><i class="fa fa-trash-o" style="color: red"></i></button>
-                        </form> --}}
+                            <button type="submit" class="btn btn-sm btn-flat"><i class="fa fa-trash" style="color: red"></i></button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
