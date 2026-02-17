@@ -98,7 +98,7 @@
             <td>Kelahiran</td>
             <td>Perkawinan</td>
         </tr>
-        @if ($data->pasangan->status == 'menanggung')
+        @if ($data->pasangan && $data->pasangan->status == 'menanggung')
             <tr>
                 <td>-</td>
                 <td>-</td>
@@ -111,28 +111,25 @@
             <tr>
                 <?php $no =1 ?>
                 <td style="text-align: center">
-                    @if ($data->pasangan->name == '-')
+                    @if ($data->pasangan && $data->pasangan->name == '-')
                     @else
                     <?php echo $no++ ?>.
                     @endif
                 </td>
-                <td>{{$data->pasangan->name }}</td>
+                <td>{{ $data->pasangan ? $data->pasangan->name : '-' }}</td>
                 <td style="text-align: center">
-                    @if ($data->pasangan->name =='-')
-                    @else
-                    {{ Carbon\Carbon::parse($data->pasangan->tgl_lahir)->translatedFormat('d - m - Y ') }} 
+                    @if ($data->pasangan && $data->pasangan->name != '-')
+                    {{ Carbon\Carbon::parse($data->pasangan->tgl_lahir)->translatedFormat('d - m - Y ') }}
                     @endif
                 </td>
                 <td>
-                    @if ($data->pasangan->name =='-')
-                    @else
-                    {{ Carbon\Carbon::parse($data->pasangan->tgl_kawin)->translatedFormat('d - m - Y ') }} 
+                    @if ($data->pasangan && $data->pasangan->name != '-')
+                    {{ Carbon\Carbon::parse($data->pasangan->tgl_kawin)->translatedFormat('d - m - Y ') }}
                     @endif
                 </td>
-                <td style="text-align: center">{{ $data->pasangan->job  }}</td>
+                <td style="text-align: center">{{ $data->pasangan ? $data->pasangan->job : '-' }}</td>
                 <td style="text-align: center">
-                    @if ($data->pasangan->name =="-")
-                    @else
+                    @if ($data->pasangan && $data->pasangan->name != '-')
                     @if ($data->jk ==='Perempuan' )
                     Suami
                     @else
@@ -141,9 +138,9 @@
                     @endif
                 </td>
                 <td style="text-align: center">
-                    @if ($data->pasangan->name == '-')
+                    @if ($data->pasangan && $data->pasangan->name == '-')
                     @else
-                        @if ( $data->pasangan->status == 'menanggung') 
+                        @if ( $data->pasangan && $data->pasangan->status == 'menanggung')
                             --
                         @else
                             <span style="font-family:zapfdingbats;">4</span>
@@ -179,7 +176,7 @@
                     @if ($data->penilai->jabatan == 'Kepala Dinas')
                         <a href="/penilai.edit_penilai/{{ $data->penilai->id }}" style="text-decoration: none"> <i class="fa fa-edit tampil"></i></a> 
                         Mengetahui,<br>
-                            {{ $data->penilai->jabatan }} <br>
+                            {{ $data->penilai->jabatan }} <br><br>
                             Dinas Pendidikan <br>
                             Provinsi Kepulauan Bangka Belitung <br><br><br><br>
                             {{ $data->penilai->nama }} <br>
@@ -194,10 +191,9 @@
                             {{ $data->nip }}
                     @else
                         <a href="/penilai.edit_penilai/{{ $data->penilai->id }}" style="text-decoration: none"> <i class="fa fa-edit tampil"></i></a> 
-                        <br>
                         Mengetahui,<br>
                         {{ Str::title($data->penilai->jabatan) }}
-                            <br><br><br>
+                            <br><br><br><br>
                             {{ $data->penilai->nama }} <br>
                             NIP. {{ $data->penilai->nip }} 
                             
@@ -206,7 +202,7 @@
                 <td>
                     @if ($data->unit_kerja == "KEJAKSAAN TINGGI KEP. BANGKA BELITUNG")
                         Pangkalpinang, {{ Carbon\Carbon::parse($data->tgl_kp4)->translatedFormat('d  F  Y ') }} <br>
-                        Yang menerangkan,<br><br><br>
+                        Yang menerangkan,<br><br><br><br>
                         {{ $data->name }} <br>
                         NIP.
                         {{ $data->nip }}
