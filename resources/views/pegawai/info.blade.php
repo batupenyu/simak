@@ -26,17 +26,18 @@
 <h3>Profil Pegawai</h3>
 <ul>
     <li><strong>Nama:</strong> {{ $item->name }} <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a></li>
-    <li><strong>NIP:</strong> {{ $item->nip }}</li>
-    <li><strong>Pangkat/Gol:</strong> {{ $item->pangkat_gol }}</li>
-    <li><strong>Unit Kerja:</strong> {{ $item->unit_kerja }}</li>
-    <li><strong>TMT Pangkat:</strong> {{ \Carbon\Carbon::parse($item->tmt_pangkat)->translatedFormat('d - m - Y') }}</li>
-    <li><strong>TMT Jabatan:</strong> {{ \Carbon\Carbon::parse($item->tmt_jabatan)->translatedFormat('d - m - Y') }}</li>
-    <li><strong>MK Seluruhnya:</strong> {{ \Carbon\Carbon::parse($item->tmt_pangkat)->diff(\Carbon\Carbon::now())->format('%y tahun, %m bulan') }}</li>
-    <li><strong>Jabatan:</strong> {{ $item->jabatan }}</li>
+    <li><strong>NIP:</strong> {{ $item->nip }} <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a></li>
+    <li><strong>Pangkat/Gol:</strong> {{ $item->pangkat_gol }} <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a></li>
+    <li><strong>Unit Kerja:</strong> {{ $item->unit_kerja }} <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a></li>
+    <li><strong>TMT Pangkat:</strong> {{ \Carbon\Carbon::parse($item->tmt_pangkat)->translatedFormat('d - m - Y') }} <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a></li>
+    <li><strong>TMT Jabatan:</strong> {{ \Carbon\Carbon::parse($item->tmt_jabatan)->translatedFormat('d - m - Y') }} <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a></li>
+    <li><strong>MK Seluruhnya:</strong> {{ \Carbon\Carbon::parse($item->tmt_pangkat)->diff(\Carbon\Carbon::now())->format('%y tahun, %m bulan') }} <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a></li>
+    <li><strong>Jabatan:</strong> {{ $item->jabatan }} <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a></li>
     <li><strong>Mapel:</strong>
         @foreach ($item->mapel as $x)
         {{ $x }}
         @endforeach
+        <a href="{{ url('/project.edit_user/'.$item->id) }}"><i class="fa fa-pencil"></i></a>
     </li>
 </ul>
 
