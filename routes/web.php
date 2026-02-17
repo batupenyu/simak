@@ -312,7 +312,8 @@ Route::get('/anak', [AnakController::class, 'index']);
 Route::get('/project.index_anak/{id}', [AnakController::class, 'show'])->name('anak.show');
 Route::get('/daftar.anak/{id}', [AnakController::class, 'anakpdf'])->name('anakpdf');
 Route::get('/project.anak_tambah', [AnakController::class, 'create']);
-Route::post('/project.index', [AnakController::class, 'store']);
+Route::get('/anak.create/{user_id}', [AnakController::class, 'create'])->name('anak.create');
+Route::post('/project.index', [AnakController::class, 'store'])->name('anak.store');
 Route::get('/project.edit_anak/{id}', [AnakController::class, 'edit']);
 Route::put('/anak/update_anak/{id}', [AnakController::class, 'update'])->name('anak.update');
 Route::get('/hapus_anak/{id}', [AnakController::class, 'delete']);
@@ -325,10 +326,11 @@ Route::get('pasangan.kp4/{id}', [PasanganController::class, 'kp4'])->name('kp4')
 Route::get('kp4pdf/{id}', [PasanganController::class, 'kp4pdf'])->name('kp4pdf');
 Route::get('kp4newpdf/{id}', [PasanganController::class, 'kp4newpdf'])->name('kp4newpdf');
 Route::get('pasangan.kp3/{id}', [PasanganController::class, 'kp3'])->name('kp3');
-Route::get('pasangan.add', [PasanganController::class, 'create'])->name('pasangan.create');
+Route::get('pasangan.add/{user_id?}', [PasanganController::class, 'create'])->name('pasangan.create');
 Route::post('pasangan.index', [PasanganController::class, 'store'])->name('pasangan.store');
 Route::get('pasangan.edit/{id}', [PasanganController::class, 'edit'])->name('pasangan.edit');
 Route::put('pasangan.update/{id}', [PasanganController::class, 'update'])->name('pasangan.update');
+Route::delete('pasangan.delete/{id}', [PasanganController::class, 'destroy'])->name('pasangan.destroy');
 
 
 

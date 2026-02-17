@@ -44,8 +44,32 @@
     </li>
 </ul>
 
-<h3>Profil Pasangan</h3>
-@if ($item->pasangan && $item->pasangan->name != '-')
+<h3>Profil Pasangan
+    @php
+        $hasPasangan = isset($item->pasangan) && $item->pasangan && isset($item->pasangan->name) && $item->pasangan->name && $item->pasangan->name != '-';
+    @endphp
+    <div class="float-end">
+        <a href="{{ url('pasangan.add/'.$item->id) }}" class="btn btn-sm btn-success">
+            <i class="fa fa-plus"></i> Tambah
+        </a>
+        @if ($hasPasangan)
+        <a href="{{ url('pasangan.edit/'.$item->pasangan->id) }}" class="btn btn-sm btn-primary ms-1">
+            <i class="fa fa-pencil"></i> Edit
+        </a>
+        <form action="{{ url('pasangan.delete/'.$item->pasangan->id) }}" method="POST" class="d-inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-sm btn-danger ms-1" onclick="return confirm('Yakin hapus data pasangan?')">
+                <i class="fa fa-trash"></i>
+            </button>
+        </form>
+        @endif
+    </div>
+    @if(session('success_pasangan'))
+    <span class="text-success">{{ session('success_pasangan') }}</span>
+    @endif
+</h3>
+@if ($hasPasangan)
 <ul>
     <li><strong>Nama:</strong> {{ $item->pasangan->name }}</li>
     <li><strong>Tgl. Lahir:</strong> {{ \Carbon\Carbon::parse($item->pasangan->tgl_lahir)->translatedFormat('d - m - Y') }}</li>
@@ -58,15 +82,35 @@
 <p>Belum ada Pasangan</p>
 @endif
 
-<h3>Profil Anak</h3>
+<h3>Profil Anak
+    <div class="float-end">
+        <a href="{{ url('anak.create/'.$item->id) }}" class="btn btn-sm btn-success">
+            <i class="fa fa-plus"></i> Tambah
+        </a>
+    </div>
+    @if(session('success_anak'))
+    <span class="text-success">{{ session('success_anak') }}</span>
+    @endif
+</h3>
 @if (count($anak->anak) == 0)
 <p>Belum ada anak</p>
 @else
 <ul>
     @foreach ($anak->anak as $anakItem)
     <li>
-        {{ $loop->iteration }}. {{ $anakItem->name }} - {{ \Carbon\Carbon::parse($anakItem->tgl_lahir)->diff(\Carbon\Carbon::now())->format('%y th, %m bln.') }}
-        <a href="{{ url('project.edit_anak/'.$anakItem->id) }}"><i class="fa fa-edit"></i></a>
+        <div class="d-inline">
+            {{ $loop->iteration }}. {{ $anakItem->name }} - {{ \Carbon\Carbon::parse($anakItem->tgl_lahir)->diff(\Carbon\Carbon::now())->format('%y th, %m bln.') }}
+            <a href="{{ url('project.edit_anak/'.$anakItem->id) }}" class="btn btn-sm btn-primary ms-2">
+                <i class="fa fa-edit"></i> Edit
+            </a>
+            <form action="{{ url('project.hapus_anak/'.$anakItem->id) }}" method="POST" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-danger ms-1" onclick="return confirm('Yakin hapus data anak?')">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </form>
+        </div>
     </li>
     @endforeach
 </ul>

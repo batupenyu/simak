@@ -10,6 +10,7 @@ class Pasangan extends Model
     use HasFactory;
     protected $table ='pasangan';
     protected $fillable = ([
+        'user_id',
         'name',
         'status',
         'tgl_lahir',

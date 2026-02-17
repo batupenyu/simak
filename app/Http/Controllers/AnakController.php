@@ -96,16 +96,34 @@ class AnakController extends Controller
         $pdf::Output('KP4 an. ' . $data->name . 'pdf');
     }
 
-    public function create()
+    public function create($user_id = null)
     {
         $pasangan = Pasangan::select('id', 'name')->get();
         $project = Project::select('id', 'title')->get();
         $anak = User::select('id', 'name')->orderBy('name', 'ASC')->get();
-        return view('project.anak_tambah', compact('project', 'anak', 'pasangan'));
+        $selected_user_id = $user_id;
+        return view('project.anak_tambah', compact('project', 'anak', 'pasangan', 'selected_user_id'));
     }
     public function store(Request $request)
     {
-        Anak::create($request->all());
+        $validated = $request->validate([
+            'user_id' => 'required',
+            'pasangan_id' => 'nullable',
+            'name' => 'required',
+            'tgl_lahir' => 'required|date',
+            'perkawinan' => 'nullable',
+            'pekerjaan' => 'nullable',
+            'anak' => 'nullable',
+            'kat' => 'nullable',
+        ]);
+
+        Anak::create($validated);
+
+        // Redirect back to pegawai info with success message
+        if ($request->user_id) {
+            return redirect('pegawai.info/' . $request->user_id)->with('success_anak', 'Anak berhasil ditambahkan!');
+        }
+
         return redirect('pegawai.index');
     }
 
@@ -133,8 +151,14 @@ class AnakController extends Controller
     }
     public function destroy($id)
     {
-        $anak = Anak::with('project', 'user')->findOrFail($id);
+        $anak = Anak::findOrFail($id);
+        $user_id = $anak->user_id;
         $anak->delete();
-        return redirect()->to('project');
+        
+        if ($user_id) {
+            return redirect('pegawai.info/' . $user_id)->with('success_anak', 'Anak berhasil dihapus!');
+        }
+        
+        return redirect('pegawai.index');
     }
 }

@@ -16,16 +16,16 @@ class CreateAnakTable extends Migration
         Schema::create('anak', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('pasangan_id');
+            $table->unsignedBigInteger('pasangan_id')->nullable();
             $table->string('name');
             $table->date('tgl_lahir');
-            $table->string('anak');
-            $table->string('perkawinan');
-            $table->string('status_sekolah');
-            $table->string('status_beasiswa');
+            $table->string('anak')->nullable();
+            $table->string('perkawinan')->nullable();
+            $table->string('status_sekolah')->nullable();
+            $table->string('status_beasiswa')->nullable();
             $table->date('tgl_meninggal_cerai')->nullable();
-            $table->string('pekerjaan');
-            $table->string('kat');
+            $table->string('pekerjaan')->nullable();
+            $table->string('kat')->nullable();
             $table->timestamps();
 
             // Foreign key constraints can be added if referenced tables exist

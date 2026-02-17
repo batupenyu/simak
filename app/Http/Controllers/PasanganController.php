@@ -116,16 +116,44 @@ class PasanganController extends Controller
         return view('pasangan.kp3', compact('data', 'anak', 'tmt_pangkat', 'posts'));
     }
 
-    public function create()
+    public function create($user_id = null)
     {
         $user = User::select('id', 'name')->get();
         $pasangan = Pasangan::all();
-        return view('pasangan.add', compact('user', 'pasangan'));
+        $selected_user_id = $user_id;
+        return view('pasangan.add', compact('user', 'pasangan', 'selected_user_id'));
     }
 
     public function store(Request $request)
     {
-        Pasangan::create($request->all());
+        // Debug: log the request data
+        \Log::info('Pasangan store request:', $request->all());
+        
+        $validated = $request->validate([
+            'user_id' => 'nullable|exists:users,id',
+            'name' => 'nullable',
+            'pasangan_name' => 'required',
+            'tgl_lahir' => 'required|date',
+            'tgl_kawin' => 'required|date',
+            'job' => 'nullable',
+            'net' => 'nullable|numeric',
+            'status' => 'nullable|in:ditanggung,menanggung',
+        ]);
+
+        // Map pasangan_name to name for database
+        $validated['name'] = $validated['pasangan_name'];
+        unset($validated['pasangan_name']);
+        
+        // Debug: log validated data
+        \Log::info('Validated data:', $validated);
+
+        Pasangan::create($validated);
+
+        // Redirect back to pegawai info with success message
+        if ($request->user_id) {
+            return redirect('pegawai.info/' . $request->user_id)->with('success_pasangan', 'Pasangan berhasil ditambahkan!');
+        }
+
         return redirect('pasangan.index');
     }
 
@@ -142,5 +170,18 @@ class PasanganController extends Controller
         $pasangan = Pasangan::findOrFail($id);
         $pasangan->update($request->all());
         return redirect('pegawai.index');
+    }
+
+    public function destroy($id)
+    {
+        $pasangan = Pasangan::findOrFail($id);
+        $user_id = $pasangan->user_id;
+        $pasangan->delete();
+        
+        if ($user_id) {
+            return redirect('pegawai.info/' . $user_id)->with('success_pasangan', 'Pasangan berhasil dihapus!');
+        }
+        
+        return redirect('pasangan.index');
     }
 }

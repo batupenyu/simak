@@ -182,7 +182,7 @@ class UserController extends Controller
         $pegawai = User::where('status', '!=', 'P3K')->where('status', '!=', 'HONOR')->orderBy('name', 'ASC')->get();
         $p3k = User::where('status', 'P3K')->get();
         $honor = User::where('status', 'HONOR')->get();
-        $data = User::where('id', $id)->get(); // tampilkan data pegawai dan pasangan
+        $data = User::with(['pasangan'])->where('id', $id)->get(); // tampilkan data pegawai dan pasangan
         $anak = User::with(['anak'])->findOrFail($id); //tampilkan data anak
         return view('pegawai.info', compact('data', 'anak', 'pegawai', 'p3k', 'honor'));
     }

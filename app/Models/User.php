@@ -113,7 +113,7 @@ class User extends Authenticatable
     }
     public function pasangan()
     {
-        return $this->belongsTo(Pasangan::class);
+        return $this->hasOne(Pasangan::class);
     }
     public function sdm()
     {

@@ -7,23 +7,47 @@
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
             <h3>TAMBAH DATA PASANGAN</h3>
+            @if(session('success_pasangan'))
+            <div class="alert alert-success mt-3">
+                {{ session('success_pasangan') }}
+            </div>
+            @endif
+            @if ($errors->any())
+            <div class="alert alert-danger mt-3">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
             <div class="card">
                     
-                <form class="form-card" action="{{ url('pasangan.index') }}" method="post">
+                <form class="form-card" action="{{ route('pasangan.store') }}" method="post">
                     @csrf
                     @method('post')
                     
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nama Pegawai<span class="text-danger"> *</span></label> <input type="text" id="name" name="name" placeholder="Enter your first name" onblur="validate(1)"  > </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nama Pegawai<span class="text-danger"> *</span></label>
+                            @if(isset($selected_user_id))
+                            <input type="hidden" id="user_id" name="user_id" value="{{ $selected_user_id }}">
+                            <input type="text" id="name" name="name" placeholder="Enter your first name" onblur="validate(1)" value="{{ $user->find($selected_user_id)->name ?? '' }}" readonly>
+                            @else
+                            <input type="text" id="name" name="name" placeholder="Enter your first name" onblur="validate(1)" >
+                            @endif
+                        </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Nama Pasangan<span class="text-danger"> *</span></label> <input type="text" id="pasangan_name" name="pasangan_name" placeholder="Nama Pasangan" onblur="validate(7)"  > </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl Lahir<span class="text-danger"> *</span></label> <input type="date" id="tgl_lahir" name="tgl_lahir" placeholder="" onblur="validate(2)"  > </div>
-                    </div>
-                    <div class="row justify-content-between text-left">
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Tgl. Kawin<span class="text-danger"> *</span></label> <input type="date" id="tgl_kawin" name="tgl_kawin" placeholder="" onblur="validate(3)" > </div>
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Pekerjaan<span class="text-danger"> *</span></label> <input type="text" id="job" name="job" placeholder="" onblur="validate(4)" > </div>
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-6 flex-column d-flex"> <label class="form-control-label px-3">Penghasilan<span class="text-danger"> *</span></label> <input type="text" id="net" name="net" placeholder="" onblur="validate(5)" > </div>
-                        <div class="form-group col-6 flex-column d-flex"> <label class="form-control-label px-3">Status<span class="text-danger"> *</span></label> 
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Pekerjaan</label> <input type="text" id="job" name="job" placeholder="Pekerjaan" onblur="validate(4)" > </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Penghasilan</label> <input type="number" id="net" name="net" placeholder="Penghasilan" onblur="validate(5)" > </div>
+                    </div>
+                    <div class="row justify-content-between text-left">
+                        <div class="form-group col-6 flex-column d-flex"> <label class="form-control-label px-3">Status</label>
                             <select name="status" id="status" onblur="validate(6)" class="form-control">status
                                 <option value="ditanggung">ditanggung</option>
                                 <option value="menanggung">menanggung</option>
@@ -32,10 +56,11 @@
 
                     </div>
                     <div class="row justify-content-end mt-3">
-                        <div class="form-group col-sm-0 "> 
+                        <div class="form-group col-sm-0 ">
                         <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-check"></i> Simpan</button>
+                        <a href="{{ url('pegawai.info/'.$selected_user_id) }}" class="btn btn-secondary btn-flat ms-2">Batal</a>
                     </div>
-                    
+
                 </form>
             </div>
         </div>
