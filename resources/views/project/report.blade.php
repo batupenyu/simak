@@ -92,7 +92,7 @@
             @endif
 
         </div>
-        <div class="col-4 text-end">
+        <div class="col-7 text-end">
             Periode Penilaian :
             <a href="{{ url('project.edit_user/'.$user->id) }}"><i class="fa fa-edit tampil"></i></a>
             <br>
