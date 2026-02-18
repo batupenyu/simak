@@ -21,7 +21,20 @@
 
                     </div>
                     <div class="row justify-content-between text-left">
-                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Pangkat/Gol.<span class="text-danger"> *</span></label> <input type="text" id="pangkat_gol" name="pangkat_gol" placeholder="" onblur="validate(4)" value="{{ $item->pangkat_gol }}"> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Pangkat/Gol.<span class="text-danger"> *</span></label>
+                            <select class="form-control" id="pangkat_gol" name="pangkat_gol" required>
+                                <option value="-">-</option>
+                                <option value="IX">IX</option>
+                                <option value="MADYA DARMA/II.C.">MADYA DARMA/II.c.</option>
+                                <option value="Penata Muda, III/a">Penata Muda, III/a</option>
+                                <option value="Penata Muda TK.I, III/b">Penata Muda TK.I, III/b</option>
+                                <option value="Penata, III/c">Penata, III/c</option>
+                                <option value="Penata TK.I, III/d">Penata TK.I, III/d</option>
+                                <option value="Pembina, IV/a">Pembina, IV/a</option>
+                                <option value="JAKSA UTAMA PRATAMA (IV/b)">JAKSA UTAMA PRATAMA (IV/b)</option>
+                                <option value="JAKSA UTAMA MUDA (IV/C)">JAKSA UTAMA MUDA (IV/C)</option>
+                            </select>
+                        </div>
                         
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Jabatan<span class="text-danger"> *</span></label> <input type="text" id="jabatan" name="jabatan" placeholder="" onblur="validate(5)"value="{{ $item->jabatan }}"> </div>
                     </div>

@@ -24,6 +24,7 @@
                 <option value="Penata, III/c">Penata, III/c</option>
                 <option value="Penata TK.I, III/d">Penata TK.I, III/d</option>
                 <option value="Pembina, IV/a">Pembina, IV/a</option>
+                <option value="JAKSA UTAMA PRATAMA (IV/b)">JAKSA UTAMA PRATAMA (IV/b)</option>
             </select>
         </div>
         <div class="mb-3">
