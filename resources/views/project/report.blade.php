@@ -191,10 +191,6 @@
             <th>UNIT KERJA</th>
             <td>{{ optional($user->atasan)->unit_kerja ?? '' }}</td>
         </tr>
-     
-        <tr style="background-color:aliceblue;">
-            <td class="text-center" colspan="7">TUGAS TAMBAHAN (TUTAM) DATA NOT LOADED FOR PERFORMANCE</td>
-        </tr>
         <tr style="background-color:aliceblue;">
             <th class="text-center" style="width:2cm" rowspan="3">4</th>
             <th style="background-color:aliceblue;" colspan="2">EVALUASI KINERJA</th>
