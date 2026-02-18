@@ -519,7 +519,6 @@ Route::put('/izin.update/{id}', [IzinController::class, 'update'])->name('izin.u
 Route::get('/izin.index', [IzinController::class, 'index'])->name('izin.index');
 Route::get('/izin.delete/{id}', [IzinController::class, 'delete'])->name('izin.delete');
 Route::delete('/izin.destroy/{id}', [IzinController::class, 'destroy'])->name('izin.destroy');
-
 Route::get('/izin.img/{izinId}', [ImgController::class, 'img'])->name('img');
 Route::post('/izin.store/{izinId}', [ImgController::class, 'store'])->name('img.store');
 Route::get('/img.hapus/{izinId}', [ImgController::class, 'destroy'])->name('img.destroy');
@@ -542,13 +541,10 @@ Route::get('/pists.dispen/{id}', [PistController::class, 'dispen'])->name('dispe
 Route::get('/pists.cari', [PistController::class, 'cari'])->name('cari');
 Route::get('/stpdf/{id}', [PistController::class, 'stPdf'])->name('stpdf');
 Route::get('/status/{pists}/buktipengajuan', [PistController::class, 'statusCutiBuktipengajuanPDF'])->name('pegawai.cuti.status.buktipengajuan');
-
 Route::post('/ajukan', [PistController::class, 'ajukanCutiDB'])->name('ajukan');
 Route::get('/riwayat', [PistController::class, 'riwayatCutiHTML'])->name('pegawai.cuti.riwayat');
 Route::get('/status/{pists}', [PistController::class, 'statusCutiHTML'])->name('pegawai.cuti.status');
 Route::get('/status/{pists}/suratizin', [PistController::class, 'statusCutiSuratizinPDF'])->name('pegawai.cuti.status.suratizin');
-
-
 Route::get('/pists.photo/{pistsId}', [PhotoController::class, 'photo'])->name('photo');
 Route::post('/pists.store/{pistsId}', [PhotoController::class, 'store'])->name('photo.store');
 Route::get('/photo.hapus/{photoId}', [PhotoController::class, 'destroy'])->name('photo.destroy');
@@ -597,9 +593,7 @@ Route::post('form/holidays/save', [HolidayController::class, 'saveRecord'])->nam
 Route::post('form/holidays/update',  [HolidayController::class, 'updateRecord'])->name('form/holidays/update');
 Route::get('/delete/{id}', [HolidayController::class, 'delete'])->name('holiday.delete');
 Route::delete('/destroy/{id}', [HolidayController::class, 'destroy'])->name('holiday.destroy');
-
 Route::resource('products-ajax-crud', \App\Http\Controllers\LiburController::class);
-
 Route::resource('customers', \App\Http\Controllers\CustomerController::class);
 // Route::get('customers/{id}/edit/','CustomerController@edit');
 
