@@ -338,10 +338,8 @@ Route::delete('pasangan.delete/{id}', [PasanganController::class, 'destroy'])->n
 Route::get('/atasan.index', [AtasanController::class, 'index'])->name('index_atasan');
 Route::get('/atasan.edit/{id}', [AtasanController::class, 'edit'])->name('atasan.edit');
 Route::put('/atasan.update/{id}', [AtasanController::class, 'update'])->name('atasan.update');
-
 Route::get('/atasan.create', [AtasanController::class, 'create'])->name('create_atasan');
 Route::post('/atasan.store', [AtasanController::class, 'store'])->name('store_atasan');
-
 Route::delete('/atasan.destroy/{id}', [AtasanController::class, 'destroy'])->name('atasan.destroy');
 
 
