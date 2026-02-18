@@ -28,23 +28,43 @@ class ProjectController extends Controller
 {
     public function index()
     {
-
         $pegawai = User::where('status', '!=', 'P3K')->where('status', '!=', 'honor')->orderBy('name', 'ASC')->get();
         $p3k = User::where('status', 'P3K')->get();
 
-        // use Carbon\Carbon;
+        // Dashboard Statistics
+        $totalPNS = User::where('status', 'PNS')->count();
+        $totalP3K = User::where('status', 'P3K')->count();
+        $totalGuru = User::where('jenis', 'GURU')->count();
+        $totalTU = User::where('jenis', 'TU')->count();
+        $totalLakiLaki = User::where('jk', 'Laki-Laki')->count();
+        $totalPerempuan = User::where('jk', 'Perempuan')->count();
+        
+        // Count by status
+        $statusCounts = User::selectRaw('status, COUNT(*) as total')
+            ->groupBy('status')
+            ->get()
+            ->pluck('total', 'status')
+            ->toArray();
+        
+        // Count by jabatan
+        $jabatanCounts = User::selectRaw('jabatan, COUNT(*) as total')
+            ->groupBy('jabatan')
+            ->get()
+            ->pluck('total', 'jabatan')
+            ->toArray();
+        
+        // Recent activities (latest updated users)
+        $recentUsers = User::orderBy('updated_at', 'DESC')->limit(5)->get();
 
-        // Assuming you have start and end dates stored in variables
+        // Use Carbon\Carbon
         $startDate = Carbon::parse('2024-10-01');
         $endDate = Carbon::parse('2024-10-31');
-        // Array of holiday dates
         $holidays = ['2024-10-12', '2024-10-26'];
-        // Calculate days excluding weekends
+        
         $workDays = $startDate->diffInDaysFiltered(function (Carbon $date) {
             return !$date->isWeekend();
         }, $endDate);
 
-        // Filter out holidays from the calculated workdays
         foreach ($holidays as $holiday) {
             $holidayDate = Carbon::parse($holiday);
             if ($holidayDate->between($startDate, $endDate) && !$holidayDate->isWeekend()) {
@@ -52,11 +72,22 @@ class ProjectController extends Controller
             }
         }
 
-        // dd ($workDays);
-        // $workDays now contains the count of days excluding weekends and specified holidays
         $honor = User::where('status', 'honor')->get();
 
-        return view('pegawai.index', compact('pegawai', 'p3k', 'honor'));
+        return view('pegawai.index', compact(
+            'pegawai', 
+            'p3k', 
+            'honor',
+            'totalPNS',
+            'totalP3K',
+            'totalGuru',
+            'totalTU',
+            'totalLakiLaki',
+            'totalPerempuan',
+            'statusCounts',
+            'jabatanCounts',
+            'recentUsers'
+        ));
     }
 
     public function all()

@@ -27,100 +27,118 @@
       <div class="p-3 pt-5">
         <ul class="list-unstyled components mb-5">
           <li class="active">
-            <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="homeSubmenuToggle">Home</a>
+            <a href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle" id="homeSubmenuToggle">
+              <i class="fa fa-home me-2"></i>Home
+            </a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li>
-                <a href="{{ url('project/') }}">Pegawai</a>
+                <a href="{{ url('project/') }}"><i class="fa fa-user me-2"></i>Pegawai</a>
               </li>
               <li>
-                <a href="{{ url('pegawai.index') }}">Dokumen</a>
+                <a href="{{ url('pegawai.index') }}"><i class="fa fa-file me-2"></i>Dokumen</a>
               </li>
               <li>
-                {{-- <a href="{{ url('karyawan/') }}">Karyawan</a> --}}
+                <a href="{{url('show_ak')}}"><i class="fa fa-list me-2"></i>Angka Kredit</a>
               </li>
               <li>
-                <a href="{{url('show_ak')}}">Angka Kredit</a>
+                <a href="{{ url('cuti.index') }}"><i class="fa fa-calendar me-2"></i>Cuti Pegawai</a>
               </li>
-
               <li>
-                <a href="{{ url('cuti.index') }}">Cuti Pegawai</a>
+                <a href="{{ url('ekspektasi/index') }}"><i class="fa fa-chart-line me-2"></i>Ekspektasi</a>
               </li>
-              <!-- <li>
-                <a href="{{ url('project/') }}">Rencana SKP</a>
-              </li> -->
               <li>
-                <a href="{{ url('ekspektasi/index') }}">Ekspektasi</a>
+                <a href="{{ isset($user) ? url('project.main/'.$user->id.'#rencana') : url('project/') }}"><i class="fa fa-bullseye me-2"></i>Sasaran SKP</a>
               </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/atasan.index">Atasan</a>
+              <li>
+                <a href="{{ isset($user) ? url('project.main/'.$user->id.'#evaluasi') : url('project/') }}"><i class="fa fa-clipboard-check me-2"></i>Evaluasi SKP</a>
               </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/penilai.index">Penilai</a>
+              <li>
+                <a href="{{ isset($user) ? url('project.main/'.$user->id.'#report') : url('project/') }}"><i class="fa fa-file-alt me-2"></i>Laporan SKP</a>
               </li>
-
             </ul>
           </li>
 
           <li>
-            <a href="#pageSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Halaman</a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('unit_kerja.index') }}" id="unit_kerja">Unit Kerja</a>
+            <a href="#penilaianSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <i class="fa fa-clipboard-check me-2"></i>Penilaian
+            </a>
+            <ul class="collapse list-unstyled" id="penilaianSubmenu">
+              <li class="nav-item tampil">
+                <a class="nav-link" href="/atasan.index"><i class="fa fa-user-tie me-2"></i>Atasan</a>
               </li>
               <li class="nav-item tampil">
-                <a class="nav-link " href="/atasan.index">Atasan</a>
+                <a class="nav-link" href="/penilai.index"><i class="fa fa-user-check me-2"></i>Penilai</a>
               </li>
               <li class="nav-item tampil">
-                <a class="nav-link " href="/penilai.index">Penilai</a>
+                <a class="nav-link" href="/rk"><i class="fa fa-tasks me-2"></i>RK Atasan</a>
               </li>
               <li class="nav-item tampil">
-                <a class="nav-link " href="/rk">RK Atasan</a>
+                <a class="nav-link" href="/tim.index"><i class="fa fa-users me-2"></i>Tim Kerja</a>
               </li>
               <li class="nav-item tampil">
-                <a class="nav-link " href="/tim.index">Tim Kerja</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/mapel">Mapel-Tugas</a>
-              </li>
-              <li class="nav-item tampil">
-                {{-- <a class="nav-link " href="{{ route('logo.index') }}">Logo</a> --}}
-                <a href="{{ route('image.index') }}">Photo</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/filter">Rekap Cuti</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/pegawai.rekap">Rekap kp4</a>
-              </li>
-
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/customers">Libur</a>
-              </li>
-              <li class="nav-item tampil">
-                <a class="nav-link " href="/indexbarang">Bmd</a>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link" href="{{ url('pasangan.index') }}" id="pasangan">Pasangan</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url('pists.index') }}" id="pists">Surat-Tugas</a>
+                <a class="nav-link" href="/mapel"><i class="fa fa-briefcase me-2"></i>Mapel-Tugas</a>
               </li>
             </ul>
           </li>
+
           <li>
-            {{-- <a class="dropdown-item" href="/tabel">Tabel Pegawai</a>
-                            <a class="dropdown-item" href="/tabelrekap">Tabel Rekap</a>
-                            <a class="dropdown-item" href="/jekel">Tabel Jekel</a>
-                            <a class="dropdown-item" href="/all">Tabel Pegawai & Mapel</a>
-                            <a class="dropdown-item" href="/pergaji">Tabel Pergaji</a>
-                            <a class="dropdown-item" href="/usulanapbd">Tabel Usulan SK-APBD</a>
-                            <a class="dropdown-item" href="/usulanapbn">Tabel Usulan SK-APBN</a>
-                            <a class="dropdown-item" href="/usulanipp">Tabel Usulan SK-IPP</a>
-                            <a class="dropdown-item" href="/filterpenerimaan">Penerimaan</a>
-                            <a class="dropdown-item" href="/filterpengeluaran">Pengeluaran</a>
-                            <a class="dropdown-item" href="/bku.bku">Buku Kas Umum</a>
-                            <a class="nav-link" href="{{ url('sk.index')}} " style="text-decoration: none">SPMT</a> --}}
+            <a href="#dataSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <i class="fa fa-database me-2"></i>Data
+            </a>
+            <ul class="collapse list-unstyled" id="dataSubmenu">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('unit_kerja.index') }}" id="unit_kerja"><i class="fa fa-building me-2"></i>Unit Kerja</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url('pasangan.index') }}" id="pasangan"><i class="fa fa-heart me-2"></i>Pasangan</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('pasangan.kp4_list') }}"><i class="fa fa-file-invoice me-2"></i>KP-4.1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('pasangan.kp3_list') }}"><i class="fa fa-file-invoice me-2"></i>KP-4.2</a>
+              </li>
+              <li class="nav-item tampil">
+                <a class="nav-link" href="/customers"><i class="fa fa-calendar-check me-2"></i>Libur</a>
+              </li>
+              <li class="nav-item tampil">
+                <a class="nav-link" href="/indexbarang"><i class="fa fa-box me-2"></i>BMD</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#laporanSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <i class="fa fa-file-alt me-2"></i>Laporan
+            </a>
+            <ul class="collapse list-unstyled" id="laporanSubmenu">
+              <li class="nav-item tampil">
+                <a class="nav-link" href="/filter"><i class="fa fa-file-excel me-2"></i>Rekap Cuti</a>
+              </li>
+              <li class="nav-item tampil">
+                <a class="nav-link" href="/pegawai.rekap"><i class="fa fa-file-pdf me-2"></i>Rekap KP4</a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#pengaturanSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <i class="fa fa-cog me-2"></i>Pengaturan
+            </a>
+            <ul class="collapse list-unstyled" id="pengaturanSubmenu">
+              <li class="nav-item tampil">
+                <a class="nav-link" href="{{ route('image.index') }}"><i class="fa fa-image me-2"></i>Photo</a>
+              </li>
+              <li class="nav-item tampil">
+                <a class="nav-link" href="{{ url('pists.index') }}" id="pists"><i class="fa fa-envelope me-2"></i>Surat-Tugas</a>
+              </li>
+              <li class="nav-item tampil">
+                <a class="nav-link" href="{{ url('pists.index') }}"><i class="fa fa-file-pdf me-2"></i>ST-PDF</a>
+              </li>
+              <li class="nav-item tampil">
+                <a class="nav-link" href="{{ url('izin.index') }}"><i class="fa fa-file-contract me-2"></i>Surat Izin</a>
+              </li>
+            </ul>
           </li>
         </ul>
 

@@ -2,12 +2,15 @@
 
 namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator as PaginationPaginator;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -55,6 +58,16 @@ class AppServiceProvider extends ServiceProvider
             Carbon::SUNDAY,
             Carbon::MONDAY,
         ]);
+
+        // Share current user with all views
+        View::composer('layout.sidebar', function ($view) {
+            $user = Auth::user();
+            if (!$user) {
+                // If no authenticated user, try to get from session or use first user
+                $user = User::first();
+            }
+            $view->with('user', $user);
+        });
 
     }
 }

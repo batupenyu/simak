@@ -22,7 +22,7 @@
                             <td colspan="4">
                                 <button onclick="window.print();" class="btn btn-sm btn-primary tampil float-end">Cetak</button>
                                 <button type="button" class="btn btn-sm btn-primary  float-end">FORM KP4</button>
-                                <a class="btn btn-sm  float-end" href="{{ url('kp4newpdf/'.$data->id) }}"><i class="bi-printer-fill"></i></a>
+                                <a class="btn btn-sm  float-end" href="{{ route('kp4newpdf', $data->id) }}"><i class="bi-printer-fill"></i></a>
                                 <h5 class="text-center">SURAT KETERANGAN <br>
                                     <u>
                                         UNTUK MENDAPATKAN PEMBAYARAN TUNJANGAN KELUARGA

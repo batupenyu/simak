@@ -38,8 +38,73 @@ class UserController extends Controller
 
     public function index()
     {
+        // Dashboard Statistics
+        $totalPNS = User::where('status', 'PNS')->count();
+        $totalP3K = User::where('status', 'P3K')->count();
+        $totalHonor = User::where('status', 'honor')->count();
+        $totalGuru = User::where('jenis', 'GURU')->count();
+        $totalTU = User::where('jenis', 'TU')->count();
+        $totalLakiLaki = User::where('jk', 'Laki-Laki')->count();
+        $totalPerempuan = User::where('jk', 'Perempuan')->count();
+        
+        // Count by status
+        $statusCounts = User::selectRaw('status, COUNT(*) as total')
+            ->groupBy('status')
+            ->get()
+            ->pluck('total', 'status')
+            ->toArray();
+        
+        // Count by jabatan
+        $jabatanCounts = User::selectRaw('jabatan, COUNT(*) as total')
+            ->groupBy('jabatan')
+            ->get()
+            ->pluck('total', 'jabatan')
+            ->toArray();
+        
+        // Count by pangkat/gol
+        $pangkatCounts = User::selectRaw('pangkat_gol, COUNT(*) as total')
+            ->groupBy('pangkat_gol')
+            ->orderBy('pangkat_gol')
+            ->get()
+            ->pluck('total', 'pangkat_gol')
+            ->toArray();
+        
+        // Recent activities
+        $recentUsers = User::orderBy('updated_at', 'DESC')->limit(5)->get();
+        
+        // Birthday this month
+        $currentMonth = Carbon::now()->month;
+        $birthdaysThisMonth = User::whereMonth('tgl_lahir', $currentMonth)
+            ->orderBy('tgl_lahir')
+            ->limit(5)
+            ->get();
+        
+        // Pegawai by education level
+        $educationCounts = User::selectRaw('pendidikan, COUNT(*) as total')
+            ->groupBy('pendidikan')
+            ->orderByDesc('total')
+            ->get()
+            ->pluck('total', 'pendidikan')
+            ->toArray();
+        
         $pegawai = User::where('status', '!=', 'P3K')->where('status', '!=', 'HONOR')->orderBy('name', 'ASC')->get();
-        return view('project.index', compact('pegawai'));
+        
+        return view('project.index', compact(
+            'pegawai',
+            'totalPNS',
+            'totalP3K',
+            'totalHonor',
+            'totalGuru',
+            'totalTU',
+            'totalLakiLaki',
+            'totalPerempuan',
+            'statusCounts',
+            'jabatanCounts',
+            'pangkatCounts',
+            'recentUsers',
+            'birthdaysThisMonth',
+            'educationCounts'
+        ));
     }
 
     public function show_ak()

@@ -322,10 +322,13 @@ Route::delete('/project.hapus_anak/{id}', [AnakController::class, 'destroy']);
 
 //pasangan
 Route::get('pasangan.index', [PasanganController::class, 'index'])->name('pasangan.index');
+Route::get('pasangan.kp4', [PasanganController::class, 'kp4List'])->name('pasangan.kp4_list');
 Route::get('pasangan.kp4/{id}', [PasanganController::class, 'kp4'])->name('kp4');
 Route::get('kp4pdf/{id}', [PasanganController::class, 'kp4pdf'])->name('kp4pdf');
 Route::get('kp4newpdf/{id}', [PasanganController::class, 'kp4newpdf'])->name('kp4newpdf');
+Route::get('pasangan.kp3', [PasanganController::class, 'kp3List'])->name('pasangan.kp3_list');
 Route::get('pasangan.kp3/{id}', [PasanganController::class, 'kp3'])->name('kp3');
+Route::get('kp3pdf/{id}', [PasanganController::class, 'kp3pdf'])->name('kp3pdf');
 Route::get('pasangan.add/{user_id?}', [PasanganController::class, 'create'])->name('pasangan.create');
 Route::post('pasangan.index', [PasanganController::class, 'store'])->name('pasangan.store');
 Route::get('pasangan.edit/{id}', [PasanganController::class, 'edit'])->name('pasangan.edit');
@@ -640,5 +643,7 @@ Route::get('logo/{id}/preview', [LogoController::class, 'preview'])->name('logo.
 
 Route::get('/upload-image', [GambarController::class, 'index'])->name('image.index');
 Route::post('/upload-image', [GambarController::class, 'store'])->name('gambar.store');
+// Alias untuk kompatibilitas
+Route::post('/upload-image', [GambarController::class, 'store'])->name('image.store');
 // Di routes/web.php
 Route::get('/latest-image', [GambarController::class, 'getLatestImage']);
