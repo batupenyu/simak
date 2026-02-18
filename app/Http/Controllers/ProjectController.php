@@ -819,12 +819,12 @@ class ProjectController extends Controller
     {
         // Load user with only essential relationships
         $user = User::select([
-            'id', 'name', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja', 'penilai_id',
+            'id', 'name', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja', 'penilai_id', 'atasan_id',
             'tgl_awal', 'tgl_akhir', 'tgl_pegawai', 'tgl_penilai', 'tgl_atasan'
         ])->with(['penilai' => function($q) {
             $q->select(['id', 'nama', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja']);
         }, 'atasan' => function($q) {
-            $q->select(['id', 'nama', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja', 'user_id']);
+            $q->select(['id', 'nama', 'nip', 'pangkat_gol', 'jabatan', 'unit_kerja']);
         }])->findOrFail($id);
 
         // Render the view to HTML

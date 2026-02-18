@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penilai;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PenilaiController extends Controller
@@ -28,9 +29,20 @@ class PenilaiController extends Controller
             'pangkat_gol' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'unit_kerja' => 'required|string|max:255',
+            'user_id' => 'nullable|exists:users,id',
         ]);
 
-        Penilai::create($validatedData);
+        $data = $validatedData;
+        
+        // If user_id is provided, link it and also update user's penilai_id
+        if (!empty($data['user_id'])) {
+            $user = User::find($data['user_id']);
+            $penilai = Penilai::create($data);
+            $user->penilai_id = $penilai->id;
+            $user->save();
+        } else {
+            Penilai::create($data);
+        }
 
         return redirect()->route('penilai.index')->with('success', 'Penilai created successfully.');
     }
@@ -47,6 +59,16 @@ class PenilaiController extends Controller
     {
         $penilai = Penilai::findOrFail($id);
         $penilai->update($request->all());
+        
+        // If user_id is provided, also update user's penilai_id
+        if ($request->has('user_id')) {
+            $user = User::find($request->user_id);
+            if ($user) {
+                $user->penilai_id = $penilai->id;
+                $user->save();
+            }
+        }
+        
         // return redirect()->to('project.main/' . $id)->with('status', 'Data berhasil di update');
         return redirect('penilai.index');
     }

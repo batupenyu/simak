@@ -17,6 +17,7 @@ class User extends Authenticatable
         'name',
         'nip',
         'penilai_id',
+        'atasan_id',
         'tgl_lahir',
         'tempat_lahir',
         'jk',
@@ -93,7 +94,7 @@ class User extends Authenticatable
     }
     public function atasan()
     {
-        return $this->hasOne(Atasan::class, 'user_id');
+        return $this->belongsTo(Atasan::class, 'atasan_id');
     }
     public function phone()
     {

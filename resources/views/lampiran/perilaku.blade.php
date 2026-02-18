@@ -2,6 +2,18 @@
 
 <br>
 <b>PERILAKU KERJA</b>
+<style>
+    .perilaku-ol {
+        margin-bottom: 0;
+        padding-left: 22px;
+        text-indent: -18px;
+        hanging-punctuation: first;
+    }
+    .perilaku-ol li {
+        margin-bottom: 4px;
+        text-indent: 0;
+    }
+</style>
 <table class="table table-bordered border-dark">
         <tr>
             <td style="text-align: center; width: 5%;" rowspan="2">1 </td>
@@ -9,7 +21,7 @@
         </tr>
         <tr>
             <td>
-                <ol style="margin-bottom: 0; padding-left: 22px;">
+                <ol class="perilaku-ol">
                     <li>Memahami dan memenuhi kebutuhan masyarakat
                     </li>
                     <li>Ramah, cekatan, solutif, dan dapat diandalkan
@@ -25,14 +37,14 @@
                 @endif
             </td>
         </tr>
-        
+
         <tr>
             <td style="text-align: center; width: 5%;" rowspan="2">2 </td>
             <td colspan="2">Akuntabel </td>
         </tr>
         <tr>
             <td>
-                <ol style="margin-bottom: 0; padding-left: 22px;">
+                <ol class="perilaku-ol">
                     <li>Melaksanakan tugas dengan jujur bertanggung jawab cermat disiplin dan berintegritas tinggi
                     </li>
                     <li>Menggunakan kekayaan dan BMN secara bertanggung jawab efektif dan efisien
@@ -54,7 +66,7 @@
         </tr>
         <tr>
             <td>
-                <ol style="margin-bottom: 0; padding-left: 22px;">
+                <ol class="perilaku-ol">
                     <li>Meningkatkan kompetensi diri untuk menjawab tantangan yang selalu berubah
                     </li>
                     <li>Membantu orang lain belajar
@@ -79,7 +91,7 @@
         </tr>
         <tr>
             <td>
-                <ol style="margin-bottom: 0; padding-left: 22px;">
+                <ol class="perilaku-ol">
                     <li>Menghargai setiap orang apapun latar belakangnya
                     </li>
                     <li>Suka menolong orang lain
@@ -104,7 +116,7 @@
         </tr>
         <tr>
             <td>
-                <ol style="margin-bottom: 0; padding-left: 22px;">
+                <ol class="perilaku-ol">
                     <li>Memegang teguh ideologi Pancasila, Undang-Undang Dasar Negara Republik Indonesia Tahun 1945, setia pada NKRI serta pemerintahan yang sah
                     </li>
                     <li>Menjaga nama baik sesama ASN, Pimpinan, Instansi, dan Negara
@@ -129,7 +141,7 @@
         </tr>
         <tr>
             <td>
-                <ol style="margin-bottom: 0; padding-left: 22px;">
+                <ol class="perilaku-ol">
                     <li>Cepat menyesuaikan diri menghadapi perubahan
                     </li>
                     <li>Terus berinovasi dan mengembangkan kreativitas
@@ -154,7 +166,7 @@
         </tr>
         <tr>
             <td>
-                <ol style="margin-bottom: 0; padding-left: 22px;">
+                <ol class="perilaku-ol">
                     <li>Memberi kesempatan kepada berbagai pihak untuk berkontribusi
                     </li>
                     <li>Terbuka dalam bekerjasama untuk menghasilkan nilai tambah

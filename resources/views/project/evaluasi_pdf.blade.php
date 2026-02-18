@@ -42,6 +42,17 @@
         padding-left: 0;
     }
 
+    /* Hanging indent for perilaku lists */
+    .perilaku-ol {
+        margin: 0;
+        padding-left: 22px;
+        text-indent: -18px;
+    }
+    .perilaku-ol li {
+        margin-bottom: 3px;
+        line-height: 1.4;
+    }
+
     table.table-borderless,
     table.table-borderless th,
     table.table-borderless td {
@@ -219,9 +230,9 @@
                         @foreach ($data->tupoksi as $item)
                             <table class="table-borderless">
                                 <tr style="text-align: left;">
-                                    <td style="width: 40%; border: none;">{{ $item->aspek }}</td>
+                                    <td style="width: 30%; border: none;">{{ $item->aspek }}</td>
                                     <td style="width: 55%; border: none;">{{ $item->indikator }}</td>
-                                    <td style="width: 20%; border: none;">{{ $item->target }}</td>
+                                    <td style="width: 20%; border: none; text-align: center;">{{ $item->target }}</td>
                                 </tr>
                             </table>
                         @endforeach
@@ -320,7 +331,7 @@
         </tr>
         <tr class="perilaku-row">
             <td>
-                <ol>
+                <ol class="perilaku-ol">
                     <li>Memahami dan memenuhi kebutuhan masyarakat
                     </li>
                     <li>Ramah, cekatan, solutif, dan dapat diandalkan
@@ -346,7 +357,7 @@
                 </tr>
                 <tr class="perilaku-row">
                     <td>
-                        <ol>
+                        <ol class="perilaku-ol">
                             <li>Melaksanakan tugas dengan jujur bertanggung jawab cermat disiplin dan berintegritas tinggi
                             </li>
                             <li>Menggunakan kekayaan dan BMN secara bertanggung jawab efektif dan efisien
@@ -371,7 +382,7 @@
         </tr>
         <tr class="perilaku-row">
             <td>
-                <ol>
+                <ol class="perilaku-ol">
                     <li>Meningkatkan kompetensi diri untuk menjawab tantangan yang selalu berubah
                     </li>
                     <li>Membantu orang lain belajar
@@ -396,7 +407,7 @@
         </tr>
         <tr class="perilaku-row">
             <td>
-                <ol>
+                <ol class="perilaku-ol">
                     <li>Menghargai setiap orang apapun latar belakangnya
                     </li>
                     <li>Suka menolong orang lain
@@ -421,7 +432,7 @@
         </tr>
         <tr class="perilaku-row">
             <td>
-                <ol>
+                <ol class="perilaku-ol">
                     <li>Memegah teguh ideologi Pancasila, Undang-Undang Dasar Negara Republik Indonesia Tahun 1945, setia pada NKRI serta pemerintahan yang sah
                     </li>
                     <li>Menjaga nama baik sesama ASN, Pimpinan, Instansi, dan Negara
@@ -446,7 +457,7 @@
         </tr>
         <tr class="perilaku-row">
             <td>
-                <ol>
+                <ol class="perilaku-ol">
                     <li>Cepat menyesuaikan diri menghadapi perubahan
                     </li>
                     <li>Terus berinovasi dan mengembangkan kreativitas
@@ -471,7 +482,7 @@
         </tr>
         <tr class="perilaku-row">
             <td>
-                <ol>
+                <ol class="perilaku-ol">
                     <li>Memberi kesempatan kepada berbagai pihak untuk berkontribusi
                     </li>
                     <li>Terbuka dalam pengurusama untuk menghasilkan nilai tambah
