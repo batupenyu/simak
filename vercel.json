@@ -3,7 +3,7 @@
     "builds": [
         {
             "src": "composer.json",
-            "use": "@vercel/php",
+            "use": "vercel-php@0.3.6",
             "config": {
                 "installCommand": "composer install --optimize-autoloader --no-dev",
                 "buildCommand": "npm install && npm run build"
