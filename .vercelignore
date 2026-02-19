@@ -1,0 +1,58 @@
+# Development files
+.git
+.gitignore
+.env
+.env.example
+.vscode
+.idea
+.fleet
+*.log
+npm-debug.log
+yarn-error.log
+
+# Tests
+tests/
+phpunit.xml
+phpunit.xml.dist
+
+# Database
+database/migrations/
+database/factories/
+database/seeders/
+
+# Docs
+*.md
+README.md
+LICENSE
+
+# Config (keep only needed ones)
+config/*.php
+!config/app.php
+!config/database.php
+!config/filesystems.php
+!config/cache.php
+!config/session.php
+!config/view.php
+!config/cors.php
+
+# Resources (exclude raw assets, keep compiled)
+resources/sass/
+resources/js/
+resources/css/
+
+# Storage
+storage/
+
+# Other
+Homestead.json
+Homestead.yaml
+auth.json
+.editorconfig
+.gitattributes
+vercel.json.example
+
+# Public assets not needed
+public/scss/
+public/demo.pdf
+public/images/photo/
+public/images/img/
