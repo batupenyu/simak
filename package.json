@@ -21,7 +21,8 @@
     "test": "tests"
   },
   "dependencies": {
-    "eletron": "0.0.1-security"
+    "eletron": "0.0.1-security",
+    "toastr": "^2.1.4"
   },
   "repository": {
     "type": "git",
