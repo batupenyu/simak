@@ -450,6 +450,10 @@ Route::get('/test', function () {
     return 'Test works!';
 });
 
+Route::get('/pegawai-test', function () {
+    return 'Pegawai route is working!';
+});
+
 Route::get('/pegawai', [UserController::class, 'index']);
 
 Route::get('/', function () {

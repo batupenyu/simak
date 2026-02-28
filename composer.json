@@ -10,7 +10,6 @@
     "require": {
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.0",
-        "doctrine/dbal": "^4.2",
         "dompdf/dompdf": "^2.0",
         "elibyy/tcpdf-laravel": "^11.1",
         "guzzlehttp/guzzle": "^7.2",
