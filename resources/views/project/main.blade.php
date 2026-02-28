@@ -524,17 +524,23 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
                                             <span>{{ $data->rk->name ?? '-' }}</span>
-                                            <div class="btn-group">
-                                                <a href="/tugas.edit_tugas/{{ $data->id }}" class="btn btn-action-sm btn-edit-sm">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                                <form action="/tugas.delete/{{ $data->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
-                                                    @csrf @method('delete')
-                                                    <button class="btn btn-action-sm btn-delete-sm">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
+                                            @if($data->rk)
+                                            <form action="{{ route('rk.destroy', $data->rk->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus Rencana Kerja Atasan ini?')">
+                                                @csrf @method('delete')
+                                                <button class="btn btn-action-sm btn-delete-sm" title="Hapus RK">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                            @endif
+                                            <a href="/tugas.edit_tugas/{{ $data->id }}" class="btn btn-action-sm btn-edit-sm" title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <form action="/tugas.delete/{{ $data->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                                @csrf @method('delete')
+                                                <button class="btn btn-action-sm btn-delete-sm" title="Hapus">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                     <td>
@@ -588,17 +594,23 @@
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
                                             <span>{{ $data->rk->name }}</span>
-                                            <div class="btn-group">
-                                                <a href="{{ url('tutam.edit/'.$data->id) }}" class="btn btn-action-sm btn-edit-sm">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-                                                <form action="/tutam.destroy/{{ $data->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
-                                                    @csrf @method('delete')
-                                                    <button class="btn btn-action-sm btn-delete-sm">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
+                                            @if($data->rk)
+                                            <form action="{{ route('rk.destroy', $data->rk->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus Rencana Kerja Atasan ini?')">
+                                                @csrf @method('delete')
+                                                <button class="btn btn-action-sm btn-delete-sm" title="Hapus RK">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                            @endif
+                                            <a href="{{ url('tutam.edit/'.$data->id) }}" class="btn btn-action-sm btn-edit-sm" title="Edit">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <form action="/tutam.destroy/{{ $data->id }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                                @csrf @method('delete')
+                                                <button class="btn btn-action-sm btn-delete-sm" title="Hapus">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                     <td>

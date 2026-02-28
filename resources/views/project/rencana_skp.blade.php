@@ -23,6 +23,32 @@
     .w-380px { width: 380px; }
     .pd-left-30 { padding-left: 30px; }
     .upper { text-transform: uppercase; }
+    
+    /* Action buttons styling */
+    .btn-sm {
+        padding: 0 !important;
+        font-size: 14px !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background: transparent !important;
+        border: none !important;
+        min-width: auto !important;
+        min-height: auto !important;
+        cursor: pointer !important;
+    }
+    .btn-sm .fa-trash-o {
+        color: #ee1939 !important;
+        font-size: 16px !important;
+        cursor: pointer !important;
+        display: inline-block !important;
+    }
+    .btn-sm .fa-edit {
+        color: #1890ff !important;
+        font-size: 16px !important;
+        cursor: pointer !important;
+        display: inline-block !important;
+    }
 </style>
 
 <ul class="nav nav-tabs mb-3" id="skpTab" role="tablist">
@@ -180,27 +206,27 @@
                 <td style="text-align: center;" >{{ $loop->iteration }} </td>
                 <td >
                     {{ $data->rk->name ?? '-' }}
-                    <button class="btn btn-sm tampil">
-                        <a href="/tugas.edit_tugas/{{ $data->id }}" style="text-decoration: none" > <i class="fa fa-edit"></i></a> 
+                    <button class="btn btn-sm">
+                        <a href="/tugas.edit_tugas/{{ $data->id }}" style="text-decoration: none; color: #1890ff;" >[Edit]</a>
                     </button>
                     <form class="d-inline" onsubmit="return confirm('yakin hapus data?!!..')" action="/tugas.delete/{{ $data->id }}" method="POST">
                         @csrf
                         @method('delete')
-                        <button class="btn btn-sm tampil " type="submit"><i class="fa fa-trash-o fa-lg" style="color: #ee1939"></i></button>
+                        <button class="btn btn-sm" type="submit" style="color: #ee1939; background: none; border: none; cursor: pointer;">[Hapus]</button>
                     </form>
                 </td>
                 <td>{{ $data->name }} <br>
-                    <button class="btn btn-sm btn-light tampil ">
-                        <a href=" {{ url('tupoksi.tambah/'.$data->id) }}" style="text-decoration: none" ><i class="fa fa-plus "><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> Indikator</b></i></a>
+                    <button class="btn btn-sm btn-light">
+                        <a href=" {{ url('tupoksi.tambah/'.$data->id) }}" style="text-decoration: none; color: #1890ff;" ><i class="fa fa-plus "><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> Indikator</b></i></a>
                     </button>
                 </td>
 
-                <td style="vertical-align:text-top" colspan="3"> 
+                <td style="vertical-align:text-top" colspan="3">
                     @foreach ($data->tupoksi as $item)
                     <table class="table table-sm table-borderless">
                         <tr>
                             <td style="width: 100px">
-                                {{ $item->aspek }} 
+                                {{ $item->aspek }}
                             </td>
                             <td style="width: 30px">:</td>
                             <td style="width: 250px;text-align:justify">
@@ -208,14 +234,14 @@
                                 <form class="d-inline" onsubmit="return confirm('yakin hapus data?!!..')" action="/tupoksi.destroy/{{ $item->id }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button class="btn btn-sm  tampil"  type="submit"><i class="fa fa-trash-o fa-lg" style="color: #ee1939"></i></button>
+                                    <button class="btn btn-sm" type="submit" style="color: #ee1939; background: none; border: none; cursor: pointer;">[Hapus]</button>
                                 </form>
-                                    <button class="btn btn-sm  tampil">
-                                        <a href=" {{ url('tupoksi.edit_tupoksi/'.$item->id) }}" style="text-decoration: none"><i class=" fa fa-edit" ><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> </b></i></a>
+                                    <button class="btn btn-sm">
+                                        <a href=" {{ url('tupoksi.edit_tupoksi/'.$item->id) }}" style="text-decoration: none; color: #1890ff;"><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">[Edit]</b></a>
                                     </button>
                             </td>
                             <td style="text-align: center">
-                                {{ $item->target }} 
+                                {{ $item->target }}
                             </td>
                         </tr>
 
@@ -224,7 +250,7 @@
 
                 </td>
             </tr>
-            @endforeach 
+            @endforeach
             
         
             @foreach ($user->tutam as $data)
@@ -233,33 +259,33 @@
                     Tambahan
                 </th>
             </tr>
-            
+
             <tr>
                 <td style="text-align: center;" >{{ $loop->iteration }} </td>
                 <td >{{ $data->rk->name }}
-                    <button class="btn btn-sm   tampil">
-                        <a href="{{ url('tutam.edit/'.$data->id) }}" class="tampil"><i class="fa fa-edit"></i></a>
+                    <button class="btn btn-sm">
+                        <a href="{{ url('tutam.edit/'.$data->id) }}" style="text-decoration: none; color: #1890ff;">[Edit]</a>
                     </button>
                     <form class="d-inline" onsubmit="return confirm('yakin hapus data?!!..')" action="/tutam.destroy/{{ $data->id }}" method="POST">
                         @csrf
                         @method('delete')
-                        <button class="btn btn-sm tampil" type="submit"><i class="fa fa-trash-o fa-lg " style="color: #ee1939"></i></button>
+                        <button class="btn btn-sm" type="submit" style="color: #ee1939; background: none; border: none; cursor: pointer;">[Hapus]</button>
                     </form>
                 </td>
-                    
+
                 <td>{{ $data->name }} <br>
 
-                    <button class="btn btn-sm btn-light tampil ">
-                        <a href=" {{ url('tuti.tambah/'.$data->id) }}" style="text-decoration: none" ><i class="fa fa-plus "><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> Indikator</b></i></a>
+                    <button class="btn btn-sm btn-light">
+                        <a href=" {{ url('tuti.tambah/'.$data->id) }}" style="text-decoration: none; color: #1890ff;" ><i class="fa fa-plus "><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> Indikator</b></i></a>
                     </button>
                 </td>
 
-                <td style="vertical-align:text-top" colspan="3"> 
+                <td style="vertical-align:text-top" colspan="3">
                     @foreach ($data->tuti as $item)
                     <table class="table table-sm table-borderless">
                         <tr>
                             <td style="width: 100px">
-                                {{ $item->aspek }} 
+                                {{ $item->aspek }}
                             </td>
                             <td style="width: 30px">:</td>
                             <td style="width: 250px;text-align:justify">
@@ -267,14 +293,14 @@
                                 <form class="d-inline" onsubmit="return confirm('yakin hapus data?!!..')" action="/tuti.destroy/{{ $item->id }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button class="btn btn-sm   tampil"  type="submit"><i class="fa fa-trash-o fa-lg" style="color: #ee1939" ><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> </b></i></button>
+                                    <button class="btn btn-sm" type="submit" style="color: #ee1939; background: none; border: none; cursor: pointer;">[Hapus]</button>
                                 </form>
-                                    <button class="btn btn-sm   tampil">
-                                        <a href=" {{ url('tuti.edit/'.$item->id) }}" style="text-decoration: none"><i class=" fa fa-edit" ><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> </b></i></a>
+                                    <button class="btn btn-sm">
+                                        <a href=" {{ url('tuti.edit/'.$item->id) }}" style="text-decoration: none; color: #1890ff;"><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">[Edit]</b></a>
                                     </button>
                             </td>
                             <td style="text-align: center">
-                                {{ $item->target }} 
+                                {{ $item->target }}
                             </td>
                         </tr>
 
@@ -283,7 +309,7 @@
 
                 </td>
             </tr>
-                    
+
             @endforeach
 
         </tbody>
