@@ -201,12 +201,45 @@
                 </th>
             </tr>
 
-            @php $previousRkName = null; @endphp
-            @foreach ($user->tugas as $data)
+            @php 
+                $previousRkName = null; 
+                $groupIndex = 0;
+                $tugasGrouped = [];
+                
+                // Group tugas by rk->name
+                foreach ($user->tugas as $tugasItem) {
+                    $currentRkName = $tugasItem->rk->name ?? null;
+                    if ($currentRkName !== $previousRkName) {
+                        $groupIndex++;
+                        $previousRkName = $currentRkName;
+                    }
+                    $tugasGrouped[] = ['data' => $tugasItem, 'group' => $groupIndex, 'rk_name' => $currentRkName];
+                }
+                
+                // Count items per group
+                $groupCounts = [];
+                foreach ($tugasGrouped as $item) {
+                    if (!isset($groupCounts[$item['group']])) {
+                        $groupCounts[$item['group']] = 0;
+                    }
+                    $groupCounts[$item['group']]++;
+                }
+                
+                $groupIndexCounter = 0;
+            @endphp
+            
+            @foreach ($tugasGrouped as $index => $tugasGroup)
+                @php
+                    $data = $tugasGroup['data'];
+                    $currentGroup = $tugasGroup['group'];
+                    $groupCount = $groupCounts[$currentGroup];
+                    $isFirstInGroup = ($index == 0 || $tugasGrouped[$index - 1]['group'] !== $currentGroup);
+                    $groupIndexCounter++;
+                @endphp
             <tr>
-                <td style="text-align: center;" >{{ $loop->iteration }} </td>
-                <td >
-                    @if($previousRkName != ($data->rk->name ?? null))
+                @if($isFirstInGroup)
+                    <td style="text-align: center; vertical-align: top;" rowspan="{{ $groupCount }}">{{ $groupIndexCounter }}</td>
+                    <td style="vertical-align: top;" rowspan="{{ $groupCount }}">
                         {{ $data->rk->name ?? '-' }}
                         <button class="btn btn-sm">
                             <a href="/tugas.edit_tugas/{{ $data->id }}" style="text-decoration: none; color: #1890ff;" >[Edit]</a>
@@ -216,9 +249,8 @@
                             @method('delete')
                             <button class="btn btn-sm" type="submit" style="color: #ee1939; background: none; border: none; cursor: pointer;">[Hapus]</button>
                         </form>
-                        @php $previousRkName = $data->rk->name ?? null; @endphp
-                    @endif
-                </td>
+                    </td>
+                @endif
                 <td>{{ $data->name }} <br>
                     <button class="btn btn-sm btn-light">
                         <a href=" {{ url('tupoksi.tambah/'.$data->id) }}" style="text-decoration: none; color: #1890ff;" ><i class="fa fa-plus "><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> Indikator</b></i></a>

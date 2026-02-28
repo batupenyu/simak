@@ -131,8 +131,8 @@
                                 </div>
                             </div>
                             <div class="row justify-content-between text-left">
-                                
-                                
+
+
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Target<span class="text-danger"> *</span></label> <input class="form-control @error ('target') is-invalid @enderror" type="text" id="target" name="target" placeholder=" angka" onblur="validate(1)"  > </div>
                                 @error('target')
                                 <div class="div-alert-danger ">
@@ -142,18 +142,6 @@
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Satuan<span class="text-danger"> *</span></label> <input class="form-control @error ('satuan') is-invalid @enderror" type="text" id="satuan" name="satuan" placeholder=" satuan" onblur="validate(2)" > </div>
                                 <div id="satuanFeedback" class="invalid-feedback">
                                     isi data .
-                                </div>
-                            </div>
-                            <div class="row justify-content-between text-left">
-                                <div >
-                                    <label class="form-control-label px-3">Realisasi<span class="text-danger"> *</span></label> 
-                                    <textarea class="form-control mb-2" name="realisasi" id="" cols="80" rows="2" placeholder="realisasi"> </textarea>
-                                </div>
-                            </div>
-                            <div class="row justify-content-between text-left">
-                                <div >
-                                    <label class="form-control-label px-3">Umpan Balik<span class="text-danger"> *</span></label> 
-                                    <textarea class="form-control mb-2" name="umpanbalik" id="" cols="80" rows="2" placeholder="umpanbalik"> </textarea>
                                 </div>
                             </div>
                             <div class="row justify-content-end mt-3">

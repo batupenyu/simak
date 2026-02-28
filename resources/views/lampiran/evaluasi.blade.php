@@ -1,9 +1,29 @@
 
+<style>
+    .action-link {
+        color: #1890ff !important;
+        text-decoration: none !important;
+        font-weight: 600 !important;
+        padding: 2px 6px !important;
+        border-radius: 3px !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    .action-link:hover {
+        background-color: #e6f7ff !important;
+        text-decoration: underline !important;
+    }
+    .add-link {
+        color: #52c41a !important;
+    }
+</style>
+
 <table class="table table-bordered border-primary">
     <tbody>
         <tr>
-            <td colspan="2" >
-                <div  class="center">
+            <td colspan="2">
+                <div class="center">
                     <b>PERILAKU KERJA</b>
                 </div>
             </td>
@@ -31,13 +51,17 @@
                 <br>
                 {{ optional($user->eks)->eks1 ?? '' }}
                 @if($user->eks)
-                <a href="/ekspektasi.edit_perilaku_1/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                <a href="/ekspektasi.edit_perilaku_1/{{ $user->eks->id }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/ekspektasi.add1" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
             <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan1 ?? '' }}
                 @if($user->umpan)
-                <a href="{{ url('umpan.edit1/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
+                <a href="{{ url('umpan.edit1/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/umpan.create1" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
         </tr>
@@ -63,13 +87,17 @@
                         <br>
                         {{ optional($user->eks)->eks2 ?? '' }}
                         @if($user->eks)
-                        <a href="/ekspektasi.edit_perilaku_2/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                        <a href="/ekspektasi.edit_perilaku_2/{{ $user->eks->id }}" class="action-link">[Edit]</a>
+                        @else
+                        <a href="/ekspektasi.add2" class="action-link add-link">[Tambah]</a>
                         @endif
                     </td>
                     <td style="width: 30%;">
                         {{ optional($user->umpan)->umpan2 ?? '' }}
                         @if($user->umpan)
-                        <a href="{{ url('umpan.edit2/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil "></i> </a>
+                        <a href="{{ url('umpan.edit2/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
+                        @else
+                        <a href="/umpan.create2" class="action-link add-link">[Tambah]</a>
                         @endif
                     </td>
                 </tr>
@@ -94,13 +122,17 @@
                 <br>
                 {{ optional($user->eks)->eks3 ?? '' }}
                 @if($user->eks)
-                <a href="/ekspektasi.edit_perilaku_3/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                <a href="/ekspektasi.edit_perilaku_3/{{ $user->eks->id }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/ekspektasi.add3" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
             <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan3 ?? '' }}
                 @if($user->umpan)
-                <a href="{{ url('umpan.edit3/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
+                <a href="{{ url('umpan.edit3/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/umpan.create3" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
         </tr>
@@ -125,13 +157,17 @@
                 <br>
                 {{ optional($user->eks)->eks4 ?? '' }}
                 @if($user->eks)
-                <a href="/ekspektasi.edit_perilaku_4/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                <a href="/ekspektasi.edit_perilaku_4/{{ $user->eks->id }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/ekspektasi.add4" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
             <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan4 ?? '' }}
                 @if($user->umpan)
-                <a href="{{ url('umpan.edit4/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
+                <a href="{{ url('umpan.edit4/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/umpan.create4" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
         </tr>
@@ -156,13 +192,17 @@
                 <br>
                 {{ optional($user->eks)->eks5 ?? '' }}
                 @if($user->eks)
-                <a href="/ekspektasi.edit_perilaku_5/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                <a href="/ekspektasi.edit_perilaku_5/{{ $user->eks->id }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/ekspektasi.add5" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
             <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan5 ?? '' }}
                 @if($user->umpan)
-                <a href="{{ url('umpan.edit5/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
+                <a href="{{ url('umpan.edit5/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/umpan.create5" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
         </tr>
@@ -187,13 +227,17 @@
                 <br>
                 {{ optional($user->eks)->eks6 ?? '' }}
                 @if($user->eks)
-                <a href="/ekspektasi.edit_perilaku_6/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                <a href="/ekspektasi.edit_perilaku_6/{{ $user->eks->id }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/ekspektasi.add6" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
             <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan6 ?? '' }}
                 @if($user->umpan)
-                <a href="{{ url('umpan.edit6/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
+                <a href="{{ url('umpan.edit6/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/umpan.create6" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
         </tr>
@@ -208,7 +252,7 @@
                 <ol style="margin-bottom: 0; padding-left: 17px;">
                     <li>Memberi kesempatan kepada berbagai pihak untuk berkontribusi
                     </li>
-                    <li>Terbuka dalam pengurusama untuk menghasilkan nilai tambah
+                    <li>Terbuka dalam bekerjasama untuk menghasilkan nilai tambah
                     </li>
                     <li>Menggerakkan pemanfaatan berbagai sumber daya untuk tujuan bersama</li>
                 </ol>
@@ -218,13 +262,17 @@
                 <br>
                 {{ optional($user->eks)->eks7 ?? '' }}
                 @if($user->eks)
-                <a href="/ekspektasi.edit_perilaku_7/{{ $user->eks->id }}" style="text-decoration: none" class="tampil"> <i class="fa fa-edit"></i></a>
+                <a href="/ekspektasi.edit_perilaku_7/{{ $user->eks->id }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/ekspektasi.add7" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
             <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan7 ?? '' }}
                 @if($user->umpan)
-                <a href="{{ url('umpan.edit7/'.$user->umpan->id) }}"><i class=" fa fa-edit tampil"></i> </a>
+                <a href="{{ url('umpan.edit7/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
+                @else
+                <a href="/umpan.create7" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
         </tr>

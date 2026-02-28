@@ -196,41 +196,47 @@
                     <tr>
                         <th colspan="8">Utama </th>
                     </tr>
+
+                    @php 
+                        $previousRkName = null; 
+                        $groupIndex = 0;
+                        $tugasGrouped = [];
+                        
+                        // Group tugas by rk->name
+                        foreach ($user->tugas as $tugasItem) {
+                            $currentRkName = $tugasItem->rk->name ?? null;
+                            if ($currentRkName !== $previousRkName) {
+                                $groupIndex++;
+                                $previousRkName = $currentRkName;
+                            }
+                            $tugasGrouped[] = ['data' => $tugasItem, 'group' => $groupIndex, 'rk_name' => $currentRkName];
+                        }
+                        
+                        // Count items per group
+                        $groupCounts = [];
+                        foreach ($tugasGrouped as $item) {
+                            if (!isset($groupCounts[$item['group']])) {
+                                $groupCounts[$item['group']] = 0;
+                            }
+                            $groupCounts[$item['group']]++;
+                        }
+                        
+                        $groupIndexCounter = 0;
+                    @endphp
                     
-                            @php
-                            //  First Store data in $arr
-                            $arr = array();
-                            foreach ($user->tugas as $address) {
-                                $arr[] = $address->rk->name;
-                            }
-                            $unique_data = array_unique($arr);
-                            // now use foreach loop on unique data
-                            foreach($unique_data as $val) {
-                                // echo $val;;
-                            }
-                            @endphp
-
-
-
-                    @foreach ($user->tugas as $data)
+                    @foreach ($tugasGrouped as $index => $tugasGroup)
+                        @php
+                            $data = $tugasGroup['data'];
+                            $currentGroup = $tugasGroup['group'];
+                            $groupCount = $groupCounts[$currentGroup];
+                            $isFirstInGroup = ($index == 0 || $tugasGrouped[$index - 1]['group'] !== $currentGroup);
+                            $groupIndexCounter++;
+                        @endphp
                         <tr>
-                            <td style="text-align: center;" >
-                                {{ $loop->iteration }} 
-                            </td>
-                            <td style="text-align: justify">
-                                @if ($loop->first)
-                                        {{ $val }}
-                                @endif
-                            
-                                {{-- <button class="btn btn-sm btn-warning tampil">
-                                    <a href="/tugas.edit_tugas/{{ $data->id }}" style="text-decoration: none" > <i class="fa fa-edit"></i></a> 
-                                </button>
-                                <form class="d-inline" onsubmit="return confirm('yakin hapus data?!!..')" action="/tugas.delete/{{ $data->id }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-sm btn-danger tampil " type="submit"><i class="fa fa-trash "></i></button>
-                                </form> --}}
-                            </td>
+                            @if($isFirstInGroup)
+                                <td style="text-align: center; vertical-align: top;" rowspan="{{ $groupCount }}">{{ $groupIndexCounter }}</td>
+                                <td style="vertical-align: top;" rowspan="{{ $groupCount }}">{{ $data->rk->name ?? '-' }}</td>
+                            @endif
                             <td style="text-align: justify">{{ $data->name }} <br>
                                 {{-- <button class="btn btn-sm btn-warning tampil ">
                                     <a href=" {{ url('/tupoksi.tambah') }}" style="text-decoration: none" ><i class="fa fa-plus "><b style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"> Indikator</b></i></a>
@@ -439,19 +445,46 @@
                         <th colspan="8">Tambahan</th>
                     </tr>
 
-                    @foreach ($user->tutam as $data)
+                    @php 
+                        $previousTutamRkName = null; 
+                        $tutamGroupIndex = 0;
+                        $tutamGrouped = [];
+                        
+                        // Group tutam by rk->name
+                        foreach ($user->tutam as $tutamItem) {
+                            $currentTutamRkName = $tutamItem->rk->name ?? null;
+                            if ($currentTutamRkName !== $previousTutamRkName) {
+                                $tutamGroupIndex++;
+                                $previousTutamRkName = $currentTutamRkName;
+                            }
+                            $tutamGrouped[] = ['data' => $tutamItem, 'group' => $tutamGroupIndex, 'rk_name' => $currentTutamRkName];
+                        }
+                        
+                        // Count items per group
+                        $tutamGroupCounts = [];
+                        foreach ($tutamGrouped as $item) {
+                            if (!isset($tutamGroupCounts[$item['group']])) {
+                                $tutamGroupCounts[$item['group']] = 0;
+                            }
+                            $tutamGroupCounts[$item['group']]++;
+                        }
+                        
+                        $tutamGroupIndexCounter = 0;
+                    @endphp
+                    
+                    @foreach ($tutamGrouped as $index => $tutamGroup)
+                        @php
+                            $data = $tutamGroup['data'];
+                            $currentGroup = $tutamGroup['group'];
+                            $groupCount = $tutamGroupCounts[$currentGroup];
+                            $isFirstInGroup = ($index == 0 || $tutamGrouped[$index - 1]['group'] !== $currentGroup);
+                            $tutamGroupIndexCounter++;
+                        @endphp
                         <tr>
-                            <td style="text-align: center;" >{{ $loop->iteration }} </td>
-                            <td >{{ $data->rk->name }}
-                                {{-- <button class="btn btn-sm btn-warning tampil">
-                                    <a href="{{ url('tutam.edit/'.$data->id) }}" class="tampil"><i class="fa fa-edit"></i></a>
-                                </button>
-                                <form class="d-inline" onsubmit="return confirm('yakin hapus data?!!..')" action="/tutam.destroy/{{ $data->id }}" method="POST">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-sm btn-danger tampil" type="submit"><i class="fa fa-trash"></i></button>
-                                </form> --}}
-                            </td>
+                            @if($isFirstInGroup)
+                                <td style="text-align: center; vertical-align: top;" rowspan="{{ $groupCount }}">{{ $tutamGroupIndexCounter }}</td>
+                                <td style="vertical-align: top;" rowspan="{{ $groupCount }}">{{ $data->rk->name ?? '-' }}</td>
+                            @endif
                                 
                             <td>{{ $data->name }} <br>
 
