@@ -201,19 +201,23 @@
                 </th>
             </tr>
 
+            @php $previousRkName = null; @endphp
             @foreach ($user->tugas as $data)
             <tr>
                 <td style="text-align: center;" >{{ $loop->iteration }} </td>
                 <td >
-                    {{ $data->rk->name ?? '-' }}
-                    <button class="btn btn-sm">
-                        <a href="/tugas.edit_tugas/{{ $data->id }}" style="text-decoration: none; color: #1890ff;" >[Edit]</a>
-                    </button>
-                    <form class="d-inline" onsubmit="return confirm('yakin hapus data?!!..')" action="/tugas.delete/{{ $data->id }}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button class="btn btn-sm" type="submit" style="color: #ee1939; background: none; border: none; cursor: pointer;">[Hapus]</button>
-                    </form>
+                    @if($previousRkName != ($data->rk->name ?? null))
+                        {{ $data->rk->name ?? '-' }}
+                        <button class="btn btn-sm">
+                            <a href="/tugas.edit_tugas/{{ $data->id }}" style="text-decoration: none; color: #1890ff;" >[Edit]</a>
+                        </button>
+                        <form class="d-inline" onsubmit="return confirm('yakin hapus data?!!..')" action="/tugas.delete/{{ $data->id }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-sm" type="submit" style="color: #ee1939; background: none; border: none; cursor: pointer;">[Hapus]</button>
+                        </form>
+                        @php $previousRkName = $data->rk->name ?? null; @endphp
+                    @endif
                 </td>
                 <td>{{ $data->name }} <br>
                     <button class="btn btn-sm btn-light">
@@ -317,8 +321,8 @@
 </div>
                         
 
-    @include('lampiran.perilaku')
-    @include('lampiran.lampiran') <br>
+        @include('lampiran.perilaku') <br>
+        @include('lampiran.lampiran') <br>
 
 
     <div class="row justify-content-around text-center fw-bold ">

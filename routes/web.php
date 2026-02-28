@@ -285,12 +285,25 @@ Route::get('/laporan', [LegalController::class, 'index']);
 Route::get('/laporan/cetak', [LegalController::class, 'cetak']);
 Route::get('/ekspektasi.edit_perilaku_1/{id}', [EkspektasiController::class, 'edit_1']);
 Route::get('/ekspektasi.add1', [EkspektasiController::class, 'create1']);
+Route::post('/ekspektasi.store1', [EkspektasiController::class, 'store1']);
 Route::get('/ekspektasi.edit_perilaku_2/{id}', [EkspektasiController::class, 'edit_2']);
+Route::get('/ekspektasi.add2', [EkspektasiController::class, 'create2']);
+Route::post('/ekspektasi.store2', [EkspektasiController::class, 'store2']);
 Route::get('/ekspektasi.edit_perilaku_3/{id}', [EkspektasiController::class, 'edit_3']);
+Route::get('/ekspektasi.add3', [EkspektasiController::class, 'create3']);
+Route::post('/ekspektasi.store3', [EkspektasiController::class, 'store3']);
 Route::get('/ekspektasi.edit_perilaku_4/{id}', [EkspektasiController::class, 'edit_4']);
+Route::get('/ekspektasi.add4', [EkspektasiController::class, 'create4']);
+Route::post('/ekspektasi.store4', [EkspektasiController::class, 'store4']);
 Route::get('/ekspektasi.edit_perilaku_5/{id}', [EkspektasiController::class, 'edit_5']);
+Route::get('/ekspektasi.add5', [EkspektasiController::class, 'create5']);
+Route::post('/ekspektasi.store5', [EkspektasiController::class, 'store5']);
 Route::get('/ekspektasi.edit_perilaku_6/{id}', [EkspektasiController::class, 'edit_6']);
+Route::get('/ekspektasi.add6', [EkspektasiController::class, 'create6']);
+Route::post('/ekspektasi.store6', [EkspektasiController::class, 'store6']);
 Route::get('/ekspektasi.edit_perilaku_7/{id}', [EkspektasiController::class, 'edit_7']);
+Route::get('/ekspektasi.add7', [EkspektasiController::class, 'create7']);
+Route::post('/ekspektasi.store7', [EkspektasiController::class, 'store7']);
 Route::put('/ekspektasi/update/{id}', [EkspektasiController::class, 'update']);
 Route::get('/ekspektasi/index', [EkspektasiController::class, 'index']);
 
@@ -375,13 +388,27 @@ Route::get('/hapus_kon/{id}', [KonController::class, 'delete'])->name('kon.delet
 Route::delete('/delete_kon/{id}', [KonController::class, 'destroy'])->name('kon.destroy');
 
 
-// umpan 
+// umpan
+Route::get('umpan.create1', [UmpanController::class, 'create1']);
+Route::post('umpan.store1', [UmpanController::class, 'store1']);
 Route::get('umpan.edit1/{id}', [UmpanController::class, 'edit1']);
+Route::get('umpan.create2', [UmpanController::class, 'create2']);
+Route::post('umpan.store2', [UmpanController::class, 'store2']);
 Route::get('umpan.edit2/{id}', [UmpanController::class, 'edit2']);
+Route::get('umpan.create3', [UmpanController::class, 'create3']);
+Route::post('umpan.store3', [UmpanController::class, 'store3']);
 Route::get('umpan.edit3/{id}', [UmpanController::class, 'edit3']);
+Route::get('umpan.create4', [UmpanController::class, 'create4']);
+Route::post('umpan.store4', [UmpanController::class, 'store4']);
 Route::get('umpan.edit4/{id}', [UmpanController::class, 'edit4']);
+Route::get('umpan.create5', [UmpanController::class, 'create5']);
+Route::post('umpan.store5', [UmpanController::class, 'store5']);
 Route::get('umpan.edit5/{id}', [UmpanController::class, 'edit5']);
+Route::get('umpan.create6', [UmpanController::class, 'create6']);
+Route::post('umpan.store6', [UmpanController::class, 'store6']);
 Route::get('umpan.edit6/{id}', [UmpanController::class, 'edit6']);
+Route::get('umpan.create7', [UmpanController::class, 'create7']);
+Route::post('umpan.store7', [UmpanController::class, 'store7']);
 Route::get('umpan.edit7/{id}', [UmpanController::class, 'edit7']);
 Route::put('umpan.update/{id}', [UmpanController::class, 'update']);
 
