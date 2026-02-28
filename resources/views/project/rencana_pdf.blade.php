@@ -141,25 +141,37 @@
             $firstRkName = $uniqueRkNames->first() ?? null;
             $utamaIndex = 0;
             $prevRkName = null;
+            // Pre-calculate rowspan counts for each RK name
+            $rkCounts = [];
+            $currentRk = null;
+            foreach ($tugasChunks->flatten(1) as $tugas) {
+                $rkName = $tugas->rk->name ?? null;
+                if ($rkName !== $currentRk) {
+                    $rkCounts[$rkName] = 0;
+                    $currentRk = $rkName;
+                }
+                $rkCounts[$rkName]++;
+            }
         @endphp
         @foreach ($tugasChunks as $chunkIndex => $chunk)
         @foreach ($chunk as $data)
             @php
-                $showNumber = $prevRkName !== ($data->rk->name ?? null);
+                $rkName = $data->rk->name ?? null;
+                $showNumber = $prevRkName !== $rkName;
                 if ($showNumber) {
                     $utamaIndex++;
                 }
-                $prevRkName = $data->rk->name ?? null;
+                $prevRkName = $rkName;
             @endphp
         <tr style="page-break-inside: avoid;">
-            <td style="text-align: center; border: 1px solid #000;vertical-align: top;">
-                {{ $showNumber ? $utamaIndex : '' }}
-            </td>
-            <td style="text-align: justify;padding-left: 10px; vertical-align: top; border: 1px solid #000;">
-                @if ($showNumber && $firstRkName)
-                    {{ $data->rk->name ?? '' }}
-                @endif
-            </td>
+            @if ($showNumber)
+                <td style="text-align: center; border: 1px solid #000; vertical-align: top;" rowspan="{{ $rkCounts[$rkName] ?? 1 }}">
+                    {{ $utamaIndex }}
+                </td>
+                <td style="text-align: justify; padding-left: 10px; border: 1px solid #000; vertical-align: top;" rowspan="{{ $rkCounts[$rkName] ?? 1 }}">
+                    {{ $rkName ?? '' }}
+                </td>
+            @endif
             <td style="text-align: left;padding-left: 10px; vertical-align: top; border: 1px solid #000;">{{ $data->name }}</td>
             @foreach ($data->tupoksi as $item)
             <td style="border: 1px solid #000; vertical-align: top; padding: 4px;">{{ $item->aspek }}</td>
@@ -186,6 +198,17 @@
         @php
             $tutamIndex = 0;
             $prevRkName = null;
+            // Pre-calculate rowspan counts for each RK name in tutam
+            $tutamRkCounts = [];
+            $currentTutamRk = null;
+            foreach ($user->tutam as $tutam) {
+                $rkName = $tutam->rk->name;
+                if ($rkName !== $currentTutamRk) {
+                    $tutamRkCounts[$rkName] = 0;
+                    $currentTutamRk = $rkName;
+                }
+                $tutamRkCounts[$rkName]++;
+            }
         @endphp
         @foreach ($user->tutam as $data)
             @php
@@ -196,8 +219,14 @@
                 $prevRkName = $data->rk->name;
             @endphp
         <tr style="page-break-inside: avoid;">
-            <td style="text-align: center; border: 1px solid #000;" >{{ $showNumber ? $tutamIndex : '' }} </td>
-            <td style="border: 1px solid #000;">{{ $data->rk->name }}</td>
+            @if ($showNumber)
+                <td style="text-align: center; border: 1px solid #000; vertical-align: top;" rowspan="{{ $tutamRkCounts[$data->rk->name] ?? 1 }}">
+                    {{ $tutamIndex }}
+                </td>
+                <td style="border: 1px solid #000; vertical-align: top;" rowspan="{{ $tutamRkCounts[$data->rk->name] ?? 1 }}">
+                    {{ $data->rk->name }}
+                </td>
+            @endif
             <td style="border: 1px solid #000;">{{ $data->name }} <br></td>
 
             <td style="vertical-align:text-top; border: 1px solid #000;" colspan="3">
