@@ -48,7 +48,7 @@
                     <li>Melakukan perbaikan tiada henti</li>
                 </ol>
             </td>
-            <td style="width: 30%;">
+            <td style="width: 30%; " colspan="2">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks1 ?? '' }}
@@ -58,14 +58,14 @@
                 <a href="/ekspektasi.add1" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
-            <td style="width: 30%;">
+            <!-- <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan1 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit1/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
                 @else
                 <a href="/umpan.create1" class="action-link add-link">[Tambah]</a>
                 @endif
-            </td>
+            </td> -->
         </tr>
 
         <tr>
@@ -84,7 +84,7 @@
                             <li>Tidak menyalahgunakan kewenangan jabatan</li>
                         </ol>
                     </td>
-                    <td style="width: 30%;">
+                    <td style="width: 30%;" colspan="2">
                         Ekspektasi Khusus Pimpinan:
                         <br>
                         {{ optional($user->eks)->eks2 ?? '' }}
@@ -94,14 +94,14 @@
                         <a href="/ekspektasi.add2" class="action-link add-link">[Tambah]</a>
                         @endif
                     </td>
-                    <td style="width: 30%;">
+                    <!-- <td style="width: 30%;">
                         {{ optional($user->umpan)->umpan2 ?? '' }}
                         @if($user->umpan)
                         <a href="{{ url('umpan.edit2/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
                         @else
                         <a href="/umpan.create2" class="action-link add-link">[Tambah]</a>
                         @endif
-                    </td>
+                    </td> -->
                 </tr>
         <tr>
             <td style="text-align: center; width: 5%;" rowspan="2">
@@ -119,7 +119,7 @@
                     <li>Melaksanakan tugas dengan kualitas terbaik</li>
                 </ol>
             </td>
-            <td style="width: 30%;">
+            <td style="width: 30%;" colspan="2">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks3 ?? '' }}
@@ -129,14 +129,14 @@
                 <a href="/ekspektasi.add3" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
-            <td style="width: 30%;">
+            <!-- <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan3 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit3/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
                 @else
                 <a href="/umpan.create3" class="action-link add-link">[Tambah]</a>
                 @endif
-            </td>
+            </td> -->
         </tr>
         <tr>
             <td style="text-align: center; width: 5%;" rowspan="2">
@@ -154,7 +154,7 @@
                     <li>Membangun lingkungan kerja yang kondusif</li>
                 </ol>
             </td>
-            <td style="width: 30%;">
+            <td style="width: 30%;" colspan="2">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks4 ?? '' }}
@@ -164,14 +164,14 @@
                 <a href="/ekspektasi.add4" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
-            <td style="width: 30%;">
+            <!-- <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan4 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit4/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
                 @else
                 <a href="/umpan.create4" class="action-link add-link">[Tambah]</a>
                 @endif
-            </td>
+            </td> -->
         </tr>
         <tr>
             <td style="text-align: center; width: 5%;" rowspan="2">
@@ -189,7 +189,7 @@
                     <li>Menjaga rahasia jabatan dan negara</li>
                 </ol>
             </td>
-            <td style="width: 30%;">
+            <td style="width: 30%;" colspan="2">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks5 ?? '' }}
@@ -199,14 +199,14 @@
                 <a href="/ekspektasi.add5" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
-            <td style="width: 30%;">
+            <!-- <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan5 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit5/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
                 @else
                 <a href="/umpan.create5" class="action-link add-link">[Tambah]</a>
                 @endif
-            </td>
+            </td> -->
         </tr>
         <tr>
             <td style="text-align: center; width: 5%;" rowspan="2">
@@ -224,7 +224,7 @@
                     <li>Bertindak proaktif</li>
                 </ol>
             </td>
-            <td style="width: 30%;">
+            <td style="width: 30%;" colspan="2">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks6 ?? '' }}
@@ -234,14 +234,14 @@
                 <a href="/ekspektasi.add6" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
-            <td style="width: 30%;">
+            <!-- <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan6 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit6/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
                 @else
                 <a href="/umpan.create6" class="action-link add-link">[Tambah]</a>
                 @endif
-            </td>
+            </td> -->
         </tr>
         <tr>
             <td style="text-align: center; width: 5%;" rowspan="2">
@@ -259,7 +259,7 @@
                     <li>Menggerakkan pemanfaatan berbagai sumber daya untuk tujuan bersama</li>
                 </ol>
             </td>
-            <td style="width: 30%;">
+            <td style="width: 30%;" colspan="2">
                 Ekspektasi Khusus Pimpinan:
                 <br>
                 {{ optional($user->eks)->eks7 ?? '' }}
@@ -269,14 +269,14 @@
                 <a href="/ekspektasi.add7" class="action-link add-link">[Tambah]</a>
                 @endif
             </td>
-            <td style="width: 30%;">
+            <!-- <td style="width: 30%;">
                 {{ optional($user->umpan)->umpan7 ?? '' }}
                 @if($user->umpan)
                 <a href="{{ url('umpan.edit7/'.$user->umpan->id) }}" class="action-link">[Edit]</a>
                 @else
                 <a href="/umpan.create7" class="action-link add-link">[Tambah]</a>
                 @endif
-            </td>
+            </td> -->
         </tr>
         <tr>
             <td colspan="4"><b>RATING PERILAKU KERJA*</b><br>
