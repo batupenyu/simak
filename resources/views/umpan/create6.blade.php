@@ -18,6 +18,14 @@
                             @csrf
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label for="user_id">Pilih Pegawai : </label>
+                                    <select name="user_id" id="user_id" class="form-control">
+                                        @foreach ($user as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <br>
+                                <div class="form-group">
                                     <label for="umpan"><strong><u>Adaptif</u></strong></label> <br>
                                     <label class="mb-3" for="umpan">
                                         <ol style="margin-bottom: 0; padding-left: 22px;">

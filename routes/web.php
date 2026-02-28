@@ -57,6 +57,7 @@ use Illuminate\Contracts\Session\Session;
 use Symfony\Component\Routing\Route as RoutingRoute;
 
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\UnitKerjaController;
 
 Route::resource('unit_kerja', UnitKerjaController::class);
@@ -674,7 +675,5 @@ Route::get('logo/{id}/preview', [LogoController::class, 'preview'])->name('logo.
 
 Route::get('/upload-image', [GambarController::class, 'index'])->name('image.index');
 Route::post('/upload-image', [GambarController::class, 'store'])->name('gambar.store');
-// Alias untuk kompatibilitas
-Route::post('/upload-image', [GambarController::class, 'store'])->name('image.store');
 // Di routes/web.php
 Route::get('/latest-image', [GambarController::class, 'getLatestImage']);

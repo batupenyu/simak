@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Umpan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UmpanController extends Controller
@@ -10,79 +11,93 @@ class UmpanController extends Controller
     public function store1(Request $request)
     {
         $umpan = new Umpan();
+        $umpan->user_id = $request->user_id;
         $umpan->umpan1 = $request->umpan1;
         $umpan->save();
-        return redirect('project.evaluasi/'.$umpan->id);
+        return redirect('project.evaluasi/'.$request->user_id);
     }
     public function store2(Request $request)
     {
         $umpan = new Umpan();
+        $umpan->user_id = $request->user_id;
         $umpan->umpan2 = $request->umpan2;
         $umpan->save();
-        return redirect('project.evaluasi/'.$umpan->id);
+        return redirect('project.evaluasi/'.$request->user_id);
     }
     public function store3(Request $request)
     {
         $umpan = new Umpan();
+        $umpan->user_id = $request->user_id;
         $umpan->umpan3 = $request->umpan3;
         $umpan->save();
-        return redirect('project.evaluasi/'.$umpan->id);
+        return redirect('project.evaluasi/'.$request->user_id);
     }
     public function store4(Request $request)
     {
         $umpan = new Umpan();
+        $umpan->user_id = $request->user_id;
         $umpan->umpan4 = $request->umpan4;
         $umpan->save();
-        return redirect('project.evaluasi/'.$umpan->id);
+        return redirect('project.evaluasi/'.$request->user_id);
     }
     public function store5(Request $request)
     {
         $umpan = new Umpan();
+        $umpan->user_id = $request->user_id;
         $umpan->umpan5 = $request->umpan5;
         $umpan->save();
-        return redirect('project.evaluasi/'.$umpan->id);
+        return redirect('project.evaluasi/'.$request->user_id);
     }
     public function store6(Request $request)
     {
         $umpan = new Umpan();
+        $umpan->user_id = $request->user_id;
         $umpan->umpan6 = $request->umpan6;
         $umpan->save();
-        return redirect('project.evaluasi/'.$umpan->id);
+        return redirect('project.evaluasi/'.$request->user_id);
     }
     public function store7(Request $request)
     {
         $umpan = new Umpan();
+        $umpan->user_id = $request->user_id;
         $umpan->umpan7 = $request->umpan7;
         $umpan->save();
-        return redirect('project.evaluasi/'.$umpan->id);
+        return redirect('project.evaluasi/'.$request->user_id);
     }
     public function create1()
     {
-        return view('umpan.create1');
+        $user = User::all();
+        return view('umpan.create1', compact('user'));
     }
     public function create2()
     {
-        return view('umpan.create2');
+        $user = User::all();
+        return view('umpan.create2', compact('user'));
     }
     public function create3()
     {
-        return view('umpan.create3');
+        $user = User::all();
+        return view('umpan.create3', compact('user'));
     }
     public function create4()
     {
-        return view('umpan.create4');
+        $user = User::all();
+        return view('umpan.create4', compact('user'));
     }
     public function create5()
     {
-        return view('umpan.create5');
+        $user = User::all();
+        return view('umpan.create5', compact('user'));
     }
     public function create6()
     {
-        return view('umpan.create6');
+        $user = User::all();
+        return view('umpan.create6', compact('user'));
     }
     public function create7()
     {
-        return view('umpan.create7');
+        $user = User::all();
+        return view('umpan.create7', compact('user'));
     }
     public function edit1($id)
     {
@@ -124,7 +139,7 @@ class UmpanController extends Controller
     {
         $umpan = Umpan::findOrFail($id);
         $umpan->update($request->all());
-        return redirect('project.evaluasi/'.$id);
+        return redirect('project.evaluasi/'.$umpan->user_id);
     }
 
 

@@ -14,7 +14,7 @@
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <div class="row register-form">
                         {{-- @foreach ($user as $item) --}}
-                        <form class="form-card" action="{{ url('/ekspektasi.store') }}" method="post">
+                        <form class="form-card" action="{{ url('/ekspektasi.store1') }}" method="post">
                             @csrf
                             @method('post')
                             <div class="col-md-12">
