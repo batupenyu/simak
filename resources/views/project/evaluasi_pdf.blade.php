@@ -209,20 +209,25 @@
 
         @php
             $firstRkName = $uniqueRkNames->first() ?? null;
-            $overallIndex = 0;
+            $utamaIndex = 0;
+            $prevRkName = null;
         @endphp
         @foreach ($tugasChunks as $chunkIndex => $chunk)
             @foreach ($chunk as $data)
                 @php
-                    $overallIndex++;
+                    $showNumber = $prevRkName !== ($data->rk->name ?? null);
+                    if ($showNumber) {
+                        $utamaIndex++;
+                    }
+                    $prevRkName = $data->rk->name ?? null;
                 @endphp
                 <tr>
                     <td style="text-align: center;">
-                        {{ $overallIndex }}
+                        {{ $showNumber ? $utamaIndex : '' }}
                     </td>
                     <td style="text-align: justify">
-                        @if ($overallIndex == 1 && $firstRkName)
-                            {{ $firstRkName }}
+                        @if ($showNumber && $firstRkName)
+                            {{ $data->rk->name ?? '' }}
                         @endif
                     </td>
                     <td style="text-align: justify">{{ $data->name }}</td>
@@ -269,9 +274,20 @@
             <th colspan="8" style="text-align: left; padding-left: 10px;">Tambahan </th>
         </tr>
 
+        @php
+            $tutamIndex = 0;
+            $prevRkName = null;
+        @endphp
         @foreach ($user->tutam as $data)
+            @php
+                $showNumber = $prevRkName !== $data->rk->name;
+                if ($showNumber) {
+                    $tutamIndex++;
+                }
+                $prevRkName = $data->rk->name;
+            @endphp
             <tr>
-                <td style="text-align: center;">{{ $loop->iteration }}</td>
+                <td style="text-align: center;">{{ $showNumber ? $tutamIndex : '' }}</td>
                 <td>{{ $data->rk->name }}</td>
                 <td>{{ $data->name }}</td>
                 <td colspan="3">

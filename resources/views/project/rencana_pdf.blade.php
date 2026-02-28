@@ -139,20 +139,25 @@
     <tbody>
         @php
             $firstRkName = $uniqueRkNames->first() ?? null;
-            $overallIndex = 0;
+            $utamaIndex = 0;
+            $prevRkName = null;
         @endphp
         @foreach ($tugasChunks as $chunkIndex => $chunk)
         @foreach ($chunk as $data)
             @php
-                $overallIndex++;
+                $showNumber = $prevRkName !== ($data->rk->name ?? null);
+                if ($showNumber) {
+                    $utamaIndex++;
+                }
+                $prevRkName = $data->rk->name ?? null;
             @endphp
         <tr style="page-break-inside: avoid;">
             <td style="text-align: center; border: 1px solid #000;vertical-align: top;">
-                {{ $overallIndex }}
+                {{ $showNumber ? $utamaIndex : '' }}
             </td>
             <td style="text-align: justify;padding-left: 10px; vertical-align: top; border: 1px solid #000;">
-                @if ($overallIndex == 1 && $firstRkName)
-                    {{ $firstRkName }}
+                @if ($showNumber && $firstRkName)
+                    {{ $data->rk->name ?? '' }}
                 @endif
             </td>
             <td style="text-align: left;padding-left: 10px; vertical-align: top; border: 1px solid #000;">{{ $data->name }}</td>
@@ -178,9 +183,20 @@
         </tr>
         @endif
 
+        @php
+            $tutamIndex = 0;
+            $prevRkName = null;
+        @endphp
         @foreach ($user->tutam as $data)
+            @php
+                $showNumber = $prevRkName !== $data->rk->name;
+                if ($showNumber) {
+                    $tutamIndex++;
+                }
+                $prevRkName = $data->rk->name;
+            @endphp
         <tr style="page-break-inside: avoid;">
-            <td style="text-align: center; border: 1px solid #000;" >{{ $loop->iteration }} </td>
+            <td style="text-align: center; border: 1px solid #000;" >{{ $showNumber ? $tutamIndex : '' }} </td>
             <td style="border: 1px solid #000;">{{ $data->rk->name }}</td>
             <td style="border: 1px solid #000;">{{ $data->name }} <br></td>
 
