@@ -1,36 +1,36 @@
 <table>
-    @foreach ($d['cat'] as $x) 
+    @foreach ($catArray as $catItem)
     @php
-    $fullname = $x;
-    $name = explode('-',$fullname);
-    $a = $name [0];
-    $b = $name [2];
-    $c = $name [1];
-    $d = $name [3];
+    $fullname = $catItem;
+    $nameParts = explode('-',$fullname);
+    $nama = $nameParts [0];
+    $nip = $nameParts [2];
+    $pangkat = $nameParts [1];
+    $jabatan = $nameParts [3];
     @endphp
     <tr>
         <td style="width: 20px">{{ $loop->iteration }}.</td>
         <td>Nama</td>
         <td style="width: 20px">:</td>
-        <td style="width: 200px"><strong>{{ $a }}</strong></td>
+        <td style="width: 200px"><strong>{{ $nama }}</strong></td>
     </tr>
     <tr>
         <td></td>
         <td>Pangkat/Gol.</td>
         <td>:</td>
-        <td>{{ $c }}</td>
+        <td>{{ $pangkat }}</td>
     </tr>
     <tr>
         <td></td>
         <td>NIP</td>
         <td>:</td>
-        <td>{{ $b }}</td>
+        <td>{{ $nip }}</td>
     </tr>
     <tr>
         <td></td>
         <td>Jabatan</td>
         <td>:</td>
-        <td>{{ $d }}</td>
+        <td>{{ $jabatan }}</td>
     </tr>
     @endforeach
 </table>

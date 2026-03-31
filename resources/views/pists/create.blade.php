@@ -214,11 +214,17 @@
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label class="form-label-modern required-field">Tanggal Awal</label>
-                        <input type="date" name="tgl_awal" class="form-control form-control-modern">
+                        <input type="date" name="tgl_awal" class="form-control form-control-modern @error('tgl_awal') is-invalid @enderror">
+                        @error('tgl_awal')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <label class="form-label-modern required-field">Tanggal Akhir</label>
-                        <input type="date" name="tgl_akhir" class="form-control form-control-modern">
+                        <input type="date" name="tgl_akhir" class="form-control form-control-modern @error('tgl_akhir') is-invalid @enderror">
+                        @error('tgl_akhir')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 

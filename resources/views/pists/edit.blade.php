@@ -52,9 +52,9 @@
                             <img src="/photo/{{ $img->image }}" class="img-responsive" style="max-height: 100px; max-width: 100px;" alt="" srcset="">
                             @endforeach
                             @endif --}}
-                            
+
                             <div class="">
-                                <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3"><strong>Atasan</strong><span class="text-danger"> *</span></label> 
+                                <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3"><strong>Atasan</strong><span class="text-danger"> *</span></label>
                                     <select name="penilai_id" id="penilai_id" class="form-control">
                                         @foreach ($penilai as $item)
                                             <option value="{{ $item->id }}" {{$item->id == $pists->penilai_id ?'selected' :'' }}>{{ $item->nama }}</option>
@@ -64,14 +64,22 @@
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>No.Surat</strong><span class="text-danger"> *</span></label> <input type="text" id="no_surat" name="no_surat" placeholder="" onblur="validate(1)" class="form-control" value="{{ $pists->no_surat }}"> </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tgl. Surat</strong><span class="text-danger"> *</span></label> <input type="date" id="tgl_surat" name="tgl_surat" placeholder="" onblur="validate(1)" class="form-control"  value="{{ $pists->tgl_surat }}"  > </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tgl. Surat</strong><span class="text-danger"> *</span></label> <input type="date" id="tgl_surat" name="tgl_surat" placeholder="" onblur="validate(1)" class="form-control @error('tgl_surat') is-invalid @enderror"  value="{{ old('tgl_surat', $pists->tgl_surat) }}"  >
+                                    @error('tgl_surat')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3"><strong>Asal Surat</strong><span class="text-danger"> *</span></label> <textarea class="ckeditor form-control"  type="text" id="asal_surat" name="asal_surat" placeholder="" onblur="validate(1)" class="form-control">{{ $pists->asal_surat }}</textarea> </div>
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>No. Surat Asal</strong><span class="text-danger"> *</span></label> <input type="text" id="no_asal_surat" name="no_asal_surat" placeholder="" onblur="validate(1)" class="form-control" value="{{ $pists->no_asal_surat }}"> </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tgl. Surat Asal</strong><span class="text-danger"> *</span></label> <input  type="date" id="tgl_surat_dasar" name="tgl_surat_dasar" placeholder="" onblur="validate(1)" class="form-control"value="{{ $pists->tgl_surat_dasar }}"> </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tgl. Surat Asal</strong><span class="text-danger"> *</span></label> <input  type="date" id="tgl_surat_dasar" name="tgl_surat_dasar" placeholder="" onblur="validate(1)" class="form-control @error('tgl_surat_dasar') is-invalid @enderror" value="{{ old('tgl_surat_dasar', $pists->tgl_surat_dasar) }}">
+                                    @error('tgl_surat_dasar')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3"><strong>Hal Surat</strong><span class="text-danger"> *</span></label> <textarea class="ckeditor form-control" style="height:50pt"  type="text" id="description" name="description" placeholder="" onblur="validate(1)" class="form-control">{{ $pists->description }}</textarea> </div>
@@ -88,15 +96,23 @@
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3"><strong>Ulasan</strong><span class="text-danger"> *</span></label> <textarea class="ckeditor form-control" style="height:100pt"  type="text" id="ulasan" name="ulasan" placeholder="" onblur="validate(1)" class="form-control">{{ $pists->ulasan }}</textarea> </div>
                             </div>
-                            
+
                             {{-- <div class="form-group">
                                 <label>Description</label>
                                 <textarea class="ckeditor form-control" name="description"></textarea>
                             </div> --}}
-                            
+
                             <div class="row justify-content-between text-left">
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tgl.Awal</strong><span class="text-danger"> *</span></label> <input type="date" id="tgl_awal" name="tgl_awal" placeholder="" onblur="validate(1)" class="form-control" value="{{ $pists->tgl_awal }}"> </div>
-                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tgl.Akhir</strong><span class="text-danger"> *</span></label> <input type="date" id="tgl_akhir" name="tgl_akhir" placeholder="" onblur="validate(1)" class="form-control" value="{{ $pists->tgl_akhir }}"> </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tgl.Awal</strong><span class="text-danger"> *</span></label> <input type="date" id="tgl_awal" name="tgl_awal" placeholder="" onblur="validate(1)" class="form-control @error('tgl_awal') is-invalid @enderror" value="{{ old('tgl_awal', $pists->tgl_awal) }}">
+                                    @error('tgl_awal')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tgl.Akhir</strong><span class="text-danger"> *</span></label> <input type="date" id="tgl_akhir" name="tgl_akhir" placeholder="" onblur="validate(1)" class="form-control @error('tgl_akhir') is-invalid @enderror" value="{{ old('tgl_akhir', $pists->tgl_akhir) }}">
+                                    @error('tgl_akhir')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3"><strong>Jam Awal</strong><span class="text-danger"> *</span></label> <input type="text" id="jam_1" name="jam_1" placeholder="" onblur="validate(1)" class="form-control" value="{{ $pists->jam_1 }}"> </div>
@@ -105,7 +121,7 @@
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-12 flex-column d-flex"> <label class="form-control-label px-3"><strong>Tempat</strong><span class="text-danger"> *</span></label> <textarea class="ckeditor form-control" style="height:50pt"  type="text" id="tempat" name="tempat" placeholder="" onblur="validate(1)" class="form-control">{{ $pists->tempat }}</textarea> </div>
                             </div>
-                            
+
                             <div class="">
                                 <label class="form-control-label px-3"><strong>Peserta</strong><span class="text-danger"> *</span></label> <br>
                                 <select class="select2-multiple form-control" name="cat[]" multiple="multiple" id="select2-multiple" multiple onchange="getCount()">
@@ -131,7 +147,7 @@
                                                 explode ("-",$new);
                                                 print_r($new);
                                                 @endphp
-                                            </option> 
+                                            </option>
                                             @endforeach
                                             @endforeach --}}
                                             @foreach  ($pegawai as $item)
@@ -211,7 +227,7 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>

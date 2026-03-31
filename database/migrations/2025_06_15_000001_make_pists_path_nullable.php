@@ -15,14 +15,14 @@ class MakePistsPathNullable extends Migration
         // For SQLite, we need to recreate the table to change column constraints
         DB::statement('CREATE TABLE pists_new AS SELECT * FROM pists');
         DB::statement('DROP TABLE pists');
-        
+
         Schema::create('pists', function ($table) {
             $table->id();
             $table->unsignedBigInteger('penilai_id');
             $table->string('path_bukti_pengajuan')->nullable();
             $table->string('no_surat');
-            $table->date('tgl_surat');
-            $table->date('tgl_surat_dasar');
+            $table->date('tgl_surat')->nullable();
+            $table->date('tgl_surat_dasar')->nullable();
             $table->string('asal_surat');
             $table->string('no_asal_surat');
             $table->text('description');
@@ -30,18 +30,18 @@ class MakePistsPathNullable extends Migration
             $table->string('tujuan');
             $table->string('acara');
             $table->text('ulasan');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->date('tgl_awal');
             $table->date('tgl_akhir');
             $table->json('cat');
             $table->boolean('selected');
-            $table->string('jam_1');
-            $table->string('jam_2');
+            $table->string('jam_1')->nullable();
+            $table->string('jam_2')->nullable()->default('Selesai');
             $table->string('tempat');
             $table->timestamps();
             $table->foreign('penilai_id')->references('id')->on('penilai')->onDelete('cascade');
         });
-        
+
         DB::statement('INSERT INTO pists (id, penilai_id, path_bukti_pengajuan, no_surat, tgl_surat, tgl_surat_dasar, asal_surat, no_asal_surat, description, maksud, tujuan, acara, ulasan, photo, tgl_awal, tgl_akhir, cat, selected, jam_1, jam_2, tempat, created_at, updated_at) SELECT * FROM pists_new');
         DB::statement('DROP TABLE pists_new');
     }

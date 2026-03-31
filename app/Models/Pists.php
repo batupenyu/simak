@@ -13,7 +13,7 @@ class Pists extends Model
     protected $table = 'pists';
     protected $casts = [
         'cat' => 'array',
-        'selected' => 'boolean',
+        'selected' => 'integer',
         'tgl_surat' => 'date',
         'tgl_surat_dasar' => 'date',
         'tgl_awal' => 'date',

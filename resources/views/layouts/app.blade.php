@@ -16,7 +16,7 @@
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     {{-- @vite(['/resources/js/app.js', '/resources/css/app.css']) --}}
-    @vite(['resources/assets/sass/app.scss', 'resources/assets/js/myScripts.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
 </head>
 <body>

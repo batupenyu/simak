@@ -62,59 +62,13 @@ class PistController extends Controller
 
     public function stPdf($id)
     {
-
-        $data = [
-            'imagePath' => public_path('image/kopsmk.png'),
-        ];
-
         $pists = Pists::where('id', $id)->get();
-
         $user = User::with(['penilai', 'atasan'])->where('id', $id)->orderBy('nip', 'DESC')->get();
         $atasan = Atasan::first();
-        $view = view()->make('pists.stPdf', compact('pists', 'user', 'data', 'atasan'));
-        $html = $view->render();
-        // $path = dirname(__DIR__).'/fonts/bookos.ttf';
-        // $fontname = TCPDF_FONTS::addTTFfont($path,'TrueTypeUnicode','',32);
-        // if ($fontname)
-        // {
-        //     echo 'ok';
-        // }
-        // else {
-        //     echo 'no';
-        // }
-        // exit;
 
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false, true);
-
-        if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-            require_once(dirname(__FILE__) . '/lang/eng.php');
-            $pdf::setLanguageArray($l);
-        }
-
-        foreach ($pists as $jaldis) {
-            $x = (Carbon::parse($jaldis->tgl_awal)->format('d-m-Y'));
-        }
-
-        $pdf::setHtmlVSpace(array('ul' => array(0 => array('h' => 0, 'n' => 0), 1 => array('h' => 0, 'n' => 0))));
-        $pdf::AddPage();
-        $pdf::setCellPaddings(0, '', '', 0);
-        $font_size = $pdf::pixelsToUnits('25');
-        $pdf::SetFont('dejavusansmono', '', $font_size);
-        $pdf::SetTopMargin(0);
-        $pdf::SetLeftMargin(15);
-        $pdf::SetRightMargin(10);
-        $pdf::lastPage();
-        $pdf::setCellHeightRatio(1.5);
-        $pdf::SetTitle('Surat Tugas');
-        $pdf::writeHTML($html, true, false, true, false, '');
-        $pdf::SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-        $pdf::Output('surat tugas an . ' . $x . '.pdf');
-        // $pdf::SetFont('zapfdingbats', '', 14);
-        // $pdf::SetFont ('helvetica', '', $font_size , '', 'default', true );
-        // $pdf::SetFont('bookmanoldstyle', '', 12);
-        // $pdf::SetFont($fontname, '', 14, '', false);
-
-
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('pists.stPdf', compact('pists', 'user', 'atasan'));
+        $pdf->setPaper('A4');
+        return $pdf->stream('surat_tugas.pdf');
     }
 
     public function laporanpdf($id)
@@ -164,6 +118,18 @@ class PistController extends Controller
 
     public function postData(Request $request)
     {
+        // Validate required fields
+        $validated = $request->validate([
+            'tgl_awal' => 'required|date',
+            'tgl_akhir' => 'required|date|after_or_equal:tgl_awal',
+        ], [
+            'tgl_awal.required' => 'Tanggal Awal harus diisi!',
+            'tgl_awal.date' => 'Tanggal Awal harus berupa tanggal yang valid!',
+            'tgl_akhir.required' => 'Tanggal Akhir harus diisi!',
+            'tgl_akhir.date' => 'Tanggal Akhir harus berupa tanggal yang valid!',
+            'tgl_akhir.after_or_equal' => 'Tanggal Akhir harus sama atau setelah Tanggal Awal!',
+        ]);
+
         // Explicitly validate and prepare data
         $data = [
             'penilai_id' => $request->penilai_id,
@@ -185,9 +151,9 @@ class PistController extends Controller
             'cat' => $request->cat ?? [],
             'selected' => is_array($request->selected) ? count($request->selected) : (int) $request->selected,
         ];
-        
+
         $ajukan = Pists::create($data);
-        
+
         if ($request->hasFile('surat-pengajuan')) {
             $ajukan->simpanBuktiPengajuan($request, 'surat-pengajuan');
         }
@@ -261,7 +227,7 @@ class PistController extends Controller
     //     if($request->hasFile("images")){
     //         $file=$request->file("images");
     //         // $imageName=time().'_'.$file->getClientOriginalName();
-    //         // $imageName = time().rand(1,99).'.'.$file->extension(); 
+    //         // $imageName = time().rand(1,99).'.'.$file->extension();
     //         // $imageName = $file->getClientOriginalName();
     //         // $imageName = time(). $file->getClientOriginalName();
     //         // $imageName = date('Y-m-d-H:i:s')."-".$file->getClientOriginalName();
@@ -304,7 +270,7 @@ class PistController extends Controller
     //             $files=$request->file("image");
     //             foreach($files as $file){
     //                 // $imageName=time().'_'.$file->getClientOriginalName();
-    //                 // $imageName = time().rand(1,99).'.'.$files->extension();  
+    //                 // $imageName = time().rand(1,99).'.'.$files->extension();
     //                 // $imageName = $files->getClientOriginalName();
     //                 // $imageName = time(). $files->getClientOriginalName();
     //                 // $imageName = date('Y-m-d-H:i:s')."-".$files->getClientOriginalName();
@@ -321,7 +287,7 @@ class PistController extends Controller
     //         }
     //     return redirect('pists.index')
     //     ->with('success','Foto Kegiatan');
-    // }   
+    // }
 
     public function index()
     {
@@ -343,6 +309,24 @@ class PistController extends Controller
 
     public function update($id, Request $request)
     {
+        // Validate required fields
+        $validated = $request->validate([
+            'tgl_surat' => 'required|date',
+            'tgl_surat_dasar' => 'required|date',
+            'tgl_awal' => 'required|date',
+            'tgl_akhir' => 'required|date|after_or_equal:tgl_awal',
+        ], [
+            'tgl_surat.required' => 'Tanggal Surat harus diisi!',
+            'tgl_surat.date' => 'Tanggal Surat harus berupa tanggal yang valid!',
+            'tgl_surat_dasar.required' => 'Tanggal Surat Dasar harus diisi!',
+            'tgl_surat_dasar.date' => 'Tanggal Surat Dasar harus berupa tanggal yang valid!',
+            'tgl_awal.required' => 'Tanggal Awal harus diisi!',
+            'tgl_awal.date' => 'Tanggal Awal harus berupa tanggal yang valid!',
+            'tgl_akhir.required' => 'Tanggal Akhir harus diisi!',
+            'tgl_akhir.date' => 'Tanggal Akhir harus berupa tanggal yang valid!',
+            'tgl_akhir.after_or_equal' => 'Tanggal Akhir harus sama atau setelah Tanggal Awal!',
+        ]);
+
         $data = Pists::findOrFail($id);
         $data->update($request->all());
         $data->simpanBuktiPengajuanEdit($request, 'surat-pengajuan');

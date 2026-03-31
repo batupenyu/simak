@@ -59,8 +59,10 @@ use Symfony\Component\Routing\Route as RoutingRoute;
 use App\Http\Controllers\GambarController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\UnitKerjaController;
+use App\Http\Controllers\AsnController;
 
 Route::resource('unit_kerja', UnitKerjaController::class);
+Route::resource('asn', AsnController::class);
 
 
 
@@ -487,6 +489,9 @@ Route::get('/pegawai', [UserController::class, 'index']);
 Route::get('/', function () {
     return redirect('/pegawai');
 });
+Route::get('/dashboard', function () {
+    return redirect('/pegawai');
+});
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 Route::get('main', [HomeController::class, 'index'])->name('main');
 Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
@@ -563,7 +568,7 @@ Route::get('/pists.create', [PistController::class, 'postCreate'])->name('pists.
 Route::post('/pists.postData', [PistController::class, 'postData'])->name('pists.postData');
 Route::get('/pists.index', [PistController::class, 'index'])->name('pists.index');
 Route::get('/pists.edit/{id}', [PistController::class, 'edit'])->name('pists.edit');
-Route::put('/pists.update/{id}', [PistController::class, 'update'])->name('pists.update');
+Route::match(['get', 'put'], '/pists.update/{id}', [PistController::class, 'update'])->name('pists.update');
 Route::get('/pists.delete/{id}', [PistController::class, 'delete'])->name('pists.delete');
 Route::delete('/pists.destroy/{id}', [PistController::class, 'destroy'])->name('pists.destroy');
 Route::get('/pists.form/{id}', [PistController::class, 'form'])->name('pists.form');

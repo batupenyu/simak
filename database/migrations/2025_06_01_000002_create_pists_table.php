@@ -16,10 +16,10 @@ class CreatePistsTable extends Migration
         Schema::create('pists', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('penilai_id');
-            $table->string('path_bukti_pengajuan');
+            $table->string('path_bukti_pengajuan')->nullable();
             $table->string('no_surat');
-            $table->date('tgl_surat');
-            $table->date('tgl_surat_dasar');
+            $table->date('tgl_surat')->nullable();
+            $table->date('tgl_surat_dasar')->nullable();
             $table->string('asal_surat');
             $table->string('no_asal_surat');
             $table->text('description');
@@ -27,13 +27,13 @@ class CreatePistsTable extends Migration
             $table->string('tujuan');
             $table->string('acara');
             $table->text('ulasan');
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->date('tgl_awal');
             $table->date('tgl_akhir');
             $table->json('cat');
             $table->boolean('selected');
-            $table->string('jam_1');
-            $table->string('jam_2');
+            $table->string('jam_1')->nullable();
+            $table->string('jam_2')->nullable()->default('Selesai');
             $table->string('tempat');
             $table->timestamps();
 
