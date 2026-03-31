@@ -145,7 +145,7 @@
     <table border="0" cellpadding="2">
         <tr style="text-align: center">
             <td style="width: 510px">
-                Simpang Rimba,
+                Koba,
                 {{ Carbon\Carbon::Parse($d->tgl_akhir )->translatedFormat('d F Y')  }}.
                 <br>
                 Penyusun Laporan
